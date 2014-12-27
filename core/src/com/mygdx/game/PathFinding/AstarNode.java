@@ -1,5 +1,7 @@
 package com.mygdx.game.PathFinding;
 
+import com.badlogic.gdx.math.GridPoint2;
+
 import java.awt.*;
 
 public class AstarNode {
@@ -17,7 +19,7 @@ public class AstarNode {
         return false;
     }
 
-    public Point getPosition(){
-        return new Point(x,y);
+    public GridPoint2 getPosition(){
+        return new GridPoint2(x,y);
     }
 }

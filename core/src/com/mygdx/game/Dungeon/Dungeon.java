@@ -2,6 +2,9 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
+import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
+import com.mygdx.game.Dungeon.DungeonTiles.FloorDungeonTile;
 import com.mygdx.game.Renderers.DevDungeonRenderer;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -34,7 +37,7 @@ public class Dungeon {
         map = new DungeonTile[mapWidth+2][mapHeight+2];
         for(int i = 0; i < mapWidth+2; i++){
             for (int j = 0; j < mapHeight+2; j++){
-                map[i][j] = new DungeonTile(new GridPoint2(i-1, j-1));
+                map[i][j] = new EmptyDungeonTile(new GridPoint2(i-1, j-1));
             }
         }
 
@@ -42,28 +45,13 @@ public class Dungeon {
     }
 
 
-    public void setTileType(int x, int y, int type, boolean passable){
-        setTileType(new Point(x, y), type, passable);
-    }
 
-    public void setTileType(Point pos, int type, boolean passable){
-        map[pos.x+1][pos.y+1].tileType = type;
-        map[pos.x+1][pos.y+1].passable = passable;
-    }
-
-    public int getTileType(Point pos){
-        return map[pos.x+1][pos.y+1].tileType;
+    public int getTileType(GridPoint2 pos){
+        return map[pos.x+1][pos.y+1].getTileType();
     }
 
     public int getRoomCount(){
         return dungeonRooms.size;
-    }
-
-    public boolean isTileEmpty(int x, int y){
-        if(map[x+1][y+1].tileType == DungeonTile.EMPTY){
-            return true;
-        }
-        return false;
     }
 
     public int getMapWidth(){
@@ -72,16 +60,6 @@ public class Dungeon {
 
     public int getMapHeight(){
         return mapHeight;
-    }
-
-    public boolean isPointInMap(Point pos){
-        if(pos.x >= mapWidth || pos.y >= mapHeight){
-            return false;
-        }
-        if(pos.x < 0 || pos.y < 0){
-            return false;
-        }
-        return true;
     }
 
 
@@ -94,7 +72,7 @@ public class Dungeon {
     }
 
     public boolean isTilePassable(GridPoint2 pos){
-        return map[pos.x+1][pos.y+1].passable;
+        return map[pos.x+1][pos.y+1].isPassable();
     }
 
     public int getTileSize() {
@@ -107,5 +85,14 @@ public class Dungeon {
 
     public DungeonTile getDungeonTile(int x, int y){
         return map[x+1][y+1];
+    }
+
+    public void setTile(DungeonTile dungeonTile) {
+        GridPoint2 pos = dungeonTile.getPos();
+        map[pos.x+1][pos.y+1] = dungeonTile;
+    }
+
+    public boolean isTileEmpty(GridPoint2 pos) {
+        return map[pos.x][pos.y].isEmpty();
     }
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Dungeon.DungeonTiles.*;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.ResourceLoader;
@@ -72,18 +73,18 @@ public class DungeonGenerator {
 
             for(int i = x+1; i < x + width-1; i++){
                 for(int j = y+1; j < y + height-1; j++) {
-                    dungeon.setTileType(i, j, DungeonTile.FLOOR, true);
+                    dungeon.setTile(new FloorDungeonTile(new GridPoint2(i, j)));
                 }
             }
 
             for (int j = x; j < width+x; j++) {
-                dungeon.setTileType(j, y, DungeonTile.WALL, false);
-                dungeon.setTileType(j, height + y - 1, DungeonTile.WALL, false);
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, y)));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, height + y - 1)));
             }
 
             for (int i = y; i < height+y; i++) {
-                dungeon.setTileType(x, i, DungeonTile.WALL, false);
-                dungeon.setTileType(x + width - 1, i, DungeonTile.WALL, false);
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(x, i)));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(x + width - 1, i)));
             }
         }
 
@@ -93,7 +94,7 @@ public class DungeonGenerator {
     private boolean roomFits(int x, int y, int width, int height){
         for(int i = x; i < x + width; i++){
             for(int j = y; j < y + height; j++){
-                if(!dungeon.isTileEmpty(i, j)){
+                if(!dungeon.isTileEmpty(new GridPoint2(i, j))){
                     return false;
                 }
             }
@@ -120,9 +121,9 @@ public class DungeonGenerator {
         int lastDirection = -1;
         for(int i = 0; i < path.size; i++){
             int direction;
-            Point position = path.get(i).getPosition();
+            GridPoint2 position = path.get(i).getPosition();
             if((i+1) < path.size){
-                Point nextPosition = path.get(i+1).getPosition();
+                GridPoint2 nextPosition = path.get(i+1).getPosition();
                 direction = calculateDirection(position, nextPosition);
             }else{
                 direction = lastDirection;
@@ -134,7 +135,7 @@ public class DungeonGenerator {
         }
     }
 
-    private int calculateDirection(Point from, Point to){
+    private int calculateDirection(GridPoint2 from, GridPoint2 to){
         if(from.x == to.x){
             if (from.y < to.y){
                 return Dungeon.NORTH;
@@ -179,24 +180,20 @@ public class DungeonGenerator {
     }
 
 
-    private boolean addCorridorTile(Point pos, int direction){
-        Point nextPos;
-
-        if (!dungeon.isPointInMap(pos)){
-            return false;
-        }
+    private boolean addCorridorTile(GridPoint2 pos, int direction){
+        GridPoint2 nextPos;
 
         if (direction == Dungeon.EAST){
-            nextPos = new Point(pos.x+1, pos.y);
+            nextPos = new GridPoint2(pos.x+1, pos.y);
         }
         else if (direction == Dungeon.WEST){
-            nextPos = new Point(pos.x-1, pos.y);
+            nextPos = new GridPoint2(pos.x-1, pos.y);
         }
         else if (direction == Dungeon.NORTH){
-            nextPos = new Point(pos.x, pos.y+1);
+            nextPos = new GridPoint2(pos.x, pos.y+1);
         }
         else { //SOUTH
-            nextPos = new Point(pos.x, pos.y-1);
+            nextPos = new GridPoint2(pos.x, pos.y-1);
         }
 
         // Set wall tiles to doors unless you are parallel to the wall
@@ -206,9 +203,9 @@ public class DungeonGenerator {
                 return false;
             }else{
                 if (direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
-                    dungeon.setTileType(pos, DungeonTile.DOOR_HORIZONTAL, true);
+                    dungeon.setTile(new DoorDungeonTile(pos, true));
                 }else if (direction == Dungeon.EAST || direction == Dungeon.WEST){
-                    dungeon.setTileType(pos, DungeonTile.DOOR_VERTICAL, true);
+                    dungeon.setTile(new DoorDungeonTile(pos, false));
                 }
                 return true;
             }
@@ -220,32 +217,33 @@ public class DungeonGenerator {
         }
 
         if(dungeon.getTileType(pos) == DungeonTile.EMPTY || dungeon.getTileType(pos) == DungeonTile.CORRIDOR_WALL) {
-            dungeon.setTileType(pos, DungeonTile.CORRIDOR_FLOOR, true);
+            dungeon.setTile(new CorridorFloorDungeonTile(pos));
             if(direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
-                addCorridorWall(new Point(pos.x+1, pos.y));
-                addCorridorWall(new Point(pos.x-1, pos.y));
+                addCorridorWall(new GridPoint2(pos.x+1, pos.y));
+                addCorridorWall(new GridPoint2(pos.x-1, pos.y));
             } else {
-                addCorridorWall(new Point(pos.x, pos.y+1));
-                addCorridorWall(new Point(pos.x, pos.y-1));
+                addCorridorWall(new GridPoint2(pos.x, pos.y+1));
+                addCorridorWall(new GridPoint2(pos.x, pos.y-1));
             }
             return true;
         }
 
-        // Default to false as we have encountered an unrecognised tile.
         terminateCorridor(pos);
+
+        // Default to false as we have encountered an unrecognised tile.
         return false;
     }
 
-    private void addCorridorWall(Point pos){
-        if (dungeon.getTileType(pos) == DungeonTile.EMPTY && dungeon.isPointInMap(pos)){
-            dungeon.setTileType(pos, DungeonTile.CORRIDOR_WALL, false);
+    private void addCorridorWall(GridPoint2 pos){
+        if (dungeon.getTileType(pos) == DungeonTile.EMPTY){
+            dungeon.setTile(new CorridorWallDungeonTile(pos));
         }
     }
 
-    private void terminateCorridor(Point pos){
+    private void terminateCorridor(GridPoint2 pos){
         for (int i = -1; i <= 1; i++){
             for(int j = -1; j <= 1;  j++){
-                addCorridorWall(new Point(pos.x + i, pos.y + j));
+                addCorridorWall(new GridPoint2(pos.x + i, pos.y + j));
             }
         }
     }

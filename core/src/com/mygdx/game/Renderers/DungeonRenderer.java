@@ -2,8 +2,7 @@ package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonTile;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
 import com.mygdx.game.ResourceLoader;
 
 /**
@@ -19,25 +18,20 @@ public class DungeonRenderer implements Renderer{
     }
 
     public void render(float delta, SpriteBatch batch){
-        for (int i = 0; i < dungeon.getMapWidth(); i++){
-            for (int j = 0; j < dungeon.getMapHeight(); j++){
+        for (int i = -1; i < dungeon.getMapWidth()+1; i++){
+            for (int j = -1; j < dungeon.getMapHeight()+1; j++){
                 DungeonTile tile = dungeon.getDungeonTile(i, j);
-                float colourVal = tile.checkVisibility();
-                batch.setColor(colourVal, colourVal, colourVal, colourVal);
-                if(tile.tileType == DungeonTile.FLOOR || tile.tileType == DungeonTile.CORRIDOR_FLOOR){
-                    batch.draw(ResourceLoader.floor, i * tileSize, j * tileSize);
-                }
-                if (tile.tileType == DungeonTile.WALL || tile.tileType == DungeonTile.CORRIDOR_WALL){
-                    batch.draw(ResourceLoader.wall, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_HORIZONTAL){
-                    batch.draw(ResourceLoader.doorHorizontal, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_VERTICAL){
-                    batch.draw(ResourceLoader.doorVertical, i * tileSize, j * tileSize);
-                }
-                batch.setColor(1,1,1,1);
+                renderTile(tile, batch, i, j);
             }
+        }
+    }
+
+    protected void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
+        if (!tile.isEmpty()){
+            float colourVal = tile.checkVisibility();
+            batch.setColor(colourVal, colourVal, colourVal, colourVal);
+            batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
+            batch.setColor(1,1,1,1);
         }
     }
 
