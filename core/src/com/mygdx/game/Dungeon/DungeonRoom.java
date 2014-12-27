@@ -1,9 +1,5 @@
 package com.mygdx.game.Dungeon;
 
-import com.badlogic.gdx.utils.Array;
-
-import java.awt.*;
-
 public class DungeonRoom {
     private int x;
     private int y;

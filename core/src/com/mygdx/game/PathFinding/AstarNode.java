@@ -2,8 +2,6 @@ package com.mygdx.game.PathFinding;
 
 import com.badlogic.gdx.math.GridPoint2;
 
-import java.awt.*;
-
 public class AstarNode {
     public int x;
     public int y;
@@ -13,10 +11,7 @@ public class AstarNode {
     public AstarNode prevNodeInPath;
 
     public boolean equals(AstarNode node){
-        if(node.x == x && node.y == y){
-            return true;
-        }
-        return false;
+        return node.x == x && node.y == y;
     }
 
     public GridPoint2 getPosition(){

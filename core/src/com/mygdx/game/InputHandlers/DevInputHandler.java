@@ -8,9 +8,9 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
 
 public class DevInputHandler extends InputAdapter {
-    DevScreen devScreen;
+    private DevScreen devScreen;
 
-    int lastFrameX, lastFrameY;
+    private int lastFrameX, lastFrameY;
 
     public DevInputHandler(DevScreen devScreen){
         this.devScreen = devScreen;

@@ -10,9 +10,6 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
 
-/**
- * Created by jony1710 on 24/12/2014.
- */
 public class GameScreen implements Screen{
     private PlayerInputHandler inputHandler;
     private SpriteBatch batch;

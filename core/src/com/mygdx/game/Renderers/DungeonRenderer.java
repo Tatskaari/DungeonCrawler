@@ -3,11 +3,7 @@ package com.mygdx.game.Renderers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
-import com.mygdx.game.ResourceLoader;
 
-/**
- * Created by jony1710 on 27/12/2014.
- */
 public class DungeonRenderer implements Renderer{
     private Dungeon dungeon;
     private int tileSize;

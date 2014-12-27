@@ -6,14 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputHandlers.DevInputHandler;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Renderers.DungeonRenderer;
 
 public class DevScreen implements Screen {
     private OrthographicCamera camera;
-    SpriteBatch batch;
+    private SpriteBatch batch;
 
     public Screen getLastScreen() {
         return lastScreen;

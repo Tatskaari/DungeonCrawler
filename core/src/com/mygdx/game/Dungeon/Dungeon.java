@@ -4,12 +4,9 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
-import com.mygdx.game.Dungeon.DungeonTiles.FloorDungeonTile;
 import com.mygdx.game.Renderers.DevDungeonRenderer;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
-
-import java.awt.*;
 
 public class Dungeon {
     public static final int NORTH = 1;

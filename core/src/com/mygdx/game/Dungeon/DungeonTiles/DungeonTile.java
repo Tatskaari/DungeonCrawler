@@ -9,9 +9,6 @@ import com.mygdx.game.MyGdxGame;
 
 import java.awt.*;
 
-/**
- * Created by jony1710 on 23/12/2014.
- */
 public abstract class DungeonTile {
     public static final int EMPTY = 0;
     public static final int FLOOR = 10;
@@ -21,9 +18,9 @@ public abstract class DungeonTile {
     public static final int CORRIDOR_FLOOR = 50;
     public static final int CORRIDOR_WALL = 60;
 
-    public static Bresenham2 bresenham = new Bresenham2();
+    private static Bresenham2 bresenham = new Bresenham2();
 
-    public boolean tileHasBeenVisible = false;
+    private boolean tileHasBeenVisible = false;
 
     private GridPoint2 pos;
 

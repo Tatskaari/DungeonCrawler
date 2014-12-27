@@ -4,9 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.ResourceLoader;
 
-/**
- * Created by jony1710 on 27/12/2014.
- */
 public class WallDungeonTile extends DungeonTile{
     public WallDungeonTile(GridPoint2 pos) {
         super(pos);

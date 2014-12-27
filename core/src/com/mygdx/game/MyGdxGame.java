@@ -26,11 +26,6 @@ public class MyGdxGame extends Game {
 	}
 
 	@Override
-	public void render () {
-		super.render();
-	}
-
-	@Override
 	public void dispose () {
 		ResourceLoader.dispose();
 		getScreen().dispose();

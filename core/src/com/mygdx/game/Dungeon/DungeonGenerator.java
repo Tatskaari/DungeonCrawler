@@ -10,12 +10,9 @@ import com.mygdx.game.ResourceLoader;
 
 import java.awt.*;
 
-/**
- * Created by jony1710 on 22/12/2014.
- */
 public class DungeonGenerator {
-    public int roomMaxSize = 15;
-    public int roomMinSize = 7;
+    private int roomMaxSize = 15;
+    private int roomMinSize = 7;
 
 
     private Dungeon dungeon;

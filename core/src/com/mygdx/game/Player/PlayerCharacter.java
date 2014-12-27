@@ -7,17 +7,16 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
-import com.mygdx.game.ResourceLoader;
 
 public class PlayerCharacter {
 
-    GridPoint2 position;
+    private GridPoint2 position;
 
     public int getTileSize() {
         return tileSize;
     }
 
-    int tileSize;
+    private int tileSize;
     public Renderer renderer;
 
     public PlayerCharacter(){

@@ -96,13 +96,7 @@ public class Astar {
     }
 
     private void addToArrayIfInBounds(Array<AstarNode> neighbors, int x, int y){
-        if(x < 0 || x >= graph.size){
-            return;
-        }
-        else if(y < 0 || y >= graph.get(x).size){
-            return;
-        }
-        else {
+        if(!(x < 0 || x >= graph.size) && !(y < 0 || y >= graph.get(x).size)){
             neighbors.add(graph.get(x).get(y));
         }
     }

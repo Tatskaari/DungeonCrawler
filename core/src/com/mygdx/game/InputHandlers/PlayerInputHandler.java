@@ -7,11 +7,8 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.Screens.DevScreen;
 
-/**
- * Created by jony1710 on 25/12/2014.
- */
 public class PlayerInputHandler extends InputAdapter {
-    PlayerCharacter player;
+    private PlayerCharacter player;
 
     public PlayerInputHandler(PlayerCharacter player){
         this.player = player;

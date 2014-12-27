@@ -3,9 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-/**
- * Created by jony1710 on 23/12/2014.
- */
 public abstract class ResourceLoader {
     public static Texture floor;
     public static Texture wall;

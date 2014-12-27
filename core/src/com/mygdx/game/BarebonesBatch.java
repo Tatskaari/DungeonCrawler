@@ -7,10 +7,10 @@ import com.badlogic.gdx.math.Vector3;
 
 
 public class BarebonesBatch extends ApplicationAdapter {
-    SpriteBatch batch;
-    Texture texture;
-    Vector3 position;
-    OrthographicCamera cam;
+    private SpriteBatch batch;
+    private Texture texture;
+    private Vector3 position;
+    private OrthographicCamera cam;
 
     public void create () {
         batch = new SpriteBatch();

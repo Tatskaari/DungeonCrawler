@@ -4,12 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.ResourceLoader;
 
-/**
- * Created by jony1710 on 27/12/2014.
- */
 public class DoorDungeonTile extends DungeonTile {
-    int tileType;
-    Texture texture;
+    private int tileType;
+    private Texture texture;
     public DoorDungeonTile(GridPoint2 pos, boolean isHorizontal) {
         super(pos);
         if(isHorizontal){
