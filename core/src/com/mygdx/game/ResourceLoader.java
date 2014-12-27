@@ -15,10 +15,10 @@ public abstract class ResourceLoader {
     public static BitmapFont defaultFont;
 
     public static void loadResources(){
-        floor = new Texture("res/floor2.png");
-        wall = new Texture("res/wall2.png");
-        doorHorizontal = new Texture("res/door2-horizontal.png");
-        doorVertical = new Texture("res/door2-vertical.png");
+        floor = new Texture("res/floor.png");
+        wall = new Texture("res/wall.png");
+        doorHorizontal = new Texture("res/door-horizontal.png");
+        doorVertical = new Texture("res/door-vertical.png");
         player = new Texture("res/player.png");
         defaultFont = new BitmapFont();
     }

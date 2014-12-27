@@ -2,8 +2,9 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.ResourceLoader;
+import com.mygdx.game.Renderers.DevDungeonRenderer;
+import com.mygdx.game.Renderers.DungeonRenderer;
+import com.mygdx.game.Renderers.Renderer;
 
 import java.awt.*;
 
@@ -19,10 +20,16 @@ public class Dungeon {
     private int mapWidth, mapHeight;
     private int tileSize;
 
+    public Renderer renderer;
+    public Renderer devRenderer;
+
     public Dungeon(int mapWidth, int mapHeight, int tileSize){
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.tileSize = tileSize;
+
+        devRenderer = new DevDungeonRenderer(this);
+        renderer = new DungeonRenderer(this);
 
         map = new DungeonTile[mapWidth+2][mapHeight+2];
         for(int i = 0; i < mapWidth+2; i++){
@@ -32,49 +39,6 @@ public class Dungeon {
         }
 
         dungeonRooms = new Array<DungeonRoom>();
-    }
-
-    public void render(){
-        for (int i = 0; i < mapWidth; i++){
-            for (int j = 0; j < mapHeight; j++){
-                DungeonTile tile = getDungeonTile(i, j);
-                float colourVal = tile.checkVisibility();
-                MyGdxGame.batch.setColor(colourVal, colourVal, colourVal, colourVal);
-                if(tile.tileType == DungeonTile.FLOOR || tile.tileType == DungeonTile.CORRIDOR_FLOOR){
-                    MyGdxGame.batch.draw(ResourceLoader.floor, i * tileSize, j * tileSize);
-                }
-                if (tile.tileType == DungeonTile.WALL || tile.tileType == DungeonTile.CORRIDOR_WALL){
-                    MyGdxGame.batch.draw(ResourceLoader.wall, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_HORIZONTAL){
-                    MyGdxGame.batch.draw(ResourceLoader.doorHorizontal, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_VERTICAL){
-                    MyGdxGame.batch.draw(ResourceLoader.doorVertical, i * tileSize, j * tileSize);
-                }
-                MyGdxGame.batch.setColor(1,1,1,1);
-            }
-        }
-    }
-
-    public void devRender(){
-        for (int i = 0; i < mapWidth; i++){
-            for (int j = 0; j < mapHeight; j++){
-                DungeonTile tile = getDungeonTile(i, j);
-                if(tile.tileType == DungeonTile.FLOOR || tile.tileType == DungeonTile.CORRIDOR_FLOOR){
-                    MyGdxGame.batch.draw(ResourceLoader.floor, i * tileSize, j * tileSize);
-                }
-                if (tile.tileType == DungeonTile.WALL || tile.tileType == DungeonTile.CORRIDOR_WALL){
-                    MyGdxGame.batch.draw(ResourceLoader.wall, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_HORIZONTAL){
-                    MyGdxGame.batch.draw(ResourceLoader.doorHorizontal, i * tileSize, j * tileSize);
-                }
-                if(tile.tileType == DungeonTile.DOOR_VERTICAL){
-                    MyGdxGame.batch.draw(ResourceLoader.doorVertical, i * tileSize, j * tileSize);
-                }
-            }
-        }
     }
 
 

@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.InputHandlers.DevInputHandler;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Renderers.DungeonRenderer;
 
 public class DevScreen implements Screen {
     private OrthographicCamera camera;
+    SpriteBatch batch;
 
     public Screen getLastScreen() {
         return lastScreen;
@@ -21,12 +26,13 @@ public class DevScreen implements Screen {
     private float maxZoom = 10;
 
     public DevScreen(Screen lastScreen){
-        camera = new OrthographicCamera(MyGdxGame.camera.viewportWidth, MyGdxGame.camera.viewportHeight);
-        camera.position.set(MyGdxGame.camera.position);
-        camera.zoom = MyGdxGame.camera.zoom;
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        GridPoint2 playerPos = MyGdxGame.player.getPosition();
+        camera.position.set(playerPos.x, playerPos.y, 0);
         camera.update();
         this.lastScreen = lastScreen;
         inputHandler = new DevInputHandler(this);
+        batch = new SpriteBatch();
     }
 
     public void moveCamera(int x, int y){
@@ -48,11 +54,11 @@ public class DevScreen implements Screen {
     public void render(float delta){
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        MyGdxGame.batch.setProjectionMatrix(camera.combined);
-        MyGdxGame.batch.begin();
-        MyGdxGame.dungeon.devRender();
-        MyGdxGame.player.render();
-        MyGdxGame.batch.end();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        MyGdxGame.dungeon.devRenderer.render(delta, batch);
+        MyGdxGame.player.renderer.render(delta, batch);
+        batch.end();
 
     }
 
@@ -85,5 +91,6 @@ public class DevScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
     }
 }

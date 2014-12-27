@@ -5,18 +5,25 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Renderers.PlayerRenderer;
+import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
 
 public class PlayerCharacter {
 
     GridPoint2 position;
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
     int tileSize;
+    public Renderer renderer;
 
     public PlayerCharacter(){
-
         tileSize = MyGdxGame.dungeon.getTileSize();
-
         placeCharacterIn(MyGdxGame.dungeon);
+        renderer = new PlayerRenderer(this);
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -27,23 +34,12 @@ public class PlayerCharacter {
 
         position.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
         position.y = MathUtils.random(room.getY()+1, room.getY()+room.getHeight()-2);
-        updateCamera();
     }
 
     public void moveToPos(GridPoint2 newPosition) {
         if (MyGdxGame.dungeon.isTilePassable(newPosition)){
             position = newPosition;
         }
-        updateCamera();
-    }
-
-    public void render() {
-        MyGdxGame.batch.draw(ResourceLoader.player, position.x * tileSize, position.y * tileSize);
-    }
-
-    public void updateCamera(){
-        MyGdxGame.camera.position.x = position.x*tileSize;
-        MyGdxGame.camera.position.y = position.y*tileSize;
     }
 
     public GridPoint2 getPosition() {

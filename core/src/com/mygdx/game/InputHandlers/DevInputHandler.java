@@ -8,7 +8,7 @@ import com.mygdx.game.Screens.DevScreen;
 public class DevInputHandler extends InputAdapter {
     DevScreen devScreen;
 
-    int lastScreenX, lastScreenY;
+    int lastFrameX, lastFrameY;
 
     public DevInputHandler(DevScreen devScreen){
         this.devScreen = devScreen;
@@ -16,17 +16,17 @@ public class DevInputHandler extends InputAdapter {
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button) {
-        lastScreenX = x;
-        lastScreenY = y;
+        lastFrameX = x;
+        lastFrameY = y;
         return true;
     }
 
     @Override
     public boolean touchDragged (int x, int y, int pointer){
-        int deltaX = x - lastScreenX;
-        int deltaY = y - lastScreenY;
-        lastScreenX = x;
-        lastScreenY = y;
+        int deltaX = x - lastFrameX;
+        int deltaY = y - lastFrameY;
+        lastFrameX = x;
+        lastFrameY = y;
 
         devScreen.moveCamera(deltaX, deltaY);
 
