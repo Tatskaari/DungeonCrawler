@@ -1,10 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.InputHandlers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
-
-import java.awt.*;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Player.PlayerCharacter;
+import com.mygdx.game.Screens.DevScreen;
 
 /**
  * Created by jony1710 on 25/12/2014.

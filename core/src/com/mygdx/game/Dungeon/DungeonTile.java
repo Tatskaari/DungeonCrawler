@@ -1,9 +1,10 @@
-package com.mygdx.game;
+package com.mygdx.game.Dungeon;
 
 
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.MyGdxGame;
 
 import java.awt.*;
 

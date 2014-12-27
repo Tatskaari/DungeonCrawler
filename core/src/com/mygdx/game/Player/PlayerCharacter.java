@@ -1,7 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.Player;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
+import com.mygdx.game.Dungeon.Dungeon;
+import com.mygdx.game.Dungeon.DungeonRoom;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.ResourceLoader;
 
 public class PlayerCharacter {
 

@@ -1,8 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.PathFinding.Astar;
+import com.mygdx.game.PathFinding.AstarNode;
+import com.mygdx.game.ResourceLoader;
 
 import java.awt.*;
 

@@ -1,8 +1,12 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.game.Dungeon.DungeonGenerator;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Player.PlayerCharacter;
+import com.mygdx.game.InputHandlers.PlayerInputHandler;
 
 /**
  * Created by jony1710 on 24/12/2014.

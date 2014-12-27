@@ -1,17 +1,24 @@
-package com.mygdx.game;
+package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.game.InputHandlers.DevInputHandler;
+import com.mygdx.game.MyGdxGame;
 
 public class DevScreen implements Screen {
-    OrthographicCamera camera;
-    Screen lastScreen;
-    DevInputHandler inputHandler;
-    float zoomSpeed = 0.1f;
-    float minZoom = 0.2f;
-    float maxZoom = 10;
+    private OrthographicCamera camera;
+
+    public Screen getLastScreen() {
+        return lastScreen;
+    }
+
+    private Screen lastScreen;
+    private DevInputHandler inputHandler;
+    private float zoomSpeed = 0.1f;
+    private float minZoom = 0.2f;
+    private float maxZoom = 10;
 
     public DevScreen(Screen lastScreen){
         camera = new OrthographicCamera(MyGdxGame.camera.viewportWidth, MyGdxGame.camera.viewportHeight);
