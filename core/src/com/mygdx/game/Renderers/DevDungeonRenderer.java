@@ -14,6 +14,7 @@ public class DevDungeonRenderer implements Renderer{
     private int tileSize;
     public DevDungeonRenderer(Dungeon dungeon) {
         this.dungeon = dungeon;
+        tileSize = dungeon.getTileSize();
     }
 
     @Override

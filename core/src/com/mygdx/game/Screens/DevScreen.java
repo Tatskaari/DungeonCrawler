@@ -27,8 +27,6 @@ public class DevScreen implements Screen {
 
     public DevScreen(Screen lastScreen){
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        GridPoint2 playerPos = MyGdxGame.player.getPosition();
-        camera.position.set(playerPos.x, playerPos.y, 0);
         camera.update();
         this.lastScreen = lastScreen;
         inputHandler = new DevInputHandler(this);
@@ -64,7 +62,12 @@ public class DevScreen implements Screen {
 
     @Override
     public void show() {
+        int tileSize = MyGdxGame.dungeon.getTileSize();
         Gdx.input.setInputProcessor(inputHandler);
+        GridPoint2 playerPos = MyGdxGame.player.getPosition();
+        camera.position.x = playerPos.x * tileSize;
+        camera.position.y = playerPos.y * tileSize;
+
     }
 
     @Override

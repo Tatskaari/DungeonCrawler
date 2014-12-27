@@ -1,5 +1,6 @@
 package com.mygdx.game.InputHandlers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.MyGdxGame;
@@ -16,6 +17,9 @@ public class DevInputHandler extends InputAdapter {
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button) {
+        if (!Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+            return false;
+        }
         lastFrameX = x;
         lastFrameY = y;
         return true;
@@ -23,6 +27,9 @@ public class DevInputHandler extends InputAdapter {
 
     @Override
     public boolean touchDragged (int x, int y, int pointer){
+        if (!Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+            return false;
+        }
         int deltaX = x - lastFrameX;
         int deltaY = y - lastFrameY;
         lastFrameX = x;
