@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
 
 public class DevInputHandler extends InputAdapter {
@@ -50,11 +51,17 @@ public class DevInputHandler extends InputAdapter {
     public boolean keyDown(int keyCode){
         if (keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(devScreen.getLastScreen());
+            return true;
         }
         if (keyCode == Input.Keys.G){
             MyGdxGame.dungeon = MyGdxGame.dungeonGenerator.generateDungeon();
             MyGdxGame.player.placeCharacterIn(MyGdxGame.dungeon);
+            return true;
         }
-        return true;
+        if (keyCode == Input.Keys.R){
+            ResourceLoader.loadResources();
+            return true;
+        }
+        return false;
     }
 }
