@@ -23,6 +23,7 @@ public class Dungeon {
     private Array<DungeonRoom> dungeonRooms;
     private int mapWidth, mapHeight;
     private int tileSize;
+    private float[][] LineOfSightResMap;
 
     public Dungeon(int mapWidth, int mapHeight, int tileSize){
         this.mapWidth = mapWidth;
@@ -94,7 +95,7 @@ public class Dungeon {
         return map[pos.x][pos.y].isEmpty();
     }
 
-    public  Array<Array<AstarNode>> getAstarGraph(){
+    public Array<Array<AstarNode>> getAstarGraph(){
         Array<Array<AstarNode>> astarGraph = new Array<Array<AstarNode>>();
         for(int i = 0; i < getMapWidth(); i++){
             astarGraph.add(new Array<AstarNode>());
@@ -109,5 +110,23 @@ public class Dungeon {
             }
         }
         return astarGraph;
+    }
+
+    public void updateLineOfSightResistanceMap(){
+        LineOfSightResMap = new float[mapWidth+2][mapHeight+2];
+
+        for (int i = 0; i < mapWidth+2; i++){
+            for (int j = 0; j < mapHeight+2; j++){
+                if(map[i][j].isVisionObstructing()){
+                    LineOfSightResMap[i][j] = 1;
+                } else {
+                    LineOfSightResMap[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    public float[][] getLineOfSightResMap(){
+        return LineOfSightResMap;
     }
 }

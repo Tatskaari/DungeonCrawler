@@ -20,11 +20,6 @@ public class FloorDungeonTile extends DungeonTile {
     }
 
     @Override
-    public boolean isPassable() {
-        return true;
-    }
-
-    @Override
     public int getTileType() {
         return DungeonTile.FLOOR;
     }
@@ -34,8 +29,4 @@ public class FloorDungeonTile extends DungeonTile {
         return ResourceLoader.floor;
     }
 
-    @Override
-    public float getPassingCost() {
-        return 5;
-    }
 }

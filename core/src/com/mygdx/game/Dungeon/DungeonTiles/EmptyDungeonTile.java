@@ -39,11 +39,6 @@ public class EmptyDungeonTile extends DungeonTile {
     }
 
     @Override
-    public float getPassingCost() {
-        return 100000;
-    }
-
-    @Override
     public float getVisibilityLevel(){
         return 0;
     }

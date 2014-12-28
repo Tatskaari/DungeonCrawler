@@ -6,6 +6,8 @@ import com.mygdx.game.Renderers.Renderer;
 
 public interface Monster {
     public void act();
+    public void beAttacked();
+    public boolean isDead();
     public Texture getTexture();
     public GridPoint2 getPosition();
     public Renderer getRenderer();

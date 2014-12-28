@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.LineOfSight;
+import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.MyGdxGame;
 
 import java.awt.*;
@@ -33,8 +35,6 @@ public abstract class DungeonTile {
 
     public abstract boolean isVisionObstructing();
 
-    public abstract boolean isPassable();
-
     public abstract int getTileType();
 
     public abstract Texture getTileTexture();
@@ -43,6 +43,19 @@ public abstract class DungeonTile {
         return pos;
     }
 
+    public boolean isEmpty(){
+        return false;
+    }
+
+    public float getPassingCost(){
+        if(!isPassable()){
+            return 100000;
+        } else if (hasMonster()) {
+            return 100;
+        } else {
+            return 5;
+        }
+    }
 
     public float getVisibilityLevel() {
         if(isVisible()){
@@ -56,10 +69,12 @@ public abstract class DungeonTile {
     public boolean isVisible(){
         GridPoint2 playerGridPoint = GameHandler.player.getPosition();
 
-        float distance = (float)Point.distance(pos.x, pos.y, playerGridPoint.x, playerGridPoint.y);
-        if(distance > 10){
+        float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
+        if(distance > 12){
             return false;
-        }else{
+        }else if(distance < 1) {
+            return true;
+        } else {
             return isLOSBlocked();
         }
     }
@@ -74,26 +89,41 @@ public abstract class DungeonTile {
     }
 
     private boolean isLOSBlocked(){
-        Array<GridPoint2> points;
-        points = bresenham.line(pos, GameHandler.player.getPosition());
-        points.removeIndex(0); //remove the current tile from the tiles to check
-        if(points.size > 0){
-            points.removeIndex(points.size-1); // remove the players tile from the tiles to check
-        }
+        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+    }
 
-        for(GridPoint2 point : points){
-            DungeonTile tile = GameHandler.dungeon.getDungeonTile(point);
-            if (tile.isVisionObstructing()){
-                return false;
+    public boolean isPassable(){
+        if(pos.equals(GameHandler.player.getPosition())){
+            return false;
+        } else {
+            for(Monster monster : GameHandler.dungeon.monsters) {
+                if(monster.getPosition().equals(pos)){
+                    return monster.isDead();
+                }
             }
         }
         return true;
     }
 
-    public boolean isEmpty(){
+    public boolean hasMonster() {
+        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
+            Monster monster = GameHandler.dungeon.monsters.get(i);
+            if (monster.getPosition().equals(pos)){
+                return true;
+            }
+        }
+
         return false;
     }
 
+    public Monster getMonster() {
+        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
+            Monster monster = GameHandler.dungeon.monsters.get(i);
+            if (monster.getPosition().equals(pos)){
+                return monster;
+            }
+        }
 
-    public abstract float getPassingCost();
+        return null;
+    }
 }

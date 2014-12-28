@@ -34,8 +34,4 @@ public class WallDungeonTile extends DungeonTile{
         return ResourceLoader.wall;
     }
 
-    @Override
-    public float getPassingCost() {
-        return 100000;
-    }
 }

@@ -16,14 +16,18 @@ public class MonsterRenderer extends Renderer{
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        GridPoint2 pos = monster.getPosition();
-        if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
-            batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        if (!monster.isDead()){
+            GridPoint2 pos = monster.getPosition();
+            if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
+                batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+            }
         }
     }
     @Override
     public void devRender(float delta, SpriteBatch batch){
-        GridPoint2 pos = monster.getPosition();
-        batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        if (!monster.isDead()){
+            GridPoint2 pos = monster.getPosition();
+            batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        }
     }
 }

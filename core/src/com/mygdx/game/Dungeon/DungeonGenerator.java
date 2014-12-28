@@ -33,6 +33,7 @@ public class DungeonGenerator {
 
         placeRooms(roomCount);
         placeCorridors();
+        dungeon.updateLineOfSightResistanceMap();
 
         return dungeon;
     }

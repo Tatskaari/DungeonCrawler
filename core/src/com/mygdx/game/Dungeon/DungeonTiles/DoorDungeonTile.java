@@ -28,10 +28,6 @@ public class DoorDungeonTile extends DungeonTile {
         return true;
     }
 
-    @Override
-    public boolean isPassable() {
-        return true;
-    }
 
     @Override
     public int getTileType() {
@@ -43,8 +39,4 @@ public class DoorDungeonTile extends DungeonTile {
         return texture;
     }
 
-    @Override
-    public float getPassingCost() {
-        return 5;
-    }
 }
