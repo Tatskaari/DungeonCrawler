@@ -9,6 +9,7 @@ public abstract class ResourceLoader {
     public static Texture doorHorizontal;
     public static Texture doorVertical;
     public static Texture player;
+    public static Texture skeleton;
     public static BitmapFont defaultFont;
 
     public static void loadResources(){
@@ -17,6 +18,8 @@ public abstract class ResourceLoader {
         doorHorizontal = new Texture("res/door-horizontal.png");
         doorVertical = new Texture("res/door-vertical.png");
         player = new Texture("res/player.png");
+        skeleton = new Texture("res/skeleton.png");
+
         defaultFont = new BitmapFont();
     }
 

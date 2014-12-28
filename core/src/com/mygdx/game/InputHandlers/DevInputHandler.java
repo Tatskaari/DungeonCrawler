@@ -1,8 +1,10 @@
 package com.mygdx.game.InputHandlers;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
@@ -54,13 +56,16 @@ public class DevInputHandler extends InputAdapter {
             return true;
         }
         if (keyCode == Input.Keys.G){
-            MyGdxGame.dungeon = MyGdxGame.dungeonGenerator.generateDungeon();
-            MyGdxGame.player.placeCharacterIn(MyGdxGame.dungeon);
+            GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon();
+            GameHandler.player.placeCharacterIn(GameHandler.dungeon);
             return true;
         }
         if (keyCode == Input.Keys.R){
             ResourceLoader.loadResources();
             return true;
+        }
+        if (keyCode == Input.Keys.S){
+            GameHandler.dungeonGenerator.spawnMonster();
         }
         return false;
     }

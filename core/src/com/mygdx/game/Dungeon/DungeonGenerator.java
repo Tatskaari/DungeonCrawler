@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
+import com.mygdx.game.Monsters.Skeleton;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.ResourceLoader;
@@ -32,7 +33,15 @@ public class DungeonGenerator {
 
         placeRooms(roomCount);
         placeCorridors();
+
         return dungeon;
+    }
+
+    public void spawnMonster() {
+        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+        DungeonRoom room = dungeon.getDungeonRoom(roomIndex);
+        Skeleton skeleton = new Skeleton(getRandomTileInRoom(room));
+        dungeon.monsters.add(skeleton);
     }
 
     public void placeRooms(int roomCount){
@@ -101,8 +110,8 @@ public class DungeonGenerator {
 
     public void connectRooms(DungeonRoom startRoom, DungeonRoom endRoom){
 
-        Point startPoint;
-        Point endPoint;
+        GridPoint2 startPoint;
+        GridPoint2 endPoint;
 
         startPoint = getRandomTileInRoom(startRoom);
         endPoint = getRandomTileInRoom(endRoom);
@@ -167,8 +176,8 @@ public class DungeonGenerator {
         return graph;
     }
 
-    private Point getRandomTileInRoom(DungeonRoom room){
-        Point tilePosition = new Point();
+    private GridPoint2 getRandomTileInRoom(DungeonRoom room){
+        GridPoint2 tilePosition = new GridPoint2();
 
         tilePosition.y = MathUtils.random(room.getY()+1, room.getY() + room.getHeight()-2);
         tilePosition.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);

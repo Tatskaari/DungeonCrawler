@@ -7,10 +7,6 @@ import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.Screens.MainMenuScreen;
 
 public class MyGdxGame extends Game {
-
-	public static Dungeon dungeon;
-	public static DungeonGenerator dungeonGenerator;
-	public static PlayerCharacter player;
 	public static MyGdxGame myGdxGame;
 	
 	@Override

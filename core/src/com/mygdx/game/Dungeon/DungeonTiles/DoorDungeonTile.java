@@ -42,4 +42,9 @@ public class DoorDungeonTile extends DungeonTile {
     public Texture getTileTexture() {
         return texture;
     }
+
+    @Override
+    public float getPassingCost() {
+        return 5;
+    }
 }

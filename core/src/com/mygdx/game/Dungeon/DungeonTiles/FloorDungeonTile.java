@@ -33,4 +33,9 @@ public class FloorDungeonTile extends DungeonTile {
     public Texture getTileTexture() {
         return ResourceLoader.floor;
     }
+
+    @Override
+    public float getPassingCost() {
+        return 5;
+    }
 }

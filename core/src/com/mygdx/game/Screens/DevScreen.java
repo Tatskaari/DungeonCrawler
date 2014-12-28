@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
-import com.mygdx.game.MyGdxGame;
 
 public class DevScreen implements Screen {
     private OrthographicCamera camera;
@@ -52,17 +52,17 @@ public class DevScreen implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        MyGdxGame.dungeon.devRenderer.render(delta, batch);
-        MyGdxGame.player.renderer.render(delta, batch);
+        GameHandler.dungeon.devRenderer.render(delta, batch);
+        GameHandler.player.renderer.render(delta, batch);
         batch.end();
 
     }
 
     @Override
     public void show() {
-        int tileSize = MyGdxGame.dungeon.getTileSize();
+        int tileSize = GameHandler.dungeon.getTileSize();
         Gdx.input.setInputProcessor(inputHandler);
-        GridPoint2 playerPos = MyGdxGame.player.getPosition();
+        GridPoint2 playerPos = GameHandler.player.getPosition();
         camera.position.x = playerPos.x * tileSize;
         camera.position.y = playerPos.y * tileSize;
 

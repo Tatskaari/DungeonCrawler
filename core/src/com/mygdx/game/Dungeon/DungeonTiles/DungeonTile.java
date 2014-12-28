@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 
 import java.awt.*;
@@ -42,37 +43,25 @@ public abstract class DungeonTile {
         return pos;
     }
 
-    public float checkVisibility() {
-        GridPoint2 playerGridPoint = MyGdxGame.player.getPosition();
-        Array<GridPoint2> points;
 
-        float distance = (float)Point.distance(pos.x, pos.y, playerGridPoint.x, playerGridPoint.y);
-
-        if(distance > 10){
+    public float getVisibilityLevel() {
+        if(isVisible()){
+            tileHasBeenVisible = true;
+            return 1;
+        } else {
             return getHasBeenVisibleVisibility();
         }
-
-        points = bresenham.line(pos, playerGridPoint);
-        points.removeIndex(0);
-        if(points.size > 0){
-            points.removeIndex(points.size-1);
-        }
-
-        for(GridPoint2 point : points){
-            DungeonTile tile = MyGdxGame.dungeon.getDungeonTile(point);
-            if (tile.isVisionObstructing()){
-                return getHasBeenVisibleVisibility();
-            }
-        }
-        if (distance < 10 ){
-            tileHasBeenVisible = true;
-            return  1;
-        }else
-        return getHasBeenVisibleVisibility();
     }
 
-    public boolean isEmpty(){
-        return false;
+    public boolean isVisible(){
+        GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+
+        float distance = (float)Point.distance(pos.x, pos.y, playerGridPoint.x, playerGridPoint.y);
+        if(distance > 10){
+            return false;
+        }else{
+            return isLOSBlocked();
+        }
     }
 
     private float getHasBeenVisibleVisibility(){
@@ -84,4 +73,27 @@ public abstract class DungeonTile {
         }
     }
 
+    private boolean isLOSBlocked(){
+        Array<GridPoint2> points;
+        points = bresenham.line(pos, GameHandler.player.getPosition());
+        points.removeIndex(0); //remove the current tile from the tiles to check
+        if(points.size > 0){
+            points.removeIndex(points.size-1); // remove the players tile from the tiles to check
+        }
+
+        for(GridPoint2 point : points){
+            DungeonTile tile = GameHandler.dungeon.getDungeonTile(point);
+            if (tile.isVisionObstructing()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isEmpty(){
+        return false;
+    }
+
+
+    public abstract float getPassingCost();
 }

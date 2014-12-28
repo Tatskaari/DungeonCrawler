@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.DungeonGenerator;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
@@ -16,13 +17,13 @@ public class GameScreen implements Screen{
     private OrthographicCamera camera;
 
     public GameScreen() {
-        MyGdxGame.dungeonGenerator = new DungeonGenerator();
-        MyGdxGame.dungeon = MyGdxGame.dungeonGenerator.generateDungeon(100, 100, 200);
-        MyGdxGame.player = new PlayerCharacter();
+        GameHandler.dungeonGenerator = new DungeonGenerator();
+        GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(100, 100, 200);
+        GameHandler.player = new PlayerCharacter();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
 
-        inputHandler = new PlayerInputHandler(MyGdxGame.player);
+        inputHandler = new PlayerInputHandler(GameHandler.player);
         batch = new SpriteBatch();
     }
 
@@ -35,14 +36,14 @@ public class GameScreen implements Screen{
         Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond()+"");
 
         batch.begin();
-        MyGdxGame.dungeon.renderer.render(delta, batch);
-        MyGdxGame.player.renderer.render(delta, batch);
+        GameHandler.dungeon.renderer.render(delta, batch);
+        GameHandler.player.renderer.render(delta, batch);
         batch.end();
     }
 
     public void updateCamera(){
-        camera.position.x = MyGdxGame.player.getPosition().x * MyGdxGame.dungeon.getTileSize();
-        camera.position.y = MyGdxGame.player.getPosition().y * MyGdxGame.dungeon.getTileSize();
+        camera.position.x = GameHandler.player.getPosition().x * GameHandler.dungeon.getTileSize();
+        camera.position.y = GameHandler.player.getPosition().y * GameHandler.dungeon.getTileSize();
         camera.update();
     }
 
@@ -53,7 +54,9 @@ public class GameScreen implements Screen{
 
     @Override
     public void resize(int width, int height) {
-
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
     }
 
     @Override

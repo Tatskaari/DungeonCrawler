@@ -3,6 +3,7 @@ package com.mygdx.game.Renderers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
+import com.mygdx.game.Monsters.Monster;
 
 public class DungeonRenderer implements Renderer{
     private Dungeon dungeon;
@@ -20,11 +21,15 @@ public class DungeonRenderer implements Renderer{
                 renderTile(tile, batch, i, j);
             }
         }
+
+        for (Monster monster : dungeon.monsters){
+            monster.getRenderer().render(delta,batch);
+        }
     }
 
     protected void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
-            float colourVal = tile.checkVisibility();
+            float colourVal = tile.getVisibilityLevel();
             batch.setColor(colourVal, colourVal, colourVal, colourVal);
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
             batch.setColor(1,1,1,1);

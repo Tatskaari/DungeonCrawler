@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -20,8 +21,8 @@ public class PlayerCharacter {
     public Renderer renderer;
 
     public PlayerCharacter(){
-        tileSize = MyGdxGame.dungeon.getTileSize();
-        placeCharacterIn(MyGdxGame.dungeon);
+        tileSize = GameHandler.dungeon.getTileSize();
+        placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
     }
 
@@ -36,8 +37,9 @@ public class PlayerCharacter {
     }
 
     public void moveToPos(GridPoint2 newPosition) {
-        if (MyGdxGame.dungeon.isTilePassable(newPosition)){
+        if (GameHandler.dungeon.isTilePassable(newPosition)){
             position = newPosition;
+            GameHandler.stepTurn();
         }
     }
 

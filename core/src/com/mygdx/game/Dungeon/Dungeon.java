@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
+import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DevDungeonRenderer;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -14,14 +16,14 @@ public class Dungeon {
     public static final int SOUTH = 3;
     public static final int WEST = 4;
 
-    private DungeonTile[][] map;
-    private Array<DungeonRoom> dungeonRooms;
-
-    private int mapWidth, mapHeight;
-    private int tileSize;
-
     public Renderer renderer;
     public Renderer devRenderer;
+    public Array<Monster> monsters;
+
+    private DungeonTile[][] map;
+    private Array<DungeonRoom> dungeonRooms;
+    private int mapWidth, mapHeight;
+    private int tileSize;
 
     public Dungeon(int mapWidth, int mapHeight, int tileSize){
         this.mapWidth = mapWidth;
@@ -39,6 +41,7 @@ public class Dungeon {
         }
 
         dungeonRooms = new Array<DungeonRoom>();
+        monsters = new Array<Monster>();
     }
 
 
@@ -91,5 +94,22 @@ public class Dungeon {
 
     public boolean isTileEmpty(GridPoint2 pos) {
         return map[pos.x][pos.y].isEmpty();
+    }
+
+    public  Array<Array<AstarNode>> getAstarGraph(){
+        Array<Array<AstarNode>> astarGraph = new Array<Array<AstarNode>>();
+        for(int i = 0; i < getMapWidth(); i++){
+            astarGraph.add(new Array<AstarNode>());
+        }
+        for (int i = 0; i < getMapWidth(); i++){
+            for(int  j = 0; j < getMapHeight(); j++){
+                AstarNode node = new AstarNode();
+                node.passingCost = getDungeonTile(new GridPoint2(i, j)).getPassingCost();
+                node.x = i;
+                node.y = j;
+                astarGraph.get(i).add(node);
+            }
+        }
+        return astarGraph;
     }
 }
