@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.ResourceLoader;
 
-public class PlayerRenderer implements Renderer {
+public class PlayerRenderer extends Renderer {
     private PlayerCharacter player;
     private int tileSize;
     public PlayerRenderer(PlayerCharacter player){

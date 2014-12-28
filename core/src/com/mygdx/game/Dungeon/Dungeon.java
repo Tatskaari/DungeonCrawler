@@ -6,7 +6,6 @@ import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
 import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.AstarNode;
-import com.mygdx.game.Renderers.DevDungeonRenderer;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
 
@@ -30,7 +29,6 @@ public class Dungeon {
         this.mapHeight = mapHeight;
         this.tileSize = tileSize;
 
-        devRenderer = new DevDungeonRenderer(this);
         renderer = new DungeonRenderer(this);
 
         map = new DungeonTile[mapWidth+2][mapHeight+2];

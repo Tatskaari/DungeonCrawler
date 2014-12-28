@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Monsters.Monster;
 
-public class MonsterRenderer implements Renderer{
+public class MonsterRenderer extends Renderer{
     private Monster monster;
     private int tileSize;
 
@@ -20,5 +20,10 @@ public class MonsterRenderer implements Renderer{
         if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
             batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
         }
+    }
+    @Override
+    public void devRender(float delta, SpriteBatch batch){
+        GridPoint2 pos = monster.getPosition();
+        batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
     }
 }

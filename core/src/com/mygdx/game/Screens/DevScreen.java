@@ -52,8 +52,8 @@ public class DevScreen implements Screen {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        GameHandler.dungeon.devRenderer.render(delta, batch);
-        GameHandler.player.renderer.render(delta, batch);
+        GameHandler.dungeon.renderer.devRender(delta, batch);
+        GameHandler.player.renderer.devRender(delta, batch);
         batch.end();
 
     }
