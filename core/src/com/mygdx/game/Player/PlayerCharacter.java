@@ -11,20 +11,17 @@ import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
 
 public class PlayerCharacter {
-
     private GridPoint2 position;
 
-    public int getTileSize() {
-        return tileSize;
-    }
-
     private int tileSize;
+    private int health;
     public Renderer renderer;
 
     public PlayerCharacter(){
         tileSize = GameHandler.dungeon.getTileSize();
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
+        health = 30;
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -50,5 +47,17 @@ public class PlayerCharacter {
 
     public GridPoint2 getPosition() {
         return position;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public void beAttacked(int damage){
+        health-= damage;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }

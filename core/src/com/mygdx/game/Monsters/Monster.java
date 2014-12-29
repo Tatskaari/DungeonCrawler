@@ -11,4 +11,7 @@ public interface Monster {
     public Texture getTexture();
     public GridPoint2 getPosition();
     public Renderer getRenderer();
+    public void setPosition(GridPoint2 position);
+
+    public void attackPlayer();
 }
