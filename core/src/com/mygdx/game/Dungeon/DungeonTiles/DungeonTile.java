@@ -98,7 +98,9 @@ public abstract class DungeonTile {
         } else {
             for(Monster monster : GameHandler.dungeon.monsters) {
                 if(monster.getPosition().equals(pos)){
-                    return monster.isDead();
+                    if(!monster.isDead()){
+                        return false;
+                    }
                 }
             }
         }
@@ -119,7 +121,7 @@ public abstract class DungeonTile {
     public Monster getMonster() {
         for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
             Monster monster = GameHandler.dungeon.monsters.get(i);
-            if (monster.getPosition().equals(pos)){
+            if (monster.getPosition().equals(pos) && !monster.isDead()){
                 return monster;
             }
         }

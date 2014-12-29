@@ -10,6 +10,9 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
+import com.mygdx.game.Renderers.TokenRenderer;
+import com.mygdx.game.ResourceLoader;
+import com.mygdx.game.Tokens.Tokens;
 
 public class GameScreen implements Screen{
     private PlayerInputHandler inputHandler;
@@ -18,13 +21,17 @@ public class GameScreen implements Screen{
 
     public GameScreen() {
         GameHandler.dungeonGenerator = new DungeonGenerator();
-        GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(100, 100, 200);
+        GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
         GameHandler.player = new PlayerCharacter();
+        GameHandler.tokens = new Tokens();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
 
         inputHandler = new PlayerInputHandler(GameHandler.player);
         batch = new SpriteBatch();
+
+        GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
+        GameHandler.dungeon.monsters.add(GameHandler.player);
     }
 
     @Override
@@ -38,6 +45,8 @@ public class GameScreen implements Screen{
         batch.begin();
         GameHandler.dungeon.renderer.render(delta, batch);
         GameHandler.player.renderer.render(delta, batch);
+        GameHandler.tokens.renderer.render(delta, batch);
+
         batch.end();
     }
 

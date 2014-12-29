@@ -8,10 +8,12 @@ import com.mygdx.game.Monsters.Monster;
 public class MonsterRenderer extends Renderer{
     private Monster monster;
     private int tileSize;
+    private HealthBarRenderer healthBarRenderer;
 
     public MonsterRenderer(Monster monster){
         this.monster = monster;
         tileSize = GameHandler.dungeon.getTileSize();
+        healthBarRenderer = new HealthBarRenderer(monster);
     }
 
     @Override
@@ -20,6 +22,7 @@ public class MonsterRenderer extends Renderer{
             GridPoint2 pos = monster.getPosition();
             if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
                 batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+                healthBarRenderer.render(delta, batch);
             }
         }
     }

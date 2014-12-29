@@ -6,12 +6,14 @@ import com.mygdx.game.Renderers.Renderer;
 
 public interface Monster {
     public void act();
-    public void beAttacked();
+    public void beAttacked(int damage);
     public boolean isDead();
+    public int getHealth();
+    public int getMaxHealth();
     public Texture getTexture();
     public GridPoint2 getPosition();
     public Renderer getRenderer();
-    public void setPosition(GridPoint2 position);
+    public boolean moveTo(GridPoint2 position);
 
-    public void attackPlayer();
+    public void attack(Monster monster);
 }

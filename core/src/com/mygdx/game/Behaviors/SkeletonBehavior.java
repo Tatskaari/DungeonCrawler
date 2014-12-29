@@ -47,7 +47,7 @@ public abstract class SkeletonBehavior extends Behavior{
         } else if (path.size > 0) {
             AstarNode node = path.peek();
             if(GameHandler.dungeon.isTilePassable(node.getPosition())){
-                monster.setPosition(node.getPosition());
+                monster.moveTo(node.getPosition());
                 path.pop();
             }
         }

@@ -60,8 +60,7 @@ public abstract class Behavior {
 
     public void moveMonsterAlongPath(Monster monster, Array<AstarNode> path){
         AstarNode node = path.peek();
-        if(GameHandler.dungeon.isTilePassable(node.getPosition())){
-            monster.setPosition(node.getPosition());
+        if(monster.moveTo(node.getPosition())){
             path.pop();
         }
     }

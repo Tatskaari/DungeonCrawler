@@ -58,6 +58,7 @@ public class DevInputHandler extends InputAdapter {
         if (keyCode == Input.Keys.G){
             GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon();
             GameHandler.player.placeCharacterIn(GameHandler.dungeon);
+            GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
             return true;
         }
         if (keyCode == Input.Keys.R){

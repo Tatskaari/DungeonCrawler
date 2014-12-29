@@ -28,7 +28,7 @@ public class SkeletonAttackPlayerBehavior extends Behavior {
         }
 
         if (isPlayerAdjacent(monster.getPosition())){
-            monster.attackPlayer();
+            monster.attack(GameHandler.player);
         } else {
             moveTowardsPlayer();
         }

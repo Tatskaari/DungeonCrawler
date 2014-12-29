@@ -25,6 +25,9 @@ public class Dungeon {
     private int tileSize;
     private float[][] LineOfSightResMap;
 
+    protected DungeonRoom startRoom;
+    protected DungeonRoom endRoom;
+
     public Dungeon(int mapWidth, int mapHeight, int tileSize){
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
@@ -128,5 +131,13 @@ public class Dungeon {
 
     public float[][] getLineOfSightResMap(){
         return LineOfSightResMap;
+    }
+
+    public DungeonRoom getStartRoom() {
+        return startRoom;
+    }
+
+    public DungeonRoom getEndRoom() {
+        return endRoom;
     }
 }

@@ -15,7 +15,6 @@ public class DungeonGenerator {
     private int roomMaxSize = 15;
     private int roomMinSize = 7;
 
-
     private Dungeon dungeon;
     private int requestedRoomCount;
     private int requestedMapWidth;
@@ -33,14 +32,27 @@ public class DungeonGenerator {
 
         placeRooms(roomCount);
         placeCorridors();
+
+        int startRoom = MathUtils.random(dungeon.getRoomCount()-1);
+        dungeon.startRoom = dungeon.getDungeonRoom(startRoom);
+
         dungeon.updateLineOfSightResistanceMap();
 
         return dungeon;
     }
 
+    public void spawnMonsters(int monsterCount) {
+        for (int i = 0; i < monsterCount; i++){
+            spawnMonster();
+        }
+    }
+
     public void spawnMonster() {
-        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-        DungeonRoom room = dungeon.getDungeonRoom(roomIndex);
+        DungeonRoom room = getRandomNotStartDungeonRoom();
+        spawnMonsterInRoom(room);
+    }
+
+    public void spawnMonsterInRoom(DungeonRoom room) {
         Skeleton skeleton = new Skeleton(getRandomTileInRoom(room));
         dungeon.monsters.add(skeleton);
     }
@@ -76,7 +88,7 @@ public class DungeonGenerator {
     public boolean addRoom(int x, int y, int width, int height){
         boolean roomCanBeAdded = roomFits(x, y, width, height);
         if (roomCanBeAdded) {
-            dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height));
+            dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height, dungeon.getRoomCount()));
 
             for(int i = x+1; i < x + width-1; i++){
                 for(int j = y+1; j < y + height-1; j++) {
@@ -186,6 +198,13 @@ public class DungeonGenerator {
         return tilePosition;
     }
 
+    private DungeonRoom getRandomNotStartDungeonRoom(){
+        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+        while (roomIndex == dungeon.startRoom.getRoomNumber()){
+            roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+        }
+        return dungeon.getDungeonRoom(roomIndex);
+    }
 
     private boolean addCorridorTile(GridPoint2 pos, int direction){
         GridPoint2 nextPos;
@@ -254,5 +273,4 @@ public class DungeonGenerator {
             }
         }
     }
-
 }

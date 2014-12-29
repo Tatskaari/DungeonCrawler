@@ -17,17 +17,17 @@ public class PlayerInputHandler extends InputAdapter {
     @Override
     public boolean keyDown(int keyCode){
         GridPoint2 position = player.getPosition();
-        if(keyCode == Input.Keys.W){
-            player.moveToPos(new GridPoint2(position.x, position.y+1));
+        if(keyCode == Input.Keys.W || keyCode == Input.Keys.UP){
+            player.moveTo(new GridPoint2(position.x, position.y+1));
         }
-        if(keyCode == Input.Keys.S){
-            player.moveToPos(new GridPoint2(position.x, position.y - 1));
+        if(keyCode == Input.Keys.S || keyCode == Input.Keys.DOWN){
+            player.moveTo(new GridPoint2(position.x, position.y-1));
         }
-        if(keyCode == Input.Keys.D){
-            player.moveToPos(new GridPoint2(position.x + 1, position.y));
+        if(keyCode == Input.Keys.D || keyCode == Input.Keys.RIGHT){
+            player.moveTo(new GridPoint2(position.x+1, position.y));
         }
-        if(keyCode == Input.Keys.A){
-            player.moveToPos(new GridPoint2(position.x - 1, position.y));
+        if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
+            player.moveTo(new GridPoint2(position.x-1, position.y));
         }
         if(keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(new DevScreen(MyGdxGame.myGdxGame.getScreen()));
