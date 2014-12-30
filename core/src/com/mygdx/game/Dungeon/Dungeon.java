@@ -2,7 +2,6 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
 import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.AstarNode;

@@ -68,6 +68,9 @@ public class DevInputHandler extends InputAdapter {
         if (keyCode == Input.Keys.S){
             GameHandler.dungeonGenerator.spawnMonster();
         }
+        if (keyCode == Input.Keys.N){
+            GameHandler.stepTurn();
+        }
         return false;
     }
 }

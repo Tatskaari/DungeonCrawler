@@ -1,6 +1,7 @@
 package com.mygdx.game.Behaviors;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.GameHandler;
@@ -18,7 +19,6 @@ public class SkeletonWanderBehavior extends Behavior {
     private GridPoint2 pathTarget;
     private Array<AstarNode> path;
     private int actCountdown = 0;
-    private GridPoint2 randomTileInClosestRoom;
     private DungeonRoom dungeonRoom;
 
     public SkeletonWanderBehavior(Monster monster) {
@@ -29,9 +29,10 @@ public class SkeletonWanderBehavior extends Behavior {
 
     @Override
     public Behavior act() {
-        if(canSeePlayerFrom(monster.getPosition())){
-            return new SkeletonAttackPlayerBehavior(monster);
+        if (MathUtils.randomBoolean(0.1f)){
+            return new SkeletonFindPlayerBehavior(monster);
         }
+
         if(actCountdown == 0){
             wander();
         } else {

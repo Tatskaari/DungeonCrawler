@@ -2,9 +2,10 @@ package com.mygdx.game.Dungeon.DungeonTiles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.ResourceLoader;
 
-public class WallDungeonTile extends DungeonTile{
+public class WallDungeonTile extends DungeonTile {
     public WallDungeonTile(GridPoint2 pos) {
         super(pos);
     }

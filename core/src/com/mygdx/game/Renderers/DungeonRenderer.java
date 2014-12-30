@@ -2,7 +2,7 @@ package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonTiles.DungeonTile;
+import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.Monsters.Monster;
 
 public class DungeonRenderer extends Renderer{

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Behaviors.Behavior;
+import com.mygdx.game.Behaviors.SkeletonAttackPlayerBehavior;
 import com.mygdx.game.Behaviors.SkeletonWanderBehavior;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Renderers.MonsterRenderer;
@@ -84,6 +85,9 @@ public class Skeleton implements Monster{
 
     @Override
     public void act() {
+        if(Behavior.canSeePlayerFrom(getPosition())){
+            behavior = new SkeletonAttackPlayerBehavior(this);
+        }
         behavior = behavior.act();
     }
 }

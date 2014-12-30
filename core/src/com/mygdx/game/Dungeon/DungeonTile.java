@@ -21,7 +21,6 @@ public abstract class DungeonTile {
     public static final int CORRIDOR_FLOOR = 50;
     public static final int CORRIDOR_WALL = 60;
 
-    private static Bresenham2 bresenham = new Bresenham2();
 
     private boolean tileHasBeenVisible = false;
 
@@ -51,7 +50,7 @@ public abstract class DungeonTile {
         if(!isPassable()){
             return 100000;
         } else if (hasMonster()) {
-            return 100;
+            return 10000;
         } else {
             return 5;
         }

@@ -2,6 +2,7 @@ package com.mygdx.game.Dungeon.DungeonTiles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.DungeonTile;
 
 public class EmptyDungeonTile extends DungeonTile {
     public EmptyDungeonTile(GridPoint2 pos) {

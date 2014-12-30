@@ -9,6 +9,7 @@ import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
+import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 
 import java.awt.*;
 
@@ -28,7 +29,7 @@ public abstract class Behavior {
     public Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint){
         Array<AstarNode> path;
 
-        Astar astar = new Astar();
+        Astar astar = new Astar(new CrowFliesHeuristic());
         Array<Array<AstarNode>> astarGraph = GameHandler.dungeon.getAstarGraph();
 
         AstarNode startNode = astarGraph.get(startPoint.x).get(startPoint.y);
@@ -49,7 +50,7 @@ public abstract class Behavior {
         return tilePosition;
     }
 
-    public boolean canSeePlayerFrom(GridPoint2 pos){
+    public static boolean canSeePlayerFrom(GridPoint2 pos){
         return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
     }
 
@@ -58,10 +59,12 @@ public abstract class Behavior {
         return getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
     }
 
-    public void moveMonsterAlongPath(Monster monster, Array<AstarNode> path){
+    public boolean moveMonsterAlongPath(Monster monster, Array<AstarNode> path){
         AstarNode node = path.peek();
         if(monster.moveTo(node.getPosition())){
             path.pop();
+            return true;
         }
+        return false;
     }
 }
