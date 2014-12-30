@@ -3,31 +3,29 @@ package com.mygdx.game.Monsters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Behaviors.Behavior;
-import com.mygdx.game.Behaviors.DeadBehavior;
-import com.mygdx.game.Behaviors.SkeletonAttackPlayerBehavior;
-import com.mygdx.game.Behaviors.SkeletonWanderBehavior;
+import com.mygdx.game.Behaviors.*;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Tokens.DamageToken;
 
-public class Skeleton implements Monster{
+/**
+ * Created by jony1710 on 30/12/2014.
+ */
+public class Rat implements Monster {
     private GridPoint2 position;
     private int health;
-    private int maxHealth = 10;
+    private int maxHealth = 5;
     private Behavior behavior;
     private int minDamage = 0;
-    private int maxDamage = 5;
+    private int maxDamage = 3;
+    private Renderer renderer;
 
-    public Renderer renderer;
-
-    public Skeleton(GridPoint2 position){
+    public Rat(GridPoint2 position){
         renderer = new MonsterRenderer(this);
         this.position = position;
-        behavior = new SkeletonWanderBehavior(this);
+        behavior = new SkeletonFindPlayerBehavior(this);
         health = maxHealth;
     }
 
@@ -73,7 +71,7 @@ public class Skeleton implements Monster{
 
     @Override
     public Texture getTexture() {
-        return ResourceLoader.skeleton;
+        return ResourceLoader.rat;
     }
 
     @Override
@@ -83,6 +81,7 @@ public class Skeleton implements Monster{
 
     @Override
     public Renderer getRenderer() {
+
         return renderer;
     }
 

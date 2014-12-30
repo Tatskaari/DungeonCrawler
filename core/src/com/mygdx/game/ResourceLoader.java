@@ -18,6 +18,7 @@ public abstract class ResourceLoader {
     //Fonts
     public static BitmapFont defaultFont;
     public static BitmapFont damageFont;
+    public static Texture rat;
 
     public static void loadResources(){
         loadTextures();
@@ -31,6 +32,7 @@ public abstract class ResourceLoader {
         doorVertical = new Texture("res/door-vertical.png");
         player = new Texture("res/player.png");
         skeleton = new Texture("res/skeleton.png");
+        rat = new Texture("res/rat.png");
     }
 
     public static void loadFonts(){

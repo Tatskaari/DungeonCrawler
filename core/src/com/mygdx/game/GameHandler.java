@@ -19,9 +19,7 @@ public class GameHandler {
     private static void actMonsters(){
        for(int i = 0; i < dungeon.monsters.size; i++){
            Monster monster = dungeon.monsters.get(i);
-           if (!monster.isDead()){
-               monster.act();
-           }
+           monster.act();
        }
     }
 }

@@ -10,6 +10,7 @@ public interface Monster {
     public boolean isDead();
     public int getHealth();
     public int getMaxHealth();
+    public void setHealth(int health);
     public Texture getTexture();
     public GridPoint2 getPosition();
     public Renderer getRenderer();

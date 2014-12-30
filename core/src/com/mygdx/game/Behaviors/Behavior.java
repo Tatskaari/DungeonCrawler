@@ -60,6 +60,9 @@ public abstract class Behavior {
     }
 
     public boolean moveMonsterAlongPath(Monster monster, Array<AstarNode> path){
+        if (path.size == 0){
+            return false;
+        }
         AstarNode node = path.peek();
         if(monster.moveTo(node.getPosition())){
             path.pop();

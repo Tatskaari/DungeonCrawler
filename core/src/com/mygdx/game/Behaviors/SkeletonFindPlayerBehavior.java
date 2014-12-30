@@ -3,6 +3,7 @@ package com.mygdx.game.Behaviors;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.AstarNode;
 
@@ -20,6 +21,7 @@ public class SkeletonFindPlayerBehavior extends Behavior {
         this.monster = monster;
         targetPoint = new GridPoint2();
         pathTarget = new GridPoint2();
+        path = new Array<AstarNode>();
         getNewPath();
     }
 
@@ -31,7 +33,6 @@ public class SkeletonFindPlayerBehavior extends Behavior {
             }
             getNewPath();
         }
-
         if (!moveMonsterAlongPath(monster, path)){
             getNewPath();
         }
@@ -47,8 +48,8 @@ public class SkeletonFindPlayerBehavior extends Behavior {
             potentialTarget = getRandomTileInAnyRoom();
             potentialPath = generateNewPathBetween(monster.getPosition(), potentialTarget);
             tries++;
-            if (tries > 10){
-                System.out.println("Getting a new path in find player failed after 10 tries");
+            if (tries > GameHandler.dungeon.getRoomCount()*2){
+                return;
             }
         }
 

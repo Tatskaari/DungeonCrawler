@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
+import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Monsters.Rat;
 import com.mygdx.game.Monsters.Skeleton;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
@@ -42,6 +44,7 @@ public class DungeonGenerator {
     }
 
     public void spawnMonsters(int monsterCount) {
+
         for (int i = 0; i < monsterCount; i++){
             spawnMonster();
         }
@@ -53,8 +56,18 @@ public class DungeonGenerator {
     }
 
     public void spawnMonsterInRoom(DungeonRoom room) {
-        Skeleton skeleton = new Skeleton(getRandomTileInRoom(room));
-        dungeon.monsters.add(skeleton);
+        GridPoint2 pos = getRandomTileInRoom(room);
+        Monster monster = getRandomMonsterType(pos);
+        dungeon.monsters.add(monster);
+    }
+
+    private Monster getRandomMonsterType(GridPoint2 position){
+        float roll = MathUtils.random();
+        if (roll < 0.2){
+            return new Skeleton(position);
+        }else {
+            return new Rat(position);
+        }
     }
 
     public void placeRooms(int roomCount){

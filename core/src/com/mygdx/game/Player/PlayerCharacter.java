@@ -112,4 +112,9 @@ public class PlayerCharacter implements Monster {
     public int getMaxHealth(){
         return maxHealth;
     }
+
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
