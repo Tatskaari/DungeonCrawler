@@ -13,9 +13,6 @@ import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 
 import java.awt.*;
 
-/**
- * Created by jony1710 on 28/12/2014.
- */
 public abstract class Behavior {
 
     public abstract Behavior act();
@@ -52,6 +49,16 @@ public abstract class Behavior {
 
     public static boolean canSeePlayerFrom(GridPoint2 pos){
         return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+    }
+
+    public GridPoint2 getRandomNonVisibleTileInAnyRoom(){
+        int roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
+        GridPoint2 tilePos = getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
+        while(GameHandler.dungeon.getDungeonTile(tilePos).isVisible()){
+            roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
+            tilePos = getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
+        }
+        return tilePos;
     }
 
     public GridPoint2 getRandomTileInAnyRoom() {

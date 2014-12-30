@@ -10,9 +10,6 @@ import com.mygdx.game.PathFinding.AstarNode;
 
 import java.awt.*;
 
-/**
- * Created by jony1710 on 29/12/2014.
- */
 public class SkeletonWanderBehavior extends Behavior {
     private Monster monster;
     private GridPoint2 targetPoint;

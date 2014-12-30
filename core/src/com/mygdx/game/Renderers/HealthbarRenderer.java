@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Monsters.Monster;
 
-/**
- * Created by jony1710 on 29/12/2014.
- */
 public class HealthBarRenderer extends Renderer {
     private int tileSize;
     private ShapeRenderer shapeRenderer;

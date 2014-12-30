@@ -15,7 +15,6 @@ public class Dungeon {
     public static final int WEST = 4;
 
     public Renderer renderer;
-    public Renderer devRenderer;
     public Array<Monster> monsters;
 
     private DungeonTile[][] map;

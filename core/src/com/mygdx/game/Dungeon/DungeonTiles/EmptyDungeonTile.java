@@ -40,6 +40,11 @@ public class EmptyDungeonTile extends DungeonTile {
     }
 
     @Override
+    public boolean isVisible(){
+        return false;
+    }
+
+    @Override
     public float getVisibilityLevel(){
         return 0;
     }

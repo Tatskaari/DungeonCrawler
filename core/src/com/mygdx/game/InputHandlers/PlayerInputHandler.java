@@ -16,23 +16,33 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyDown(int keyCode){
-        GridPoint2 position = player.getPosition();
-        if(keyCode == Input.Keys.W || keyCode == Input.Keys.UP){
-            player.moveTo(new GridPoint2(position.x, position.y+1));
-        }
-        if(keyCode == Input.Keys.S || keyCode == Input.Keys.DOWN){
-            player.moveTo(new GridPoint2(position.x, position.y-1));
-        }
-        if(keyCode == Input.Keys.D || keyCode == Input.Keys.RIGHT){
-            player.moveTo(new GridPoint2(position.x+1, position.y));
-        }
-        if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
-            player.moveTo(new GridPoint2(position.x-1, position.y));
-        }
         if(keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(new DevScreen(MyGdxGame.myGdxGame.getScreen()));
+            return true;
         }
 
-        return true;
+        return checkDpadDown(keyCode);
+    }
+
+    public boolean checkDpadDown(int keyCode){
+        GridPoint2 position = player.getPosition();
+        if(keyCode == Input.Keys.W || keyCode == Input.Keys.UP){
+            position.y++;
+        }
+        else if(keyCode == Input.Keys.S || keyCode == Input.Keys.DOWN){
+            position.y--;
+        }
+        else if(keyCode == Input.Keys.D || keyCode == Input.Keys.RIGHT){
+            position.x++;
+        }
+        else if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
+            position.x--;
+        }
+        if (position.equals(player.getPosition())){
+            return false;
+        } else {
+            player.moveTo(position);
+            return true;
+        }
     }
 }

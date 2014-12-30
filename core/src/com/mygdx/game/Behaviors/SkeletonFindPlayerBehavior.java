@@ -7,9 +7,6 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.AstarNode;
 
-/**
- * Created by jony1710 on 29/12/2014.
- */
 public class SkeletonFindPlayerBehavior extends Behavior {
     private Monster monster;
     private float pathCostThreshold = 50000;
