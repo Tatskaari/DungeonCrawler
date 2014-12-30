@@ -7,9 +7,9 @@ import com.mygdx.game.Dungeon.DungeonTiles.*;
 import com.mygdx.game.Monsters.Skeleton;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
+import com.mygdx.game.PathFinding.CrowFliesHeuristic;
+import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.ResourceLoader;
-
-import java.awt.*;
 
 public class DungeonGenerator {
     private int roomMaxSize = 15;
@@ -129,7 +129,7 @@ public class DungeonGenerator {
         startPoint = getRandomTileInRoom(startRoom);
         endPoint = getRandomTileInRoom(endRoom);
 
-        Astar astar = new Astar();
+        Astar astar = new Astar(new GridBasedHeuristic());
         Array<Array<AstarNode>> dungeonAsGraph = getDungeonAsAstarNodeGraph();
         Array<AstarNode> path = astar.getPath(dungeonAsGraph, dungeonAsGraph.get(startPoint.x).get(startPoint.y), dungeonAsGraph.get(endPoint.x).get(endPoint.y));
 

@@ -3,6 +3,12 @@ package com.mygdx.game.PathFinding;
 import com.badlogic.gdx.utils.Array;
 
 public class Astar {
+    AstarHeuristic heuristic;
+
+    public Astar(AstarHeuristic heuristic){
+        this.heuristic = heuristic;
+    }
+
     public Array<AstarNode> getPath(Array<Array<AstarNode>> graph, AstarNode startNode, AstarNode endNode){
         Array<AstarNode> openSet = new Array<AstarNode>();
         Array<AstarNode> closedSet = new Array<AstarNode>();
@@ -29,7 +35,7 @@ public class Astar {
                 if(!openSet.contains(neighbor, true) || neighbor.gScore > tentativeGScore){
                     neighbor.prevNodeInPath = workingNode;
                     neighbor.gScore = tentativeGScore;
-                    neighbor.fScore = neighbor.gScore + costEstimate(neighbor, endNode);
+                    neighbor.fScore = neighbor.gScore + heuristic.costEstimate(neighbor, endNode);
                     if (!openSet.contains(neighbor, true)){
                         openSet.add(neighbor);
                     }
@@ -37,10 +43,6 @@ public class Astar {
             }
         }
         return null;
-    }
-
-    private int costEstimate(AstarNode node, AstarNode endNode){
-        return Math.abs(node.x - endNode.x) + Math.abs(node.y - endNode.y);
     }
 
     private AstarNode getLowestFscore(Array<AstarNode> openSet){

@@ -1,4 +1,4 @@
-package com.mygdx.game.Dungeon.DungeonTiles;
+package com.mygdx.game.Dungeon;
 
 
 import com.badlogic.gdx.graphics.Texture;
