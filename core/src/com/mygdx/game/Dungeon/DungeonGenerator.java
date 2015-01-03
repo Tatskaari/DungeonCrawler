@@ -4,12 +4,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
-import com.mygdx.game.Monsters.Monster;
-import com.mygdx.game.Monsters.Rat;
-import com.mygdx.game.Monsters.Skeleton;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.Rat;
+import com.mygdx.game.Characters.Skeleton;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
-import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.ResourceLoader;
 
@@ -57,11 +56,11 @@ public class DungeonGenerator {
 
     public void spawnMonsterInRoom(DungeonRoom room) {
         GridPoint2 pos = getRandomTileInRoom(room);
-        Monster monster = getRandomMonsterType(pos);
-        dungeon.monsters.add(monster);
+        NonPlayerCharacterEntity character = getRandomMonsterType(pos);
+        dungeon.monsters.add(character);
     }
 
-    private Monster getRandomMonsterType(GridPoint2 position){
+    private NonPlayerCharacterEntity getRandomMonsterType(GridPoint2 position){
         float roll = MathUtils.random();
         if (roll < 0.2){
             return new Skeleton(position);

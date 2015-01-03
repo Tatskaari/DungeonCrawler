@@ -3,7 +3,7 @@ package com.mygdx.game.Renderers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
 
 public class DungeonRenderer extends Renderer{
     private Dungeon dungeon;
@@ -22,8 +22,8 @@ public class DungeonRenderer extends Renderer{
             }
         }
 
-        for (Monster monster : dungeon.monsters){
-            monster.getRenderer().render(delta,batch);
+        for (CharacterEntity characterEntity : dungeon.monsters){
+            characterEntity.getRenderer().render(delta,batch);
         }
     }
     @Override
@@ -35,8 +35,8 @@ public class DungeonRenderer extends Renderer{
             }
         }
 
-        for (Monster monster : dungeon.monsters){
-            monster.getRenderer().devRender(delta, batch);
+        for (CharacterEntity characterEntity : dungeon.monsters){
+            characterEntity.getRenderer().devRender(delta, batch);
         }
     }
 

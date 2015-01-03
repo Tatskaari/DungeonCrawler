@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
 
 public class HealthBarRenderer extends Renderer {
     private int tileSize;
@@ -14,10 +15,10 @@ public class HealthBarRenderer extends Renderer {
     private Rectangle redRect;
     private Rectangle greenRect;
 
-    private Monster monster;
+    private NonPlayerCharacterEntity characterEntity;
 
 
-    public HealthBarRenderer(Monster monster){
+    public HealthBarRenderer(NonPlayerCharacterEntity characterEntity){
         tileSize = GameHandler.dungeon.getTileSize();
         shapeRenderer = new ShapeRenderer();
 
@@ -28,7 +29,7 @@ public class HealthBarRenderer extends Renderer {
         greenRect = new Rectangle();
         greenRect.setHeight(2);
 
-        this.monster = monster;
+        this.characterEntity = characterEntity;
     }
 
     @Override
@@ -36,12 +37,12 @@ public class HealthBarRenderer extends Renderer {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        Vector2 monsterPos = new Vector2(monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        Vector2 monsterPos = new Vector2(characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
 
         redRect.setPosition(monsterPos);
         greenRect.setPosition(monsterPos);
 
-        greenRect.setWidth(((float)monster.getHealth() / (float)monster.getMaxHealth()) * tileSize);
+        greenRect.setWidth(((float) characterEntity.getHealth() / (float) characterEntity.getMaxHealth()) * tileSize);
 
         batch.end();
 

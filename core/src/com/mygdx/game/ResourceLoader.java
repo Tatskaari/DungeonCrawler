@@ -14,11 +14,13 @@ public abstract class ResourceLoader {
     public static Texture doorVertical;
     public static Texture player;
     public static Texture skeleton;
+    public static Texture rat;
 
     //Fonts
     public static BitmapFont defaultFont;
     public static BitmapFont damageFont;
-    public static Texture rat;
+    public static BitmapFont expFont;
+
 
     public static void loadResources(){
         loadTextures();
@@ -41,6 +43,10 @@ public abstract class ResourceLoader {
         damageFont = new BitmapFont();
         damageFont.setColor(1, 0, 0, 1);
         damageFont.setScale(0.4f);
+
+        expFont = new BitmapFont();
+        expFont.setColor(0, 1, 0, 1);
+        expFont.setScale(0.6f);
     }
 
     public static void dispose() {

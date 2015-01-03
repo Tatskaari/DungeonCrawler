@@ -1,20 +1,17 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.DungeonGenerator;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Player.PlayerCharacter;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
-import com.mygdx.game.Renderers.TokenRenderer;
-import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Tokens.Tokens;
 
-public class GameScreen implements Screen{
+public class GameScreen extends ScreenAdapter {
     private PlayerInputHandler inputHandler;
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -22,8 +19,9 @@ public class GameScreen implements Screen{
     public GameScreen() {
         GameHandler.dungeonGenerator = new DungeonGenerator();
         GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
-        GameHandler.player = new PlayerCharacter();
+        GameHandler.player = new PlayerCharacterEntity();
         GameHandler.tokens = new Tokens();
+
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
 
@@ -37,6 +35,7 @@ public class GameScreen implements Screen{
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         updateCamera();
         batch.setProjectionMatrix(camera.combined);
 
@@ -66,21 +65,6 @@ public class GameScreen implements Screen{
         camera.viewportWidth = width;
         camera.viewportHeight = height;
         camera.update();
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
     }
 
     @Override

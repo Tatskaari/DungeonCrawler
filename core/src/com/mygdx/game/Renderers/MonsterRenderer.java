@@ -2,35 +2,36 @@ package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
 
 public class MonsterRenderer extends Renderer{
-    private Monster monster;
+    private NonPlayerCharacterEntity characterEntity;
     private int tileSize;
     private HealthBarRenderer healthBarRenderer;
 
-    public MonsterRenderer(Monster monster){
-        this.monster = monster;
+    public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
+        this.characterEntity = characterEntity;
         tileSize = GameHandler.dungeon.getTileSize();
-        healthBarRenderer = new HealthBarRenderer(monster);
+        healthBarRenderer = new HealthBarRenderer(characterEntity);
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        if (!monster.isDead()){
-            GridPoint2 pos = monster.getPosition();
+        if (!characterEntity.isDead()){
+            GridPoint2 pos = characterEntity.getPosition();
             if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
-                batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+                batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
                 healthBarRenderer.render(delta, batch);
             }
         }
     }
     @Override
     public void devRender(float delta, SpriteBatch batch){
-        if (!monster.isDead()){
-            GridPoint2 pos = monster.getPosition();
-            batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        if (!characterEntity.isDead()){
+            GridPoint2 pos = characterEntity.getPosition();
+            batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
         }
     }
 }

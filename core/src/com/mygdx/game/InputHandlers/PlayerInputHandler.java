@@ -4,13 +4,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Player.PlayerCharacter;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
 
 public class PlayerInputHandler extends InputAdapter {
-    private PlayerCharacter player;
+    private PlayerCharacterEntity player;
 
-    public PlayerInputHandler(PlayerCharacter player){
+    public PlayerInputHandler(PlayerCharacterEntity player){
         this.player = player;
     }
 

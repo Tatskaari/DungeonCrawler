@@ -1,9 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.*;
-import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonGenerator;
-import com.mygdx.game.Player.PlayerCharacter;
 import com.mygdx.game.Screens.MainMenuScreen;
 
 public class MyGdxGame extends Game {

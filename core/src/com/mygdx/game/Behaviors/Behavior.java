@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.CrowFliesHeuristic;
@@ -66,12 +66,12 @@ public abstract class Behavior {
         return getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
     }
 
-    public boolean moveMonsterAlongPath(Monster monster, Array<AstarNode> path){
+    public boolean moveMonsterAlongPath(CharacterEntity characterEntity, Array<AstarNode> path){
         if (path.size == 0){
             return false;
         }
         AstarNode node = path.peek();
-        if(monster.moveTo(node.getPosition())){
+        if(characterEntity.moveTo(node.getPosition())){
             path.pop();
             return true;
         }

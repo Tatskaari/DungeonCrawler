@@ -2,8 +2,8 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Characters.*;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
-import com.mygdx.game.Monsters.Monster;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -15,7 +15,7 @@ public class Dungeon {
     public static final int WEST = 4;
 
     public Renderer renderer;
-    public Array<Monster> monsters;
+    public Array<CharacterEntity> monsters;
 
     private DungeonTile[][] map;
     private Array<DungeonRoom> dungeonRooms;
@@ -41,7 +41,7 @@ public class Dungeon {
         }
 
         dungeonRooms = new Array<DungeonRoom>();
-        monsters = new Array<Monster>();
+        monsters = new Array<CharacterEntity>();
     }
 
 

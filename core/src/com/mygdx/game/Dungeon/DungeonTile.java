@@ -2,13 +2,10 @@ package com.mygdx.game.Dungeon;
 
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Bresenham2;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
-import com.mygdx.game.Monsters.Monster;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Characters.CharacterEntity;
 
 import java.awt.*;
 
@@ -95,9 +92,9 @@ public abstract class DungeonTile {
         if(pos.equals(GameHandler.player.getPosition())){
             return false;
         } else {
-            for(Monster monster : GameHandler.dungeon.monsters) {
-                if(monster.getPosition().equals(pos)){
-                    if(!monster.isDead()){
+            for(CharacterEntity characterEntity : GameHandler.dungeon.monsters) {
+                if(characterEntity.getPosition().equals(pos)){
+                    if(!characterEntity.isDead()){
                         return false;
                     }
                 }
@@ -108,8 +105,8 @@ public abstract class DungeonTile {
 
     public boolean hasMonster() {
         for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            Monster monster = GameHandler.dungeon.monsters.get(i);
-            if (monster.getPosition().equals(pos)){
+            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+            if (characterEntity.getPosition().equals(pos)){
                 return true;
             }
         }
@@ -117,11 +114,11 @@ public abstract class DungeonTile {
         return false;
     }
 
-    public Monster getMonster() {
+    public CharacterEntity getMonster() {
         for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            Monster monster = GameHandler.dungeon.monsters.get(i);
-            if (monster.getPosition().equals(pos) && !monster.isDead()){
-                return monster;
+            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+            if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
+                return characterEntity;
             }
         }
 
