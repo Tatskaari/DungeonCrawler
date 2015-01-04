@@ -10,6 +10,9 @@ import com.mygdx.game.Characters.CharacterEntity;
 import java.awt.*;
 
 public abstract class DungeonTile {
+    private final int VIEW_DIST = 12;
+    private final float FOW_VISIBILITY = 0.4f;
+
     public static final int EMPTY = 0;
     public static final int FLOOR = 10;
     public static final int WALL = 20;
@@ -56,7 +59,9 @@ public abstract class DungeonTile {
     public float getVisibilityLevel() {
         if(isVisible()){
             tileHasBeenVisible = true;
-            return 1;
+            GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+            float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
+            return 1 - distance/(VIEW_DIST*2);
         } else {
             return getHasBeenVisibleVisibility();
         }
@@ -66,7 +71,7 @@ public abstract class DungeonTile {
         GridPoint2 playerGridPoint = GameHandler.player.getPosition();
 
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
-        if(distance > 12){
+        if(distance > VIEW_DIST){
             return false;
         }else if(distance < 1) {
             return true;
@@ -77,7 +82,7 @@ public abstract class DungeonTile {
 
     private float getHasBeenVisibleVisibility(){
         if(tileHasBeenVisible){
-            return 0.5f;
+            return FOW_VISIBILITY;
         }
         else{
             return 0;
