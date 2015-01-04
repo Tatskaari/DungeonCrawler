@@ -1,0 +1,67 @@
+res.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+door-horizontal
+  rotate: false
+  xy: 1, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+door-vertical
+  rotate: false
+  xy: 27, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+floor
+  rotate: false
+  xy: 53, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 79, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+rat
+  rotate: false
+  xy: 105, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+skeleton
+  rotate: false
+  xy: 131, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+stairs-down
+  rotate: false
+  xy: 157, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+stairs-up
+  rotate: false
+  xy: 183, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 209, 1
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1

@@ -1,6 +1,5 @@
 package com.mygdx.game.Dungeon;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -23,7 +22,7 @@ public class DungeonGenerator {
     private int requestedMapWidth;
     private int requestedMapHeight;
 
-    public Dungeon generateDungeon() {
+    private Dungeon generateDungeon() {
         placeRooms(requestedRoomCount);
         placeCorridors();
 
@@ -37,7 +36,7 @@ public class DungeonGenerator {
     }
 
     public Dungeon regenerateDungeon(){
-        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, dungeon.getTileSize());
+        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
         dungeon.floorAbove = GameHandler.dungeon.floorAbove;
         dungeon.floorBelow = GameHandler.dungeon.floorBelow;
         dungeon.level = GameHandler.dungeon.level;
@@ -45,10 +44,10 @@ public class DungeonGenerator {
     }
 
     public Dungeon generateDungeonBelow(Dungeon parentDungeon){
-        requestedMapHeight = dungeon.getMapHeight();
-        requestedMapWidth = dungeon.getMapWidth();
+        requestedMapHeight = parentDungeon.getMapHeight();
+        requestedMapWidth = parentDungeon.getMapWidth();
 
-        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, dungeon.getTileSize(), dungeon);
+        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, parentDungeon);
 
         generateDungeon();
 
@@ -62,7 +61,7 @@ public class DungeonGenerator {
         requestedRoomCount = roomCount;
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
-        dungeon = new Dungeon(mapWidth, mapHeight, ResourceLoader.floor.getWidth());
+        dungeon = new Dungeon(mapWidth, mapHeight);
 
         return generateDungeon();
     }

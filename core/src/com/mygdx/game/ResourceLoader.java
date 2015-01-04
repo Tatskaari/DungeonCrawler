@@ -3,27 +3,29 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.awt.*;
 
 public abstract class ResourceLoader {
     //Textures
-    public static Texture floor;
-    public static Texture wall;
-    public static Texture doorHorizontal;
-    public static Texture doorVertical;
-    public static Texture stairUp;
-    public static Texture stairDown;
-    public static Texture player;
-    public static Texture skeleton;
-    public static Texture rat;
+    public static TextureRegion floor;
+    public static TextureRegion wall;
+    public static TextureRegion doorHorizontal;
+    public static TextureRegion doorVertical;
+    public static TextureRegion stairsUp;
+    public static TextureRegion stairsDown;
+    public static TextureRegion player;
+    public static TextureRegion skeleton;
+    public static TextureRegion rat;
 
     //Fonts
     public static BitmapFont defaultFont;
     public static BitmapFont damageFont;
     public static BitmapFont expFont;
 
-
+    private static TextureAtlas resTextureAtlas;
 
     public static void loadResources(){
         loadTextures();
@@ -31,15 +33,17 @@ public abstract class ResourceLoader {
     }
 
     public static void loadTextures(){
-        floor = new Texture(Gdx.files.internal("res/floor.png"));
-        wall = new Texture(Gdx.files.internal("res/wall.png"));
-        doorHorizontal = new Texture(Gdx.files.internal("res/door-horizontal.png"));
-        doorVertical = new Texture(Gdx.files.internal("res/door-vertical.png"));
-        stairUp = new Texture(Gdx.files.internal("res/stairs-up.png"));
-        stairDown = new Texture(Gdx.files.internal("res/stairs-down.png"));
-        player = new Texture(Gdx.files.internal("res/player.png"));
-        skeleton = new Texture(Gdx.files.internal("res/skeleton.png"));
-        rat = new Texture(Gdx.files.internal("res/rat.png"));
+        resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.txt"));
+
+        floor = resTextureAtlas.findRegion("floor");
+        wall = resTextureAtlas.findRegion("wall");
+        doorHorizontal = resTextureAtlas.findRegion("door-horizontal");
+        doorVertical = resTextureAtlas.findRegion("door-vertical");
+        stairsUp = resTextureAtlas.findRegion("stairs-up");
+        stairsDown = resTextureAtlas.findRegion("stairs-down");
+        player = resTextureAtlas.findRegion("player");
+        skeleton = resTextureAtlas.findRegion("skeleton");
+        rat = resTextureAtlas.findRegion("rat");
     }
 
     public static void loadFonts(){
@@ -55,14 +59,13 @@ public abstract class ResourceLoader {
     }
 
     public static void dispose() {
-        floor.dispose();
-        wall.dispose();
-        doorVertical.dispose();
-        doorHorizontal.dispose();
-        player.dispose();
-        skeleton.dispose();
+        resTextureAtlas.dispose();
 
         defaultFont.dispose();
         damageFont.dispose();
+    }
+
+    public static int getTileSize(){
+        return floor.getRegionWidth();
     }
 }

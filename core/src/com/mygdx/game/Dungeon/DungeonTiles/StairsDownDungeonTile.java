@@ -1,6 +1,7 @@
 package com.mygdx.game.Dungeon.DungeonTiles;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.ResourceLoader;
@@ -12,8 +13,8 @@ public class StairsDownDungeonTile extends FloorDungeonTile {
     }
 
     @Override
-    public Texture getTileTexture() {
-        return ResourceLoader.stairDown;
+    public TextureRegion getTileTexture() {
+        return ResourceLoader.stairsDown;
     }
 
     @Override

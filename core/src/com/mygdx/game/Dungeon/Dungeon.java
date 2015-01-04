@@ -10,6 +10,7 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
+import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.GameScreen;
 
 public class Dungeon {
@@ -24,7 +25,6 @@ public class Dungeon {
     private DungeonTile[][] map;
     private Array<DungeonRoom> dungeonRooms;
     private int mapWidth, mapHeight;
-    private int tileSize;
     private float[][] LineOfSightResMap;
     protected int level;
 
@@ -35,10 +35,9 @@ public class Dungeon {
     protected DungeonRoom startRoom;
     protected DungeonRoom endRoom;
 
-    public Dungeon(int mapWidth, int mapHeight, int tileSize){
+    public Dungeon(int mapWidth, int mapHeight){
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.tileSize = tileSize;
 
         renderer = new DungeonRenderer(this);
 
@@ -55,8 +54,8 @@ public class Dungeon {
         level = 1;
     }
 
-    public Dungeon(int mapWidth, int mapHeight, int tileSize, Dungeon floorAbove) {
-        this(mapWidth, mapHeight, tileSize);
+    public Dungeon(int mapWidth, int mapHeight, Dungeon floorAbove) {
+        this(mapWidth, mapHeight);
         level = floorAbove.getLevel() + 1;
         this.floorAbove = floorAbove;
     }
@@ -90,10 +89,6 @@ public class Dungeon {
 
     public boolean isTilePassable(GridPoint2 pos){
         return map[pos.x+1][pos.y+1].isPassable();
-    }
-
-    public int getTileSize() {
-        return tileSize;
     }
 
     public DungeonTile getDungeonTile(GridPoint2 coord){

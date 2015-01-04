@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.ResourceLoader;
 
 public class MonsterRenderer extends Renderer{
     private NonPlayerCharacterEntity characterEntity;
@@ -14,7 +15,7 @@ public class MonsterRenderer extends Renderer{
 
     public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
         this.characterEntity = characterEntity;
-        tileSize = GameHandler.dungeon.getTileSize();
+        tileSize = ResourceLoader.getTileSize();
         healthBarRenderer = new HealthBarRenderer(characterEntity);
     }
 

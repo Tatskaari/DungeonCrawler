@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.ResourceLoader;
 
 public class HealthBarRenderer extends Renderer {
     private int tileSize;
@@ -19,7 +20,7 @@ public class HealthBarRenderer extends Renderer {
 
 
     public HealthBarRenderer(NonPlayerCharacterEntity characterEntity){
-        tileSize = GameHandler.dungeon.getTileSize();
+        tileSize = ResourceLoader.getTileSize();
         shapeRenderer = new ShapeRenderer();
 
         redRect = new Rectangle();

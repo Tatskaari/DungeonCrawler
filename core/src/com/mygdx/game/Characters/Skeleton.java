@@ -1,6 +1,7 @@
 package com.mygdx.game.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.ResourceLoader;
 
@@ -16,7 +17,7 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     }
 
     @Override
-    public Texture getTexture() {
+    public TextureRegion getTexture() {
         return ResourceLoader.skeleton;
     }
 

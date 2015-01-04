@@ -9,6 +9,7 @@ import com.mygdx.game.Dungeon.DungeonGenerator;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
+import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 
@@ -55,8 +56,8 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void updateCamera(){
-        camera.position.x = GameHandler.player.getPosition().x * GameHandler.dungeon.getTileSize();
-        camera.position.y = GameHandler.player.getPosition().y * GameHandler.dungeon.getTileSize();
+        camera.position.x = GameHandler.player.getPosition().x * ResourceLoader.getTileSize();
+        camera.position.y = GameHandler.player.getPosition().y * ResourceLoader.getTileSize();
         camera.update();
     }
 

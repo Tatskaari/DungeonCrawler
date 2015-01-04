@@ -2,6 +2,7 @@ package com.mygdx.game.Dungeon;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
@@ -36,7 +37,7 @@ public abstract class DungeonTile {
 
     public abstract int getTileType();
 
-    public abstract Texture getTileTexture();
+    public abstract TextureRegion getTileTexture();
 
     public GridPoint2 getPos(){
         return pos;

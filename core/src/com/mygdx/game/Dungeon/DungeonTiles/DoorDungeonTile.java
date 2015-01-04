@@ -1,13 +1,14 @@
 package com.mygdx.game.Dungeon.DungeonTiles;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.ResourceLoader;
 
 public class DoorDungeonTile extends DungeonTile {
     private int tileType;
-    private Texture texture;
+    private TextureRegion texture;
     public DoorDungeonTile(GridPoint2 pos, boolean isHorizontal) {
         super(pos);
         if(isHorizontal){
@@ -36,7 +37,7 @@ public class DoorDungeonTile extends DungeonTile {
     }
 
     @Override
-    public Texture getTileTexture() {
+    public TextureRegion getTileTexture() {
         return texture;
     }
 

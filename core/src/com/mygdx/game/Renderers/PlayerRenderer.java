@@ -12,7 +12,7 @@ public class PlayerRenderer extends Renderer {
 
     public PlayerRenderer(PlayerCharacterEntity player){
         this.player = player;
-        tileSize = GameHandler.dungeon.getTileSize();
+        tileSize = ResourceLoader.getTileSize();
     }
     @Override
     public void render(float delta, SpriteBatch batch) {

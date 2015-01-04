@@ -1,6 +1,7 @@
 package com.mygdx.game.Player;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
@@ -99,7 +100,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     @Override
-    public Texture getTexture() {
+    public TextureRegion getTexture() {
         return ResourceLoader.player;
     }
 }

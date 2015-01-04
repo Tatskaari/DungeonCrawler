@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.ResourceLoader;
 
 public class DungeonRenderer extends Renderer{
     private Dungeon dungeon;
@@ -11,7 +12,7 @@ public class DungeonRenderer extends Renderer{
 
     public DungeonRenderer(Dungeon dungeon){
         this.dungeon = dungeon;
-        tileSize = dungeon.getTileSize();
+        tileSize = ResourceLoader.getTileSize();
     }
 
     public void render(float delta, SpriteBatch batch){
@@ -51,7 +52,7 @@ public class DungeonRenderer extends Renderer{
 
     protected void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
-            batch.draw(tile.getTileTexture(), x * dungeon.getTileSize(), y * dungeon.getTileSize());
+            batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
         }
     }
 

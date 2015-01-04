@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
+import com.mygdx.game.ResourceLoader;
 
 public class DevScreen extends ScreenAdapter {
     private OrthographicCamera camera;
@@ -61,7 +62,7 @@ public class DevScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        int tileSize = GameHandler.dungeon.getTileSize();
+        int tileSize = ResourceLoader.getTileSize();
         Gdx.input.setInputProcessor(inputHandler);
         GridPoint2 playerPos = GameHandler.player.getPosition();
         camera.position.x = playerPos.x * tileSize;

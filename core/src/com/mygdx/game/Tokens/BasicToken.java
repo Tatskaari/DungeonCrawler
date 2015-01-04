@@ -3,7 +3,7 @@ package com.mygdx.game.Tokens;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.ResourceLoader;
 
 public abstract class BasicToken implements Token{
     protected Vector2 velocity = new Vector2();
@@ -12,7 +12,7 @@ public abstract class BasicToken implements Token{
     protected float age;
 
     public BasicToken(GridPoint2 position){
-        int tileSize = GameHandler.dungeon.getTileSize();
+        int tileSize = ResourceLoader.getTileSize();
 
         this.velocity = new Vector2(MathUtils.random(50.0f) - 25, 50);;
         this.position.x = (position.x+1) * tileSize - tileSize/2;

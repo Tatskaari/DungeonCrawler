@@ -1,6 +1,7 @@
 package com.mygdx.game.Dungeon.DungeonTiles;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.DungeonTile;
 
@@ -30,7 +31,7 @@ public class EmptyDungeonTile extends DungeonTile {
     }
 
     @Override
-    public Texture getTileTexture() {
+    public TextureRegion getTileTexture() {
         return null;
     }
 
