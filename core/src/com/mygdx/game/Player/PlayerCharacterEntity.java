@@ -17,13 +17,11 @@ import com.mygdx.game.Tokens.DamageToken;
 
 public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
-    private int tileSize;
 
     public Renderer renderer;
     public PlayerStatsHandler statsHandler;
 
     public PlayerCharacterEntity(){
-        tileSize = GameHandler.dungeon.getTileSize();
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler(this);
@@ -38,12 +36,22 @@ public class PlayerCharacterEntity implements CharacterEntity {
         position.y = MathUtils.random(room.getY()+1, room.getY()+room.getHeight()-2);
     }
 
+    public void placeAtStairsDown(){
+        DungeonTile stairsDown = GameHandler.dungeon.getStairsDownDungeonTile();
+        position.set(stairsDown.getPos());
+    }
+    public void placeAtStairsUp(){
+        DungeonTile stairsUp = GameHandler.dungeon.getStairsUpDungeonTile();
+        position.set(stairsUp.getPos());
+    }
+
     @Override
     public boolean moveTo(GridPoint2 newPosition) {
         DungeonTile tile = GameHandler.dungeon.getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
             GameHandler.stepTurn();
+            GameHandler.dungeon.getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
@@ -71,10 +79,6 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public Renderer getRenderer() {
         return renderer;
-    }
-
-    public int getTileSize() {
-        return tileSize;
     }
 
     @Override

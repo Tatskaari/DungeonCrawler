@@ -2,6 +2,7 @@ package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
@@ -11,7 +12,7 @@ public class PlayerRenderer extends Renderer {
 
     public PlayerRenderer(PlayerCharacterEntity player){
         this.player = player;
-        tileSize = player.getTileSize();
+        tileSize = GameHandler.dungeon.getTileSize();
     }
     @Override
     public void render(float delta, SpriteBatch batch) {

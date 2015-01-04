@@ -129,4 +129,8 @@ public abstract class DungeonTile {
 
         return null;
     }
+
+    public void onStep(){
+        return;
+    }
 }

@@ -53,7 +53,7 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel());
+        infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
         stage.act(delta);
         stage.draw();
     }

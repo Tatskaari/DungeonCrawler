@@ -4,9 +4,13 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.*;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
+import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
+import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
+import com.mygdx.game.Screens.GameScreen;
 
 public class Dungeon {
     public static final int NORTH = 1;
@@ -22,7 +26,12 @@ public class Dungeon {
     private int mapWidth, mapHeight;
     private int tileSize;
     private float[][] LineOfSightResMap;
+    protected int level;
 
+    protected StairsDownDungeonTile stairsDownDungeonTile;
+    protected StairsUpDungeonTile stairsUpDungeonTile;
+    protected Dungeon floorAbove;
+    protected Dungeon floorBelow;
     protected DungeonRoom startRoom;
     protected DungeonRoom endRoom;
 
@@ -42,6 +51,14 @@ public class Dungeon {
 
         dungeonRooms = new Array<DungeonRoom>();
         monsters = new Array<CharacterEntity>();
+
+        level = 1;
+    }
+
+    public Dungeon(int mapWidth, int mapHeight, int tileSize, Dungeon floorAbove) {
+        this(mapWidth, mapHeight, tileSize);
+        level = floorAbove.getLevel() + 1;
+        this.floorAbove = floorAbove;
     }
 
 
@@ -137,5 +154,29 @@ public class Dungeon {
 
     public DungeonRoom getEndRoom() {
         return endRoom;
+    }
+
+    public Dungeon getFloorAbove(){
+        return floorAbove;
+    }
+
+    public Dungeon getFloorBelow(){
+        if (floorBelow == null){
+            return floorBelow = GameHandler.dungeonGenerator.generateDungeonBelow(this);
+        } else {
+            return floorBelow;
+        }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public StairsDownDungeonTile getStairsDownDungeonTile() {
+        return stairsDownDungeonTile;
+    }
+
+    public StairsUpDungeonTile getStairsUpDungeonTile() {
+        return stairsUpDungeonTile;
     }
 }
