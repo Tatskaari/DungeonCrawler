@@ -3,13 +3,13 @@ package com.mygdx.game.UserInterface;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Utils.RangeValue;
 
 public class RangeBar extends Actor {
-    private Drawable progressBar;
+    private NinePatch progressBar;
     private RangeValue rangeValue;
     private BitmapFont font;
     private String prefixText;
@@ -18,7 +18,7 @@ public class RangeBar extends Actor {
     public Color emptyColor;
 
     public RangeBar(Skin skin, RangeValue rangeValue, String prefixText) {
-        progressBar = skin.getDrawable("default-round");
+        progressBar = skin.get("rounded.9", NinePatch.class);
         this.rangeValue = rangeValue;
         font = new BitmapFont();
         this.prefixText = prefixText;

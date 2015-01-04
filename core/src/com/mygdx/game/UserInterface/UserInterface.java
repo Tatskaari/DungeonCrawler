@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,10 +20,11 @@ public class UserInterface {
 
     private RangeBar healthBar;
     private RangeBar experienceBar;
-    private Label infoLabel;
+    //private Label infoLabel;
 
     public UserInterface(){
-        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        skin = new Skin();
+        skin.addRegions(new TextureAtlas("UI/UI.txt"));
         stage = new Stage();
         stage.setViewport(new ScreenViewport());
 
@@ -42,10 +44,10 @@ public class UserInterface {
         experienceBar.emptyColor = Color.GRAY;
         experienceBar.filledColor = Color.YELLOW;
 
-        infoLabel = new Label("", skin);
+        //infoLabel = new Label("", skin);
 
-        table.add(infoLabel);
-        table.row();
+        //table.add(infoLabel);
+        //table.row();
         table.add(healthBar);
         table.row();
         table.add(experienceBar);
@@ -53,7 +55,7 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
+        //infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
         stage.act(delta);
         stage.draw();
     }

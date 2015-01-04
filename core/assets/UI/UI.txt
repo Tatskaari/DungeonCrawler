@@ -1,0 +1,12 @@
+UI.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+rounded.9
+  rotate: false
+  xy: 2, 2
+  size: 12, 12
+  split: 3, 3, 3, 3
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
