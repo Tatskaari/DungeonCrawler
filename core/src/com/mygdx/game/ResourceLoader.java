@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.awt.*;
 
 public abstract class ResourceLoader {
-
     //Textures
     public static Texture floor;
     public static Texture wall;
@@ -29,7 +28,6 @@ public abstract class ResourceLoader {
     }
 
     public static void loadTextures(){
-        //floor = new Texture("res/floor.png");
         floor = new Texture(Gdx.files.internal("res/floor.png"));
         wall = new Texture(Gdx.files.internal("res/wall.png"));
         doorHorizontal = new Texture(Gdx.files.internal("res/door-horizontal.png"));

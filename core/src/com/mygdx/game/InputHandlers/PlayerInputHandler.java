@@ -37,6 +37,8 @@ public class PlayerInputHandler extends InputAdapter {
         }
         else if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
             position.x--;
+        } else if (keyCode == Input.Keys.X){
+            player.statsHandler.addExperience(1);
         }
         if (position.equals(player.getPosition())){
             return false;
