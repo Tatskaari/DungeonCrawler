@@ -12,7 +12,7 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
         setMaxHealth(10);
         setHealth(10);
 
-        setDamageRange(1, 5);
+        setDamageRange(1, 3);
     }
 
     @Override

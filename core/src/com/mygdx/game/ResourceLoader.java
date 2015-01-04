@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -28,13 +29,14 @@ public abstract class ResourceLoader {
     }
 
     public static void loadTextures(){
-        floor = new Texture("res/floor.png");
-        wall = new Texture("res/wall.png");
-        doorHorizontal = new Texture("res/door-horizontal.png");
-        doorVertical = new Texture("res/door-vertical.png");
-        player = new Texture("res/player.png");
-        skeleton = new Texture("res/skeleton.png");
-        rat = new Texture("res/rat.png");
+        //floor = new Texture("res/floor.png");
+        floor = new Texture(Gdx.files.internal("res/floor.png"));
+        wall = new Texture(Gdx.files.internal("res/wall.png"));
+        doorHorizontal = new Texture(Gdx.files.internal("res/door-horizontal.png"));
+        doorVertical = new Texture(Gdx.files.internal("res/door-vertical.png"));
+        player = new Texture(Gdx.files.internal("res/player.png"));
+        skeleton = new Texture(Gdx.files.internal("res/skeleton.png"));
+        rat = new Texture(Gdx.files.internal("res/rat.png"));
     }
 
     public static void loadFonts(){

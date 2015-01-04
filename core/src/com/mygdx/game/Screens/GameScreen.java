@@ -10,11 +10,13 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
 import com.mygdx.game.Tokens.Tokens;
+import com.mygdx.game.UserInterface.UserInterface;
 
 public class GameScreen extends ScreenAdapter {
     private PlayerInputHandler inputHandler;
     private SpriteBatch batch;
     private OrthographicCamera camera;
+    private UserInterface ui;
 
     public GameScreen() {
         GameHandler.dungeonGenerator = new DungeonGenerator();
@@ -30,6 +32,8 @@ public class GameScreen extends ScreenAdapter {
 
         GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
         GameHandler.dungeon.monsters.add(GameHandler.player);
+
+        ui = new UserInterface();
     }
 
     @Override
@@ -45,8 +49,9 @@ public class GameScreen extends ScreenAdapter {
         GameHandler.dungeon.renderer.render(delta, batch);
         GameHandler.player.renderer.render(delta, batch);
         GameHandler.tokens.renderer.render(delta, batch);
-
         batch.end();
+
+        ui.draw(delta);
     }
 
     public void updateCamera(){
@@ -65,6 +70,8 @@ public class GameScreen extends ScreenAdapter {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
         camera.update();
+
+        ui.resize(width, height);
     }
 
     @Override

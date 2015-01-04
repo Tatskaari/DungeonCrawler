@@ -13,7 +13,7 @@ public class Rat extends BasicNonPlayerCharacterEntity {
         setMaxHealth(5);
         setHealth(5);
 
-        setDamageRange(0, 3);
+        setDamageRange(0, 2);
     }
 
     @Override

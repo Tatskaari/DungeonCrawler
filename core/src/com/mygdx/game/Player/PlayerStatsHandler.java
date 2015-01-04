@@ -3,72 +3,69 @@ package com.mygdx.game.Player;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Tokens.LevelUpToken;
+import com.mygdx.game.Utils.RandomRangeValue;
+import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
-    private int maxHealth;
-    private int health;
-    private int maxDamage;
-    private int minDamage;
-    private int exp;
-    private int level;
+    protected final RangeValue healthRange;
+    protected final RandomRangeValue damage;
+    private RangeValue expRange;
+    private int level = 1;
 
     private PlayerCharacterEntity player;
 
     public PlayerStatsHandler(PlayerCharacterEntity player){
-        maxHealth = 30;
-        health = maxHealth;
-        minDamage = 1;
-        maxDamage = 5;
-        level = 1;
+        healthRange = new RangeValue(0, 50, 50);
+        expRange = new RangeValue(0, getNextLevelExp(), 0);
+        damage = new RandomRangeValue(0,5);
 
         this.player = player;
     }
 
     public void addExperience(int exp){
-        this.exp += exp;
-        if (this.exp >= getNextLevelExp()){
+        expRange.setValue(expRange.getValue() + exp);
+        if (expRange.getValue() >= expRange.getMax()){
             levelUp();
         }
     }
 
     private int getNextLevelExp(){
-        return MathUtils.ceil((16f * ((float) level / 2f)));
+        return MathUtils.ceil(level * 8 + (0.5f * level * level));
     }
 
     private void levelUp(){
+        expRange.setMin(getNextLevelExp());
         level++;
-        minDamage++;
-        maxDamage++;
-        health+=3;
-        maxHealth+=3;
+        expRange.setMax(getNextLevelExp());
+
+        damage.setMin(damage.getMin()+1);
+        damage.setMax(damage.getMax()+1);
+        healthRange.setMin(healthRange.getMin()+3);
+        healthRange.setMax(healthRange.getMax() + 3);
         GameHandler.tokens.addToken(new LevelUpToken(player.getPosition(), level));
     }
 
-    public int getMinDamage() {
-        return minDamage;
+    public RangeValue getHealthRange() {
+        return healthRange;
     }
 
-    public int getMaxDamage() {
-        return maxDamage;
+    public float getHealth() {
+        return healthRange.getValue();
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
+    public float getMaxHealth() {
+        return healthRange.getMax();
     }
 
     public void addToHealth(int healthDelta) {
-        health += healthDelta;
+        healthRange.setValue(healthRange.getValue() + healthDelta);
     }
 
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
+    public RangeValue getExperienceRange() {
+        return expRange;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public int getLevel() {
+        return level;
     }
 }

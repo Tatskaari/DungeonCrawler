@@ -14,7 +14,6 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
-import com.mygdx.game.Tokens.LevelUpToken;
 
 public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
@@ -56,7 +55,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void attack(CharacterEntity characterEntity) {
-        int damage = MathUtils.random(statsHandler.getMinDamage(), statsHandler.getMaxDamage());
+        int damage = (int) statsHandler.damage.getValue();
         characterEntity.beAttacked(damage);
     }
 
@@ -66,7 +65,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public boolean isDead() {
-        return statsHandler.getHealth() > 0;
+        return statsHandler.getHealth() <= 0;
     }
 
     @Override
