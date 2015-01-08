@@ -68,4 +68,8 @@ public abstract class ResourceLoader {
     public static int getTileSize(){
         return floor.getRegionWidth();
     }
+
+    public static TextureAtlas getResTextureAtlas(){
+        return resTextureAtlas;
+    }
 }
