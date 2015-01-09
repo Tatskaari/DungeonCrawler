@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.DungeonGenerator;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.InputHandlers.PlayerInputHandler;
 import com.mygdx.game.ResourceLoader;
@@ -17,6 +18,7 @@ import com.mygdx.game.UserInterface.UserInterface;
 public class GameScreen extends ScreenAdapter {
     private InputMultiplexer inputMultiplexer;
     private PlayerInputHandler playerInputHandler;
+    private GameInputHandler gameInputHandler;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private UserInterface ui;
@@ -31,6 +33,8 @@ public class GameScreen extends ScreenAdapter {
         camera.zoom = 0.5f;
 
         playerInputHandler = new PlayerInputHandler(GameHandler.player);
+        gameInputHandler = new GameInputHandler();
+
         batch = new SpriteBatch();
 
         GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
@@ -41,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(playerInputHandler);
         inputMultiplexer.addProcessor(ui.getInputProcessor());
+        inputMultiplexer.addProcessor(gameInputHandler);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,19 +33,22 @@ public class MainMenuScreen extends ScreenAdapter{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        renderText(0, 1, "You find yourself in an ancient sewer with nowhere to go but down.");
-        renderText(0,-1, "Click anywhere to descend!");
+        renderText(0, 6, "You find yourself in an ancient sewer with nowhere to go but down.");
+        renderText(0, 4, "Click anywhere to descend!");
         batch.end();
 
         if (Gdx.input.isTouched()) {
             MyGdxGame.myGdxGame.setScreen(new GameScreen());
             dispose();
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            Gdx.app.exit();
+        }
     }
 
     private void renderText(float xPos, float yPos, String text){
         BitmapFont.TextBounds bounds = ResourceLoader.titleFont.getBounds(text);
-        float lineHeight = bounds.height+2;
+        float lineHeight = bounds.height+5;
 
         xPos = (Gdx.graphics.getWidth()-bounds.width)/2 + lineHeight*xPos;
         yPos = (Gdx.graphics.getHeight()-bounds.height)/2 + lineHeight*yPos;

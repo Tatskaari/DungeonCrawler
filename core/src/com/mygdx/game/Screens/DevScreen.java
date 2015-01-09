@@ -1,6 +1,7 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
+import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.ResourceLoader;
 
 public class DevScreen extends ScreenAdapter {
@@ -20,7 +22,9 @@ public class DevScreen extends ScreenAdapter {
     }
 
     private Screen lastScreen;
-    private DevInputHandler inputHandler;
+    private GameInputHandler gameInputHandler;
+    private DevInputHandler davInputHandler;
+    private InputMultiplexer inputMultiplexer;
     private float zoomSpeed = 0.1f;
     private float minZoom = 0.2f;
     private float maxZoom = 10;
@@ -29,7 +33,12 @@ public class DevScreen extends ScreenAdapter {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         this.lastScreen = lastScreen;
-        inputHandler = new DevInputHandler(this);
+        davInputHandler = new DevInputHandler(this);
+        gameInputHandler = new GameInputHandler();
+        inputMultiplexer = new InputMultiplexer();
+
+        inputMultiplexer.addProcessor(davInputHandler);
+        inputMultiplexer.addProcessor(gameInputHandler);
         batch = new SpriteBatch();
     }
 
@@ -63,7 +72,7 @@ public class DevScreen extends ScreenAdapter {
     @Override
     public void show() {
         int tileSize = ResourceLoader.getTileSize();
-        Gdx.input.setInputProcessor(inputHandler);
+        Gdx.input.setInputProcessor(inputMultiplexer);
         GridPoint2 playerPos = GameHandler.player.getPosition();
         camera.position.x = playerPos.x * tileSize;
         camera.position.y = playerPos.y * tileSize;
