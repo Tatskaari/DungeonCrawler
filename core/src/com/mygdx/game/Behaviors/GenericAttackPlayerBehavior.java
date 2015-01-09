@@ -4,16 +4,15 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.PathFinding.AstarNode;
 
-public class SkeletonAttackPlayerBehavior extends Behavior {
+public class GenericAttackPlayerBehavior extends Behavior {
     private NonPlayerCharacterEntity character;
     private final GridPoint2 playersLastKnownPos;
     private Array<AstarNode> path;
     private final GridPoint2 pathTarget;
 
-    public SkeletonAttackPlayerBehavior(NonPlayerCharacterEntity character){
+    public GenericAttackPlayerBehavior(NonPlayerCharacterEntity character){
         this.character = character;
         path = new Array<AstarNode>();
         playersLastKnownPos = GameHandler.player.getPosition();
@@ -25,7 +24,7 @@ public class SkeletonAttackPlayerBehavior extends Behavior {
         if (canSeePlayerFrom(character.getPosition())){
             playersLastKnownPos.set(GameHandler.player.getPosition());
         }else if (!isPlayerPositionKnown()){
-            return new SkeletonWanderBehavior(character);
+            return new GenericWanderBehavior(character);
         }
 
         if (isPlayerAdjacent(character.getPosition())){

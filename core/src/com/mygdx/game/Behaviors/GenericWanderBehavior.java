@@ -10,7 +10,7 @@ import com.mygdx.game.PathFinding.AstarNode;
 
 import java.awt.*;
 
-public class SkeletonWanderBehavior extends Behavior {
+public class GenericWanderBehavior extends Behavior {
     private NonPlayerCharacterEntity character;
     private GridPoint2 targetPoint;
     private GridPoint2 pathTarget;
@@ -18,7 +18,7 @@ public class SkeletonWanderBehavior extends Behavior {
     private int actCountdown = 0;
     private DungeonRoom dungeonRoom;
 
-    public SkeletonWanderBehavior(NonPlayerCharacterEntity character) {
+    public GenericWanderBehavior(NonPlayerCharacterEntity character) {
         this.character = character;
         dungeonRoom = getClosestRoom();
         path = getNewPath();
@@ -27,7 +27,7 @@ public class SkeletonWanderBehavior extends Behavior {
     @Override
     public Behavior act() {
         if (MathUtils.randomBoolean(0.1f)){
-            return new SkeletonFindPlayerBehavior(character);
+            return new GenericFindPlayerBehavior(character);
         }
 
         if(actCountdown == 0){

@@ -7,14 +7,14 @@ import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
-public class SkeletonFindPlayerBehavior extends Behavior {
+public class GenericFindPlayerBehavior extends Behavior {
     private NonPlayerCharacterEntity character;
     private float pathCostThreshold = 50000;
     private GridPoint2 targetPoint;
     private GridPoint2 pathTarget;
     private Array<AstarNode> path;
 
-    public SkeletonFindPlayerBehavior(NonPlayerCharacterEntity character){
+    public GenericFindPlayerBehavior(NonPlayerCharacterEntity character){
         this.character = character;
         targetPoint = new GridPoint2();
         pathTarget = new GridPoint2();
@@ -26,7 +26,7 @@ public class SkeletonFindPlayerBehavior extends Behavior {
     public Behavior act() {
         if (!targetPoint.equals(pathTarget) || character.getPosition().equals(pathTarget)){
             if (MathUtils.randomBoolean()){
-                return new SkeletonWanderBehavior(character);
+                return new GenericWanderBehavior(character);
             }
             getNewPath();
         }

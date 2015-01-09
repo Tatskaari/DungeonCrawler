@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Behaviors.Behavior;
 import com.mygdx.game.Behaviors.DeadBehavior;
-import com.mygdx.game.Behaviors.SkeletonAttackPlayerBehavior;
-import com.mygdx.game.Behaviors.SkeletonWanderBehavior;
+import com.mygdx.game.Behaviors.GenericAttackPlayerBehavior;
+import com.mygdx.game.Behaviors.GenericWanderBehavior;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -24,7 +24,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     public BasicNonPlayerCharacterEntity(GridPoint2 position){
         renderer = new MonsterRenderer(this);
         this.position = position;
-        behavior = new SkeletonWanderBehavior(this);
+        behavior = new GenericWanderBehavior(this);
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
             }
         }
         else if(Behavior.canSeePlayerFrom(getPosition())){
-            behavior = new SkeletonAttackPlayerBehavior(this);
+            behavior = new GenericAttackPlayerBehavior(this);
         }
         behavior = behavior.act();
     }

@@ -1,8 +1,6 @@
 package com.mygdx.game.Behaviors;
 
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.GameHandler;
-import com.mygdx.game.Tokens.ExpToken;
 
 public class DeadBehavior extends Behavior {
     private int respawnCounter;
@@ -19,7 +17,7 @@ public class DeadBehavior extends Behavior {
         if (respawnCounter <= 0){
             character.setHealth(character.getMaxHealth());
             character.moveTo(getRandomNonVisibleTileInAnyRoom());
-            return new SkeletonWanderBehavior(character);
+            return new GenericWanderBehavior(character);
         }
         return this;
     }
