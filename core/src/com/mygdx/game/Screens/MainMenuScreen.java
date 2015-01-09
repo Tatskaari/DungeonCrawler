@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ResourceLoader;
@@ -31,14 +32,24 @@ public class MainMenuScreen extends ScreenAdapter{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        ResourceLoader.defaultFont.draw(batch, "Welcome to My Dungeon!!!", camera.viewportWidth/4, camera.viewportHeight - 100);
-        ResourceLoader.defaultFont.draw(batch, "Click anywhere to begin!", Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight() - 150);
+        renderText(0, 1, "You find yourself in an ancient sewer with nowhere to go but down.");
+        renderText(0,-1, "Click anywhere to descend!");
         batch.end();
 
         if (Gdx.input.isTouched()) {
             MyGdxGame.myGdxGame.setScreen(new GameScreen());
             dispose();
         }
+    }
+
+    private void renderText(float xPos, float yPos, String text){
+        BitmapFont.TextBounds bounds = ResourceLoader.titleFont.getBounds(text);
+        float lineHeight = bounds.height+2;
+
+        xPos = (Gdx.graphics.getWidth()-bounds.width)/2 + lineHeight*xPos;
+        yPos = (Gdx.graphics.getHeight()-bounds.height)/2 + lineHeight*yPos;
+
+        ResourceLoader.titleFont.draw(batch, text, xPos, yPos);
     }
 
     @Override
