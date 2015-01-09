@@ -107,9 +107,9 @@ public class DungeonGenerator {
     private NonPlayerCharacterEntity getRandomMonsterType(GridPoint2 position){
         float roll = MathUtils.random();
         if (roll < 0.2f){
-            return new Skeleton(position);
+            return new Skeleton(position, dungeon.level);
         }else {
-            return new Rat(position);
+            return new Rat(position, dungeon.level-1);
         }
     }
 

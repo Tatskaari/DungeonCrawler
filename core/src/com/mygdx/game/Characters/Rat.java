@@ -7,14 +7,16 @@ import com.mygdx.game.ResourceLoader;
 
 
 public class Rat extends BasicNonPlayerCharacterEntity {
+    private int level;
 
-    public Rat(GridPoint2 position) {
+    public Rat(GridPoint2 position, int level) {
         super(position);
 
-        setMaxHealth(5);
-        setHealth(5);
+        setMaxHealth(5+level);
+        setHealth(5+level);
 
-        setDamageRange(0, 2);
+        this.level = level;
+        setDamageRange(0+level, 2 + level);
     }
 
     @Override
@@ -24,6 +26,6 @@ public class Rat extends BasicNonPlayerCharacterEntity {
 
     @Override
     public int getExperienceValue() {
-        return 1;
+        return 1 + level/2;
     }
 }

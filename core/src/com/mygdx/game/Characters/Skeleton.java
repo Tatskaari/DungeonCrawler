@@ -1,19 +1,20 @@
 package com.mygdx.game.Characters;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.ResourceLoader;
 
 public class Skeleton extends BasicNonPlayerCharacterEntity {
+    private int level;
 
-    public Skeleton(GridPoint2 position) {
+    public Skeleton(GridPoint2 position, int level) {
         super(position);
 
-        setMaxHealth(10);
-        setHealth(10);
+        setMaxHealth(10+level);
+        setHealth(10+level);
 
-        setDamageRange(1, 3);
+        this.level = level;
+        setDamageRange(1+level, 3+level);
     }
 
     @Override
@@ -23,6 +24,6 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
 
     @Override
     public int getExperienceValue() {
-        return 3;
+        return 3 + level/2;
     }
 }

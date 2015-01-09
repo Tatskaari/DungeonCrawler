@@ -10,7 +10,6 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Tokens.DamageToken;
-import com.mygdx.game.Tokens.ExpToken;
 
 public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacterEntity {
     private GridPoint2 position;

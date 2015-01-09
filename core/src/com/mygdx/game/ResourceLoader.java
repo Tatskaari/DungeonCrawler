@@ -21,6 +21,7 @@ public abstract class ResourceLoader {
     public static TextureRegion rat;
 
     //Fonts
+    public static BitmapFont titleFont;
     public static BitmapFont defaultFont;
     public static BitmapFont damageFont;
     public static BitmapFont expFont;
@@ -56,6 +57,8 @@ public abstract class ResourceLoader {
         expFont = new BitmapFont();
         expFont.setColor(0, 1, 0, 1);
         expFont.setScale(0.6f);
+
+        titleFont = new BitmapFont();
     }
 
     public static void dispose() {
