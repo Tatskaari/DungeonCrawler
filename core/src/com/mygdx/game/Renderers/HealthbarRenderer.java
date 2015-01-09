@@ -31,6 +31,7 @@ public class HealthBarRenderer extends Renderer {
         greenRect.setHeight(2);
 
         this.characterEntity = characterEntity;
+
     }
 
     @Override

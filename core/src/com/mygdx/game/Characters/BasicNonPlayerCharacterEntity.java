@@ -101,7 +101,6 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     }
 
     private void die(){
-        GameHandler.tokens.addToken(new ExpToken(position, getExperienceValue()));
         GameHandler.player.statsHandler.addExperience(getExperienceValue());
     }
 

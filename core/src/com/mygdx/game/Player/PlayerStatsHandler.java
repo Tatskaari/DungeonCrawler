@@ -2,6 +2,7 @@ package com.mygdx.game.Player;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Tokens.ExpToken;
 import com.mygdx.game.Tokens.LevelUpToken;
 import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
@@ -25,6 +26,7 @@ public class PlayerStatsHandler {
 
     public void addExperience(int exp){
         expRange.setValue(expRange.getValue() + exp);
+        GameHandler.tokens.addToken(new ExpToken(player.getPosition(), exp));
         if (expRange.getValue() >= expRange.getMax()){
             levelUp();
         }
