@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.Inventory;
 import com.mygdx.game.ResourceLoader;
 
 public class UserInterface {
@@ -19,8 +20,7 @@ public class UserInterface {
     private final Table topTable;
 
     // Inventory elements
-    private final Window inventory;
-    private final TextButton inventoryCloseButton;
+    private final InventoryActor inventory;
 
     // Bottom table elements
     private final RangeBar healthBar;
@@ -45,52 +45,17 @@ public class UserInterface {
         experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new Window("Inventory", skin);
-        inventoryCloseButton = new TextButton("X", skin);
+        inventory = new InventoryActor("Inventory", skin, new Inventory(5,5));
+
 
 
         populateTopTable();
         populateBottomTable();
-        populateInventory();
 
         stage.addActor(bottomTable);
         stage.addActor(topTable);
         stage.addActor(inventory);
 
-    }
-
-    private void populateInventory(){
-        inventory.setVisible(false);
-        inventoryCloseButton.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        inventory.setVisible(false);
-                    }
-                }
-        );
-        inventory.getButtonTable().add(inventoryCloseButton).height(inventory.getPadTop());
-        inventory.setPosition((Gdx.graphics.getWidth() - 500)/2, (Gdx.graphics.getHeight()-500)/2);
-        inventory.defaults().fill().expand();
-        inventory.row();
-
-        for (int i = 0; i < 5; i++){
-            for (int j = 0; j < 5; j++){
-                ItemSlot slot = new ItemSlot(skin.getDrawable("rat"), skin.getDrawable("rounded.9"));
-                slot.setBackgroundColor(Color.DARK_GRAY);
-                slot.addListener(new ClickListener(){
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        System.out.println("casdf");
-                    }
-                });
-                inventory.add(slot);
-            }
-            inventory.row();
-        }
-
-        inventory.setWidth(500);
-        inventory.setHeight(500);
     }
 
     private void populateTopTable(){

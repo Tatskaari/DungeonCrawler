@@ -74,7 +74,7 @@ public abstract class DungeonTile {
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
         if(distance > VIEW_DIST){
             return false;
-        }else if(distance < 1) {
+        }else if(distance < 1.5f) {
             return true;
         } else {
             return isLOSBlocked();

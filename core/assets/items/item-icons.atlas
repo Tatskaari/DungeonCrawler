@@ -1,14 +1,13 @@
 
-UI.png
-size: 16,16
+item-icons.png
+size: 32,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-rounded
+sword
   rotate: false
   xy: 2, 2
-  size: 10, 10
-  split: 3, 3, 3, 3
-  orig: 10, 10
+  size: 25, 25
+  orig: 25, 25
   offset: 0, 0
   index: -1

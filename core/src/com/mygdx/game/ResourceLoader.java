@@ -34,7 +34,7 @@ public abstract class ResourceLoader {
     }
 
     public static void loadTextures(){
-        resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.txt"));
+        resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.atlas"));
 
         floor = resTextureAtlas.findRegion("floor");
         wall = resTextureAtlas.findRegion("wall");

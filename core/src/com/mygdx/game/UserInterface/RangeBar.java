@@ -18,7 +18,7 @@ public class RangeBar extends Actor {
     public Color emptyColor;
 
     public RangeBar(Skin skin, RangeValue rangeValue, String prefixText) {
-        progressBar = skin.get("rounded.9", NinePatch.class);
+        progressBar = skin.get("rounded", NinePatch.class);
         this.rangeValue = rangeValue;
         font = new BitmapFont();
         this.prefixText = prefixText;
