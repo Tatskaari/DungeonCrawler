@@ -4,9 +4,12 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 import java.awt.*;
 
@@ -24,11 +27,13 @@ public abstract class DungeonTile {
 
 
     private boolean tileHasBeenVisible = false;
-
     private GridPoint2 pos;
+    private Array<InventoryItem> itemList;
 
     public DungeonTile(GridPoint2 pos) {
         this.pos = pos;
+
+        itemList = new Array<InventoryItem>();
     }
 
     public abstract float getCorridorPlacingCost();
@@ -131,7 +136,27 @@ public abstract class DungeonTile {
         return null;
     }
 
+    public void addItem(InventoryItem item){
+        itemList.add(item);
+    }
+
+    public InventoryItem pickUpItem(){
+        return itemList.pop();
+    }
+
     public void onStep(){
         return;
+    }
+
+    public boolean hasItem() {
+        return itemList.size > 0;
+    }
+
+    public int itemCount() {
+        return itemList.size;
+    }
+
+    public InventoryItem getItem(int i){
+        return itemList.get(i);
     }
 }

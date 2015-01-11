@@ -26,7 +26,8 @@ public abstract class ResourceLoader {
     public static BitmapFont damageFont;
     public static BitmapFont expFont;
 
-    private static TextureAtlas resTextureAtlas;
+    public static TextureAtlas resTextureAtlas;
+    public static TextureAtlas itemTextureAtlas;
 
     public static void loadResources(){
         loadTextures();
@@ -35,6 +36,7 @@ public abstract class ResourceLoader {
 
     public static void loadTextures(){
         resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.atlas"));
+        itemTextureAtlas = new TextureAtlas(Gdx.files.internal("items/item-icons.atlas"));
 
         floor = resTextureAtlas.findRegion("floor");
         wall = resTextureAtlas.findRegion("wall");
@@ -70,9 +72,5 @@ public abstract class ResourceLoader {
 
     public static int getTileSize(){
         return floor.getRegionWidth();
-    }
-
-    public static TextureAtlas getResTextureAtlas(){
-        return resTextureAtlas;
     }
 }

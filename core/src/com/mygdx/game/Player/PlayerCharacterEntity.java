@@ -9,6 +9,7 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.Inventory.Inventory;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -21,11 +22,13 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     public Renderer renderer;
     public PlayerStatsHandler statsHandler;
+    public Inventory inventory;
 
     public PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler(this);
+        inventory = new Inventory(5,5);
     }
 
     public void placeCharacterIn(Dungeon dungeon) {

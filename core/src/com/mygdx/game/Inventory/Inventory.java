@@ -31,4 +31,18 @@ public class Inventory {
     public int getHeight() {
         return height;
     }
+
+    public void addItem(InventoryItem inventoryItem) {
+        for (int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                InventorySlot slot = inventorySlots.get(i).get(j);
+                if(slot.canTakeItem(inventoryItem)){
+                    slot.addItem(inventoryItem);
+                    return;
+                }
+            }
+        }
+
+        System.out.println("You don't have space to pick that item up!");
+    }
 }

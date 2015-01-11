@@ -10,8 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Inventory.Inventory;
-import com.mygdx.game.ResourceLoader;
 
 public class UserInterface {
     private final Skin skin;
@@ -33,7 +31,7 @@ public class UserInterface {
     public UserInterface(){
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("UI/UI.atlas")));
-        skin.addRegions(ResourceLoader.getResTextureAtlas());
+        skin.addRegions(new TextureAtlas(Gdx.files.internal("items/item-icons.atlas")));
         stage = new Stage();
         stage.setViewport(new ScreenViewport());
 
@@ -45,7 +43,7 @@ public class UserInterface {
         experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor("Inventory", skin, new Inventory(5,5));
+        inventory = new InventoryActor("Inventory", skin, GameHandler.player.inventory);
 
 
 

@@ -99,7 +99,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
         characterEntity.beAttacked(damage);
     }
 
-    private void die(){
+    public void die(){
         GameHandler.player.statsHandler.addExperience(getExperienceValue());
     }
 
