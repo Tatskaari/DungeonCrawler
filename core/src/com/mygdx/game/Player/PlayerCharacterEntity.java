@@ -1,13 +1,14 @@
 package com.mygdx.game.Player;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -15,24 +16,18 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
 
-public class PlayerCharacter implements Monster {
+public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
 
-    private int tileSize;
-    private int maxHealth;
-    private int health;
-    private int maxDamage;
-    private int minDamage;
     public Renderer renderer;
+    public PlayerStatsHandler statsHandler;
+    public PlayerInventory inventory;
 
-    public PlayerCharacter(){
-        tileSize = GameHandler.dungeon.getTileSize();
+    public PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
-        maxHealth = 30;
-        health = maxHealth;
-        minDamage = 1;
-        maxDamage = 5;
+        statsHandler = new PlayerStatsHandler(this);
+        inventory = new PlayerInventory(5,5);
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -43,12 +38,23 @@ public class PlayerCharacter implements Monster {
         position.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
         position.y = MathUtils.random(room.getY()+1, room.getY()+room.getHeight()-2);
     }
+
+    public void placeAtStairsDown(){
+        DungeonTile stairsDown = GameHandler.dungeon.getStairsDownDungeonTile();
+        position.set(stairsDown.getPos());
+    }
+    public void placeAtStairsUp(){
+        DungeonTile stairsUp = GameHandler.dungeon.getStairsUpDungeonTile();
+        position.set(stairsUp.getPos());
+    }
+
     @Override
     public boolean moveTo(GridPoint2 newPosition) {
         DungeonTile tile = GameHandler.dungeon.getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
             GameHandler.stepTurn();
+            GameHandler.dungeon.getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
@@ -59,9 +65,11 @@ public class PlayerCharacter implements Monster {
     }
 
     @Override
-    public void attack(Monster monster) {
-        int damage = MathUtils.random(minDamage, maxDamage);
-        monster.beAttacked(damage);
+    public void attack(CharacterEntity characterEntity) {
+        int damage = (int) statsHandler.damage.getValue();
+        EmptySwordHandItem weapon = (EmptySwordHandItem) GameHandler.player.inventory.getSwordHandItem();
+        damage+= MathUtils.random(weapon.getAttackRating());
+        characterEntity.beAttacked(damage);
     }
 
     public GridPoint2 getPosition() {
@@ -69,18 +77,19 @@ public class PlayerCharacter implements Monster {
     }
 
     @Override
+    public boolean isDead() {
+        return statsHandler.getHealth() <= 0;
+    }
+
+    @Override
     public Renderer getRenderer() {
         return renderer;
     }
 
-    public int getTileSize() {
-        return tileSize;
-    }
-
     @Override
     public void act() {
-        if(health < maxHealth && MathUtils.randomBoolean(0.05f)){
-            health++;
+        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && MathUtils.randomBoolean(0.1f)){
+            statsHandler.addToHealth(1);
         }
     }
 
@@ -88,33 +97,14 @@ public class PlayerCharacter implements Monster {
     public void beAttacked(int damage){
         DamageToken damageToken = new DamageToken(damage, position);
         GameHandler.tokens.addToken(damageToken);
-        health-= damage;
-        if (health <= 0){
+        statsHandler.addToHealth(-damage);
+        if (statsHandler.getHealth() <= 0){
             MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
         }
     }
 
     @Override
-    public boolean isDead() {
-        return health <= 0;
-    }
-
-    @Override
-    public Texture getTexture() {
+    public TextureRegion getTexture() {
         return ResourceLoader.player;
-    }
-    @Override
-    public int getHealth() {
-        return health;
-    }
-
-    @Override
-    public int getMaxHealth(){
-        return maxHealth;
-    }
-
-    @Override
-    public void setHealth(int health) {
-        this.health = health;
     }
 }

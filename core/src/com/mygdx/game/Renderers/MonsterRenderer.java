@@ -1,36 +1,42 @@
 package com.mygdx.game.Renderers;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.ResourceLoader;
 
 public class MonsterRenderer extends Renderer{
-    private Monster monster;
+    private NonPlayerCharacterEntity characterEntity;
     private int tileSize;
     private HealthBarRenderer healthBarRenderer;
 
-    public MonsterRenderer(Monster monster){
-        this.monster = monster;
-        tileSize = GameHandler.dungeon.getTileSize();
-        healthBarRenderer = new HealthBarRenderer(monster);
+    public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
+        this.characterEntity = characterEntity;
+        tileSize = ResourceLoader.getTileSize();
+        healthBarRenderer = new HealthBarRenderer(characterEntity);
     }
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        if (!monster.isDead()){
-            GridPoint2 pos = monster.getPosition();
+        if (!characterEntity.isDead()){
+            float visibility = GameHandler.dungeon.getDungeonTile(characterEntity.getPosition()).getVisibilityLevel();
+            batch.setColor(visibility, visibility, visibility, 1);
+            GridPoint2 pos = characterEntity.getPosition();
             if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
-                batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+                batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
                 healthBarRenderer.render(delta, batch);
             }
+            batch.setColor(Color.WHITE);
         }
     }
     @Override
     public void devRender(float delta, SpriteBatch batch){
-        if (!monster.isDead()){
-            GridPoint2 pos = monster.getPosition();
-            batch.draw(monster.getTexture(), monster.getPosition().x * tileSize, monster.getPosition().y * tileSize);
+        if (!characterEntity.isDead()){
+            GridPoint2 pos = characterEntity.getPosition();
+            batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
         }
     }
 }

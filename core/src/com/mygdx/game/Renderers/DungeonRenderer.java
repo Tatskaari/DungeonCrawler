@@ -1,9 +1,15 @@
 package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.Inventory.Inventory;
+import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.ResourceLoader;
+import org.w3c.dom.ranges.RangeException;
 
 public class DungeonRenderer extends Renderer{
     private Dungeon dungeon;
@@ -11,7 +17,7 @@ public class DungeonRenderer extends Renderer{
 
     public DungeonRenderer(Dungeon dungeon){
         this.dungeon = dungeon;
-        tileSize = dungeon.getTileSize();
+        tileSize = ResourceLoader.getTileSize();
     }
 
     public void render(float delta, SpriteBatch batch){
@@ -22,8 +28,8 @@ public class DungeonRenderer extends Renderer{
             }
         }
 
-        for (Monster monster : dungeon.monsters){
-            monster.getRenderer().render(delta,batch);
+        for (CharacterEntity characterEntity : dungeon.monsters){
+            characterEntity.getRenderer().render(delta,batch);
         }
     }
     @Override
@@ -35,8 +41,8 @@ public class DungeonRenderer extends Renderer{
             }
         }
 
-        for (Monster monster : dungeon.monsters){
-            monster.getRenderer().devRender(delta, batch);
+        for (CharacterEntity characterEntity : dungeon.monsters){
+            characterEntity.getRenderer().devRender(delta, batch);
         }
     }
 
@@ -45,13 +51,18 @@ public class DungeonRenderer extends Renderer{
             float colourVal = tile.getVisibilityLevel();
             batch.setColor(colourVal, colourVal, colourVal, colourVal);
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
+            for (int i = 0; i < tile.itemCount(); i++){
+                InventoryItem item = tile.getItem(i);
+                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion("sword");
+                batch.draw(textureRegion, x * tileSize, y * tileSize);
+            }
             batch.setColor(1,1,1,1);
         }
     }
 
     protected void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
-            batch.draw(tile.getTileTexture(), x * dungeon.getTileSize(), y * dungeon.getTileSize());
+            batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
         }
     }
 

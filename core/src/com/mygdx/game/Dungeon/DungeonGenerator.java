@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
-import com.mygdx.game.Monsters.Monster;
-import com.mygdx.game.Monsters.Rat;
-import com.mygdx.game.Monsters.Skeleton;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.Rat;
+import com.mygdx.game.Characters.Skeleton;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
-import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.ResourceLoader;
 
@@ -22,25 +22,68 @@ public class DungeonGenerator {
     private int requestedMapWidth;
     private int requestedMapHeight;
 
-    public Dungeon generateDungeon() {
-        return generateDungeon(requestedMapWidth, requestedMapHeight, requestedRoomCount);
+    private Dungeon generateDungeon() {
+        placeRooms(requestedRoomCount);
+        placeCorridors();
+
+        int startRoom = MathUtils.random(dungeon.getRoomCount()-1);
+        dungeon.startRoom = dungeon.getDungeonRoom(startRoom);
+        placeStartAndEndStairs();
+
+        dungeon.updateLineOfSightResistanceMap();
+
+        return dungeon;
+    }
+
+    public Dungeon regenerateDungeon(){
+        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
+        dungeon.floorAbove = GameHandler.dungeon.floorAbove;
+        dungeon.floorBelow = GameHandler.dungeon.floorBelow;
+        dungeon.level = GameHandler.dungeon.level;
+        return generateDungeon();
+    }
+
+    public Dungeon generateDungeonBelow(Dungeon parentDungeon){
+        requestedMapHeight = parentDungeon.getMapHeight();
+        requestedMapWidth = parentDungeon.getMapWidth();
+
+        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, parentDungeon);
+
+        generateDungeon();
+
+        spawnMonsters(dungeon.getRoomCount());
+        dungeon.monsters.add(GameHandler.player);
+
+        return dungeon;
     }
 
     public Dungeon generateDungeon(int mapWidth, int mapHeight, int roomCount){
         requestedRoomCount = roomCount;
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
-        dungeon = new Dungeon(mapWidth, mapHeight, ResourceLoader.floor.getWidth());
+        dungeon = new Dungeon(mapWidth, mapHeight);
 
-        placeRooms(roomCount);
-        placeCorridors();
+        return generateDungeon();
+    }
 
-        int startRoom = MathUtils.random(dungeon.getRoomCount()-1);
-        dungeon.startRoom = dungeon.getDungeonRoom(startRoom);
+    private void placeStartAndEndStairs() {
+        GridPoint2 stairsUpPos;
+        GridPoint2 stairsDownPos;
 
-        dungeon.updateLineOfSightResistanceMap();
+        DungeonRoom startRoom = dungeon.startRoom;
+        DungeonRoom endRoom = getRandomNotStartDungeonRoom();
 
-        return dungeon;
+        stairsUpPos = getRandomTileInRoom(startRoom);
+        stairsDownPos = getRandomTileInRoom(endRoom);
+
+        StairsUpDungeonTile stairsUpDungeonTile = new StairsUpDungeonTile(stairsUpPos);
+        StairsDownDungeonTile stairsDownDungeonTile = new StairsDownDungeonTile(stairsDownPos);
+
+        dungeon.setTile(stairsUpDungeonTile);
+        dungeon.setTile(stairsDownDungeonTile);
+
+        dungeon.stairsDownDungeonTile = stairsDownDungeonTile;
+        dungeon.stairsUpDungeonTile = stairsUpDungeonTile;
     }
 
     public void spawnMonsters(int monsterCount) {
@@ -57,16 +100,16 @@ public class DungeonGenerator {
 
     public void spawnMonsterInRoom(DungeonRoom room) {
         GridPoint2 pos = getRandomTileInRoom(room);
-        Monster monster = getRandomMonsterType(pos);
-        dungeon.monsters.add(monster);
+        NonPlayerCharacterEntity character = getRandomMonsterType(pos);
+        dungeon.monsters.add(character);
     }
 
-    private Monster getRandomMonsterType(GridPoint2 position){
+    private NonPlayerCharacterEntity getRandomMonsterType(GridPoint2 position){
         float roll = MathUtils.random();
-        if (roll < 0.2){
-            return new Skeleton(position);
+        if (roll < 0.2f){
+            return new Skeleton(position, dungeon.level);
         }else {
-            return new Rat(position);
+            return new Rat(position, dungeon.level-1);
         }
     }
 

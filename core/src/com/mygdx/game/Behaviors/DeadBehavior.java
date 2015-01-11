@@ -1,23 +1,23 @@
 package com.mygdx.game.Behaviors;
 
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 
 public class DeadBehavior extends Behavior {
     private int respawnCounter;
-    private Monster monster;
+    private NonPlayerCharacterEntity character;
 
-    public DeadBehavior(Monster monster, int respawnCounter){
+    public DeadBehavior(NonPlayerCharacterEntity character, int respawnCounter){
         this.respawnCounter = respawnCounter;
-        this.monster = monster;
+        this.character = character;
     }
 
     @Override
     public Behavior act() {
         respawnCounter--;
         if (respawnCounter <= 0){
-            monster.setHealth(monster.getMaxHealth());
-            monster.moveTo(getRandomNonVisibleTileInAnyRoom());
-            return new SkeletonWanderBehavior(monster);
+            character.setHealth(character.getMaxHealth());
+            character.moveTo(getRandomNonVisibleTileInAnyRoom());
+            return new GenericWanderBehavior(character);
         }
         return this;
     }

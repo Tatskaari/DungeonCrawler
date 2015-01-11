@@ -2,17 +2,21 @@ package com.mygdx.game.Dungeon;
 
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Bresenham2;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.InventoryItem;
 import com.mygdx.game.LineOfSight;
-import com.mygdx.game.Monsters.Monster;
-import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Characters.CharacterEntity;
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 import java.awt.*;
 
 public abstract class DungeonTile {
+    private final int VIEW_DIST = 12;
+    private final float FOW_VISIBILITY = 0.4f;
+
     public static final int EMPTY = 0;
     public static final int FLOOR = 10;
     public static final int WALL = 20;
@@ -23,11 +27,13 @@ public abstract class DungeonTile {
 
 
     private boolean tileHasBeenVisible = false;
-
     private GridPoint2 pos;
+    private Array<InventoryItem> itemList;
 
     public DungeonTile(GridPoint2 pos) {
         this.pos = pos;
+
+        itemList = new Array<InventoryItem>();
     }
 
     public abstract float getCorridorPlacingCost();
@@ -36,7 +42,7 @@ public abstract class DungeonTile {
 
     public abstract int getTileType();
 
-    public abstract Texture getTileTexture();
+    public abstract TextureRegion getTileTexture();
 
     public GridPoint2 getPos(){
         return pos;
@@ -59,7 +65,9 @@ public abstract class DungeonTile {
     public float getVisibilityLevel() {
         if(isVisible()){
             tileHasBeenVisible = true;
-            return 1;
+            GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+            float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
+            return 1 - distance/(VIEW_DIST*2);
         } else {
             return getHasBeenVisibleVisibility();
         }
@@ -69,9 +77,9 @@ public abstract class DungeonTile {
         GridPoint2 playerGridPoint = GameHandler.player.getPosition();
 
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
-        if(distance > 12){
+        if(distance > VIEW_DIST){
             return false;
-        }else if(distance < 1) {
+        }else if(distance < 1.5f) {
             return true;
         } else {
             return isLOSBlocked();
@@ -80,7 +88,7 @@ public abstract class DungeonTile {
 
     private float getHasBeenVisibleVisibility(){
         if(tileHasBeenVisible){
-            return 0.5f;
+            return FOW_VISIBILITY;
         }
         else{
             return 0;
@@ -95,9 +103,9 @@ public abstract class DungeonTile {
         if(pos.equals(GameHandler.player.getPosition())){
             return false;
         } else {
-            for(Monster monster : GameHandler.dungeon.monsters) {
-                if(monster.getPosition().equals(pos)){
-                    if(!monster.isDead()){
+            for(CharacterEntity characterEntity : GameHandler.dungeon.monsters) {
+                if(characterEntity.getPosition().equals(pos)){
+                    if(!characterEntity.isDead()){
                         return false;
                     }
                 }
@@ -108,8 +116,8 @@ public abstract class DungeonTile {
 
     public boolean hasMonster() {
         for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            Monster monster = GameHandler.dungeon.monsters.get(i);
-            if (monster.getPosition().equals(pos)){
+            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+            if (characterEntity.getPosition().equals(pos)){
                 return true;
             }
         }
@@ -117,14 +125,38 @@ public abstract class DungeonTile {
         return false;
     }
 
-    public Monster getMonster() {
+    public CharacterEntity getMonster() {
         for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            Monster monster = GameHandler.dungeon.monsters.get(i);
-            if (monster.getPosition().equals(pos) && !monster.isDead()){
-                return monster;
+            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+            if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
+                return characterEntity;
             }
         }
 
         return null;
+    }
+
+    public void addItem(InventoryItem item){
+        itemList.add(item);
+    }
+
+    public InventoryItem pickUpItem(){
+        return itemList.pop();
+    }
+
+    public void onStep(){
+        return;
+    }
+
+    public boolean hasItem() {
+        return itemList.size > 0;
+    }
+
+    public int itemCount() {
+        return itemList.size;
+    }
+
+    public InventoryItem getItem(int i){
+        return itemList.get(i);
     }
 }

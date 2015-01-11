@@ -2,11 +2,16 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Characters.*;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
-import com.mygdx.game.Monsters.Monster;
+import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
+import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
+import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
+import com.mygdx.game.ResourceLoader;
+import com.mygdx.game.Screens.GameScreen;
 
 public class Dungeon {
     public static final int NORTH = 1;
@@ -15,21 +20,24 @@ public class Dungeon {
     public static final int WEST = 4;
 
     public Renderer renderer;
-    public Array<Monster> monsters;
+    public Array<CharacterEntity> monsters;
 
     private DungeonTile[][] map;
     private Array<DungeonRoom> dungeonRooms;
     private int mapWidth, mapHeight;
-    private int tileSize;
     private float[][] LineOfSightResMap;
+    protected int level;
 
+    protected StairsDownDungeonTile stairsDownDungeonTile;
+    protected StairsUpDungeonTile stairsUpDungeonTile;
+    protected Dungeon floorAbove;
+    protected Dungeon floorBelow;
     protected DungeonRoom startRoom;
     protected DungeonRoom endRoom;
 
-    public Dungeon(int mapWidth, int mapHeight, int tileSize){
+    public Dungeon(int mapWidth, int mapHeight){
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.tileSize = tileSize;
 
         renderer = new DungeonRenderer(this);
 
@@ -41,7 +49,15 @@ public class Dungeon {
         }
 
         dungeonRooms = new Array<DungeonRoom>();
-        monsters = new Array<Monster>();
+        monsters = new Array<CharacterEntity>();
+
+        level = 1;
+    }
+
+    public Dungeon(int mapWidth, int mapHeight, Dungeon floorAbove) {
+        this(mapWidth, mapHeight);
+        level = floorAbove.getLevel() + 1;
+        this.floorAbove = floorAbove;
     }
 
 
@@ -73,10 +89,6 @@ public class Dungeon {
 
     public boolean isTilePassable(GridPoint2 pos){
         return map[pos.x+1][pos.y+1].isPassable();
-    }
-
-    public int getTileSize() {
-        return tileSize;
     }
 
     public DungeonTile getDungeonTile(GridPoint2 coord){
@@ -137,5 +149,29 @@ public class Dungeon {
 
     public DungeonRoom getEndRoom() {
         return endRoom;
+    }
+
+    public Dungeon getFloorAbove(){
+        return floorAbove;
+    }
+
+    public Dungeon getFloorBelow(){
+        if (floorBelow == null){
+            return floorBelow = GameHandler.dungeonGenerator.generateDungeonBelow(this);
+        } else {
+            return floorBelow;
+        }
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public StairsDownDungeonTile getStairsDownDungeonTile() {
+        return stairsDownDungeonTile;
+    }
+
+    public StairsUpDungeonTile getStairsUpDungeonTile() {
+        return stairsUpDungeonTile;
     }
 }
