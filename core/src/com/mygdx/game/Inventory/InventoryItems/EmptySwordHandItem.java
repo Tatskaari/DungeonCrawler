@@ -1,32 +1,19 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
 
-public class SwordItem extends EmptySwordHandItem {
+public class EmptySwordHandItem implements InventoryItem {
     private Array<ItemContextAction> itemContextActions;
-    private final SwordItem thisItem = this;
 
-    public SwordItem() {
+    public EmptySwordHandItem(){
         itemContextActions = new Array<ItemContextAction>();
-        itemContextActions.add(new ItemContextAction() {
-
-            @Override
-            public void onClick() {
-                GameHandler.player.inventory.equipItemInSwordHandSlot(thisItem);
-            }
-
-            @Override
-            public String getActionPrompt() {
-                return "Equip";
-            }
-        });
     }
 
     @Override
     public String getItemName() {
-        return "sword";
+        return "empty-sword-hand-slot";
     }
 
     @Override
@@ -41,11 +28,10 @@ public class SwordItem extends EmptySwordHandItem {
 
     @Override
     public boolean isEmptyItem() {
-        return false;
+        return true;
     }
 
-    @Override
     public int getAttackRating(){
-        return 3;
+        return 0;
     }
 }

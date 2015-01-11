@@ -13,7 +13,7 @@ public class EmptyItem implements InventoryItem {
 
     @Override
     public String getItemName() {
-        return "rounded";
+        return "empty-slot";
     }
 
     @Override
@@ -24,5 +24,10 @@ public class EmptyItem implements InventoryItem {
     @Override
     public Array<ItemContextAction> getItemContextActions() {
         return itemActions;
+    }
+
+    @Override
+    public boolean isEmptyItem() {
+        return true;
     }
 }

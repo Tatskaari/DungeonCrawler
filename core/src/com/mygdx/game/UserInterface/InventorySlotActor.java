@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Inventory.InventorySlot;
+import com.mygdx.game.Inventory.InventorySlots.StandardInventorySlot;
 
 
 public class InventorySlotActor extends ImageButton {
@@ -18,11 +19,11 @@ public class InventorySlotActor extends ImageButton {
     private Skin skin;
 
     public InventorySlotActor(final InventorySlot inventorySlot, final Skin skin){
-        super(skin.getDrawable(inventorySlot.getItemName()));
+        super(skin.getDrawable(inventorySlot.getItem().getItemName()));
         this.background = skin.getDrawable("rounded");
         this.inventorySlot = inventorySlot;
         this.skin = skin;
-        setPadding(20);
+        setPadding(1);
         setBackgroundColor(Color.DARK_GRAY);
         addListener(new ClickListener() {
             @Override
@@ -51,6 +52,6 @@ public class InventorySlotActor extends ImageButton {
         batch.setColor(backgroundColor);
         background.draw(batch, getX(), getY(), getWidth(), getHeight());
         batch.setColor(Color.WHITE);
-        skin.getDrawable(inventorySlot.getItemName()).draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
+        skin.getDrawable(inventorySlot.getItem().getItemName()).draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
     }
 }

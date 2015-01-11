@@ -1,6 +1,8 @@
 package com.mygdx.game.Inventory;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Inventory.InventorySlots.StandardInventorySlot;
+import com.mygdx.game.Inventory.InventorySlots.SwordHandSlot;
 
 public class Inventory {
     Array<Array<InventorySlot>> inventorySlots;
@@ -15,7 +17,7 @@ public class Inventory {
         for(int i = 0; i < width; i++){
             inventorySlots.add(new Array<InventorySlot>());
             for (int j = 0; j < height; j++){
-                inventorySlots.get(i).add(new InventorySlot());
+                inventorySlots.get(i).add(new StandardInventorySlot());
             }
         }
     }
@@ -44,5 +46,24 @@ public class Inventory {
         }
 
         System.out.println("You don't have space to pick that item up!");
+    }
+
+    public void setSlot(int x, int y, InventorySlot slot){
+        inventorySlots.get(x).set(y, slot);
+    }
+
+    public InventorySlot findSlotWithItem(InventoryItem item) {
+        InventorySlot slot = null;
+        for (int i = 0; i < width; i++) {
+            for (int j =0; j < height; j++){
+                InventorySlot currentSlot = inventorySlots.get(i).get(j);
+                if (currentSlot.getItem() == item){
+                    slot = currentSlot;
+                    return slot;
+                }
+            }
+        }
+
+        return slot;
     }
 }

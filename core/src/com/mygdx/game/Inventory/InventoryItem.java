@@ -8,4 +8,6 @@ public interface InventoryItem {
     public int getMaxStackSize();
     public Array<ItemContextAction> getItemContextActions();
 
+    public boolean isEmptyItem();
+
 }

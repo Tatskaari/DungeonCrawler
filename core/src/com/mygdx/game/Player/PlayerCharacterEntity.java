@@ -1,6 +1,5 @@
 package com.mygdx.game.Player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
@@ -9,7 +8,7 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.Inventory;
+import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -22,13 +21,13 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     public Renderer renderer;
     public PlayerStatsHandler statsHandler;
-    public Inventory inventory;
+    public PlayerInventory inventory;
 
     public PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler(this);
-        inventory = new Inventory(5,5);
+        inventory = new PlayerInventory(5,5);
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -68,6 +67,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public void attack(CharacterEntity characterEntity) {
         int damage = (int) statsHandler.damage.getValue();
+        EmptySwordHandItem weapon = (EmptySwordHandItem) GameHandler.player.inventory.getSwordHandItem();
+        damage+= MathUtils.random(weapon.getAttackRating());
         characterEntity.beAttacked(damage);
     }
 
