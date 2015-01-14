@@ -1,5 +1,7 @@
 package com.mygdx.game.Inventory;
 
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
+
 public interface InventorySlot {
     public InventoryItem getItem();
     public boolean canTakeItem(InventoryItem item);

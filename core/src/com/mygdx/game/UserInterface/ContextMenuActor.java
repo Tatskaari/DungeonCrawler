@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
 
 public class ContextMenuActor extends Window {

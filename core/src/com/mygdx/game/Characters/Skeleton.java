@@ -3,6 +3,7 @@ package com.mygdx.game.Characters;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.InventoryItems.BattleAxeItem;
 import com.mygdx.game.Inventory.InventoryItems.SwordItem;
 import com.mygdx.game.ResourceLoader;
 
@@ -31,6 +32,6 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
 
     public void die(){
         super.die();
-        GameHandler.dungeon.getDungeonTile(getPosition()).addItem(new SwordItem());
+        GameHandler.dungeon.getDungeonTile(getPosition()).addItem(new BattleAxeItem());
     }
 }

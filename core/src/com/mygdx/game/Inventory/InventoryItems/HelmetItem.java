@@ -1,11 +1,15 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
-import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
+import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 
-public class SwordItem extends SwordHandItem {
+/**
+ * Created by Tatskaari on 13/01/2015.
+ */
+public class HelmetItem extends HeadItem {
+
     @Override
     public String getItemName() {
-        return "sword";
+        return "helmet";
     }
 
     @Override
@@ -14,7 +18,7 @@ public class SwordItem extends SwordHandItem {
     }
 
     @Override
-    public int getAttackRating(){
+    public int getDefenceRating(){
         return 3;
     }
 }

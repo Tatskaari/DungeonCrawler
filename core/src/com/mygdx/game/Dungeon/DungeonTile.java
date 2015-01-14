@@ -1,15 +1,13 @@
 package com.mygdx.game.Dungeon;
 
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 import java.awt.*;
 

@@ -1,6 +1,7 @@
-package com.mygdx.game.Inventory;
+package com.mygdx.game.Inventory.ItemTypes;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Inventory.ItemContextAction;
 
 public interface InventoryItem {
     public String getItemName();

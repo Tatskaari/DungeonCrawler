@@ -1,10 +1,11 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
-public class EmptySwordHandItem implements InventoryItem {
+public class EmptySwordHandItem extends SwordHandItem {
     private Array<ItemContextAction> itemContextActions;
 
     public EmptySwordHandItem(){
@@ -14,11 +15,6 @@ public class EmptySwordHandItem implements InventoryItem {
     @Override
     public String getItemName() {
         return "empty-sword-hand-slot";
-    }
-
-    @Override
-    public int getMaxStackSize() {
-        return 1;
     }
 
     @Override

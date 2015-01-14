@@ -1,15 +1,15 @@
 package com.mygdx.game.Inventory.InventorySlots;
 
 
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.InventoryItems.EmptyItem;
 import com.mygdx.game.Inventory.InventorySlot;
 
-public class StandardInventorySlot implements InventorySlot{
+public class StandardSlot implements InventorySlot{
     private InventoryItem item;
     private int itemCount = 1;
 
-    public StandardInventorySlot() {
+    public StandardSlot() {
         item = new EmptyItem();
     }
 

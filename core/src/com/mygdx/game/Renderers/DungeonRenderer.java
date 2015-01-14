@@ -1,15 +1,12 @@
 package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.Inventory;
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.ResourceLoader;
-import org.w3c.dom.ranges.RangeException;
 
 public class DungeonRenderer extends Renderer{
     private Dungeon dungeon;
@@ -53,7 +50,7 @@ public class DungeonRenderer extends Renderer{
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
             for (int i = 0; i < tile.itemCount(); i++){
                 InventoryItem item = tile.getItem(i);
-                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion("sword");
+                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getItemName());
                 batch.draw(textureRegion, x * tileSize, y * tileSize);
             }
             batch.setColor(1,1,1,1);

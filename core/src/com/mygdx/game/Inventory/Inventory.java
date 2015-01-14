@@ -1,8 +1,9 @@
 package com.mygdx.game.Inventory;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.InventorySlots.StandardInventorySlot;
-import com.mygdx.game.Inventory.InventorySlots.SwordHandSlot;
+import com.mygdx.game.Inventory.InventorySlots.StandardSlot;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 
 public class Inventory {
     Array<Array<InventorySlot>> inventorySlots;
@@ -17,13 +18,17 @@ public class Inventory {
         for(int i = 0; i < width; i++){
             inventorySlots.add(new Array<InventorySlot>());
             for (int j = 0; j < height; j++){
-                inventorySlots.get(i).add(new StandardInventorySlot());
+                inventorySlots.get(i).add(new StandardSlot());
             }
         }
     }
 
+    public InventorySlot getSlot(GridPoint2 pos) {
+        return inventorySlots.get(pos.y).get(pos.x);
+    }
+
     public InventorySlot getSlot(int x, int y) {
-        return inventorySlots.get(x).get(y);
+        return inventorySlots.get(y).get(x);
     }
 
     public int getWidth() {
@@ -34,22 +39,22 @@ public class Inventory {
         return height;
     }
 
-    public void addItem(InventoryItem inventoryItem) {
+    public boolean addItem(InventoryItem inventoryItem) {
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 InventorySlot slot = inventorySlots.get(i).get(j);
                 if(slot.canTakeItem(inventoryItem)){
                     slot.addItem(inventoryItem);
-                    return;
+                    return true;
                 }
             }
         }
 
-        System.out.println("You don't have space to pick that item up!");
+        return false;
     }
 
-    public void setSlot(int x, int y, InventorySlot slot){
-        inventorySlots.get(x).set(y, slot);
+    public void setSlot(GridPoint2 pos, InventorySlot slot){
+        inventorySlots.get(pos.y).set(pos.x, slot);
     }
 
     public InventorySlot findSlotWithItem(InventoryItem item) {

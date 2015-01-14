@@ -1,8 +1,9 @@
 package com.mygdx.game.Characters;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.InventoryItems.HelmetItem;
 import com.mygdx.game.ResourceLoader;
 
 
@@ -27,5 +28,11 @@ public class Rat extends BasicNonPlayerCharacterEntity {
     @Override
     public int getExperienceValue() {
         return 1 + level/2;
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        GameHandler.dungeon.getDungeonTile(getPosition()).addItem(new HelmetItem());
     }
 }

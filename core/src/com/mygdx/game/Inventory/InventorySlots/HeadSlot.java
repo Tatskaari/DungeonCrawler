@@ -1,15 +1,17 @@
 package com.mygdx.game.Inventory.InventorySlots;
 
+import com.mygdx.game.Inventory.InventoryItems.EmptyHeadItem;
+import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
-import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
 import com.mygdx.game.Inventory.InventorySlot;
-import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
-public class SwordHandSlot implements InventorySlot {
-    private SwordHandItem item;
+public class HeadSlot implements InventorySlot {
 
-    public SwordHandSlot(){
-        item = new EmptySwordHandItem();
+
+    private HeadItem item;
+
+    public HeadSlot(){
+        item = new EmptyHeadItem();
     }
 
     public boolean canTakeItem(InventoryItem inventoryItem) {
@@ -18,17 +20,17 @@ public class SwordHandSlot implements InventorySlot {
 
     @Override
     public void addItem(InventoryItem item) {
-        throw new RuntimeException("Sword hand inventory slot cannot take that item");
+        throw new RuntimeException("Head inventory slot cannot take that item");
     }
 
     @Override
     public void replaceItem(InventoryItem item) {
-        this.item = (SwordHandItem) item;
+        this.item = (HeadItem) item;
     }
 
     @Override
     public void empty() {
-        item = new EmptySwordHandItem();
+        item = new EmptyHeadItem();
     }
 
     public InventoryItem getItem(){
