@@ -13,11 +13,11 @@ public class Rat extends BasicNonPlayerCharacterEntity {
     public Rat(GridPoint2 position, int level) {
         super(position);
 
-        setMaxHealth(5+level);
-        setHealth(5+level);
+        setLevel(level);
+    }
 
-        this.level = level;
-        setDamageRange(0+level, 2 + level);
+    public Rat(){
+        this(new GridPoint2(0,0), 1);
     }
 
     @Override
@@ -31,8 +31,16 @@ public class Rat extends BasicNonPlayerCharacterEntity {
     }
 
     @Override
+    public void setLevel(int level) {
+        setMaxHealth(5+level);
+        setHealth(5+level);
+
+        this.level = level;
+        setDamageRange(0+level, 2 + level);
+    }
+
+    @Override
     public void die() {
         super.die();
-        GameHandler.dungeon.getDungeonTile(getPosition()).addItem(new HelmetItem());
     }
 }

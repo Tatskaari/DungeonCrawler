@@ -27,6 +27,10 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
         behavior = new GenericWanderBehavior(this);
     }
 
+    public BasicNonPlayerCharacterEntity() {
+        this(new GridPoint2(0, 0));
+    }
+
     @Override
     public void act() {
         if (isDead()){
@@ -91,6 +95,10 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
         } else {
             return false;
         }
+    }
+
+    public void setPos(GridPoint2 pos){
+        this.position.set(pos);
     }
 
     @Override

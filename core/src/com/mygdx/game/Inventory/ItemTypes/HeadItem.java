@@ -37,5 +37,5 @@ public abstract class HeadItem implements InventoryItem {
         return itemContextActions;
     }
 
-    public abstract int getDefenceRating();
+    public abstract float getDefenceRating();
 }

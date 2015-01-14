@@ -14,8 +14,8 @@ public class EmptyHeadItem extends HeadItem {
         contextActions = new Array<ItemContextAction>();
     }
     @Override
-    public int getDefenceRating() {
-        return 3;
+    public float getDefenceRating() {
+        return 0;
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
+import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -67,7 +68,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public void attack(CharacterEntity characterEntity) {
         int damage = (int) statsHandler.damage.getValue();
-        EmptySwordHandItem weapon = (EmptySwordHandItem) GameHandler.player.inventory.getSwordHandItem();
+        SwordHandItem weapon = GameHandler.player.inventory.getSwordHandItem();
         damage+= MathUtils.random(weapon.getAttackRating());
         characterEntity.beAttacked(damage);
     }
@@ -88,19 +89,28 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void act() {
-        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && MathUtils.randomBoolean(0.1f)){
+        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && MathUtils.randomBoolean(0.2f)){
             statsHandler.addToHealth(1);
         }
     }
 
     @Override
     public void beAttacked(int damage){
+        damage = MathUtils.ceil(damage*(1-getDefenceRating()));
         DamageToken damageToken = new DamageToken(damage, position);
         GameHandler.tokens.addToken(damageToken);
         statsHandler.addToHealth(-damage);
         if (statsHandler.getHealth() <= 0){
             MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
         }
+    }
+
+    private float getDefenceRating(){
+        float totalDefence = inventory.getHeadItem().getDefenceRating();
+        if (totalDefence > 1){
+            totalDefence = 1;
+        }
+        return totalDefence;
     }
 
     @Override

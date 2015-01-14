@@ -3,9 +3,10 @@ package com.mygdx.game.Inventory.InventoryItems;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 
-public class BattleAxeItem extends EmptySwordHandItem {
+public class BattleAxeItem extends SwordHandItem {
 
     private Array<ItemContextAction> itemContextActions;
     private final BattleAxeItem thisItem = this;

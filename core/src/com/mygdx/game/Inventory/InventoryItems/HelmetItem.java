@@ -18,7 +18,7 @@ public class HelmetItem extends HeadItem {
     }
 
     @Override
-    public int getDefenceRating(){
-        return 3;
+    public float getDefenceRating(){
+        return 0.1f;
     }
 }
