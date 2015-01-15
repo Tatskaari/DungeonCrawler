@@ -5,19 +5,19 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemContextAction;
 
 /**
- * Created by Tatskaari on 13/01/2015.
+ * Created by Tatskaari on 15/01/2015.
  */
-public abstract class HeadItem extends ArmourItem {
+public abstract class BodyItem extends ArmourItem{
     private final Array<ItemContextAction> itemContextActions;
-    private final HeadItem thisItem = this;
+    private final BodyItem thisItem = this;
 
-    public HeadItem(){
+    public BodyItem(){
         itemContextActions = new Array<ItemContextAction>();
         itemContextActions.add(new ItemContextAction() {
 
             @Override
             public void onClick() {
-                GameHandler.player.inventory.equipItemInHeadSlot(thisItem);
+                GameHandler.player.inventory.equipItemInBodySlot(thisItem);
             }
 
             @Override

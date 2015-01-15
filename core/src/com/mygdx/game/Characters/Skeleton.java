@@ -12,7 +12,7 @@ import com.mygdx.game.SpawnPools.SkeletonLootPool;
 public class Skeleton extends BasicNonPlayerCharacterEntity {
     private int level;
     private SkeletonLootPool lootPool;
-    private final float dropChance = 0.4f;
+    private final float dropChance = 0.6f;
 
     public Skeleton(GridPoint2 position, int level) {
         super(position);

@@ -27,7 +27,7 @@ public abstract class SpawnPool <Type> {
             runningBiasTotal += currentSpawnable.bias;
         }
 
-        return null;
+        throw new RuntimeException("Error calculating what to spawn.");
     }
 
     public void addNew(Class monsterClass, float bias) {

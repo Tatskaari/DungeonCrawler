@@ -2,7 +2,9 @@ package com.mygdx.game.Player;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Inventory.Inventory;
+import com.mygdx.game.Inventory.InventorySlots.BodySlot;
 import com.mygdx.game.Inventory.InventorySlots.HeadSlot;
+import com.mygdx.game.Inventory.ItemTypes.BodyItem;
 import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
@@ -13,15 +15,18 @@ import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 public class PlayerInventory extends Inventory {
     private GridPoint2 swordHandItemSlotPos;
     private GridPoint2 headItemSlotPos;
+    private GridPoint2 bodyItemSlotPos;
 
     public PlayerInventory(int width, int height) {
         super(width, height);
 
         swordHandItemSlotPos = new GridPoint2(0,0);
         headItemSlotPos = new GridPoint2(1, 0);
+        bodyItemSlotPos = new GridPoint2(2, 0);
 
         setSlot(swordHandItemSlotPos, new SwordHandSlot());
         setSlot(headItemSlotPos, new HeadSlot());
+        setSlot(bodyItemSlotPos, new BodySlot());
     }
 
 
@@ -53,5 +58,9 @@ public class PlayerInventory extends Inventory {
         }
 
         slot.replaceItem(item);
+    }
+
+    public void equipItemInBodySlot(BodyItem bodyItem) {
+        moveItemToSlot(bodyItem, getSlot(bodyItemSlotPos));
     }
 }
