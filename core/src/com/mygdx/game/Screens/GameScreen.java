@@ -15,25 +15,22 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 
-public class GameScreen extends ScreenAdapter {
-    private InputMultiplexer inputMultiplexer;
-    private PlayerInputHandler playerInputHandler;
-    private GameInputHandler gameInputHandler;
-    private SpriteBatch batch;
-    private OrthographicCamera camera;
-    private UserInterface ui;
+class GameScreen extends ScreenAdapter {
+    private final InputMultiplexer inputMultiplexer;
+    private final SpriteBatch batch;
+    private final OrthographicCamera camera;
+    private final UserInterface ui;
 
     public GameScreen() {
         GameHandler.dungeonGenerator = new DungeonGenerator();
         GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
         GameHandler.player = new PlayerCharacterEntity();
         GameHandler.tokens = new Tokens();
+        GameInputHandler gameInputHandler = new GameInputHandler();
+        PlayerInputHandler playerInputHandler = new PlayerInputHandler(GameHandler.player);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
-
-        playerInputHandler = new PlayerInputHandler(GameHandler.player);
-        gameInputHandler = new GameInputHandler();
 
         batch = new SpriteBatch();
 
@@ -66,7 +63,7 @@ public class GameScreen extends ScreenAdapter {
         ui.draw(delta);
     }
 
-    public void updateCamera(){
+    void updateCamera(){
         camera.position.x = GameHandler.player.getPosition().x * ResourceLoader.getTileSize();
         camera.position.y = GameHandler.player.getPosition().y * ResourceLoader.getTileSize();
         camera.update();

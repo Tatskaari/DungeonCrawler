@@ -11,7 +11,7 @@ public abstract class HeadItem extends ArmourItem {
     private final Array<ItemContextAction> itemContextActions;
     private final HeadItem thisItem = this;
 
-    public HeadItem(){
+    protected HeadItem(){
         itemContextActions = new Array<ItemContextAction>();
         itemContextActions.add(new ItemContextAction() {
 

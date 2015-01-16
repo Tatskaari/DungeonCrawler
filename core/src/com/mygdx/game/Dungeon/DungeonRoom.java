@@ -1,11 +1,11 @@
 package com.mygdx.game.Dungeon;
 
 public class DungeonRoom {
-    private int roomNumber;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private final int roomNumber;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
 
     public DungeonRoom(int x, int y, int width, int height, int roomNumber){
         this.x = x;

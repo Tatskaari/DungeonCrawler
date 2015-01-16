@@ -10,8 +10,6 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
-import com.mygdx.game.ResourceLoader;
-import com.mygdx.game.Screens.GameScreen;
 
 public class Dungeon {
     public static final int NORTH = 1;
@@ -19,21 +17,21 @@ public class Dungeon {
     public static final int SOUTH = 3;
     public static final int WEST = 4;
 
-    public Renderer renderer;
-    public Array<CharacterEntity> monsters;
+    public final Renderer renderer;
+    public final Array<CharacterEntity> monsters;
 
-    private DungeonTile[][] map;
-    private Array<DungeonRoom> dungeonRooms;
-    private int mapWidth, mapHeight;
+    private final DungeonTile[][] map;
+    private final Array<DungeonRoom> dungeonRooms;
+    private final int mapWidth;
+    private final int mapHeight;
     private float[][] LineOfSightResMap;
-    protected int level;
+    int level;
 
-    protected StairsDownDungeonTile stairsDownDungeonTile;
-    protected StairsUpDungeonTile stairsUpDungeonTile;
-    protected Dungeon floorAbove;
-    protected Dungeon floorBelow;
-    protected DungeonRoom startRoom;
-    protected DungeonRoom endRoom;
+    StairsDownDungeonTile stairsDownDungeonTile;
+    StairsUpDungeonTile stairsUpDungeonTile;
+    Dungeon floorAbove;
+    Dungeon floorBelow;
+    DungeonRoom startRoom;
 
     public Dungeon(int mapWidth, int mapHeight){
         this.mapWidth = mapWidth;
@@ -145,10 +143,6 @@ public class Dungeon {
 
     public DungeonRoom getStartRoom() {
         return startRoom;
-    }
-
-    public DungeonRoom getEndRoom() {
-        return endRoom;
     }
 
     public Dungeon getFloorAbove(){

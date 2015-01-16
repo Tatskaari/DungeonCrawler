@@ -8,7 +8,6 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
 import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
@@ -20,9 +19,9 @@ import com.mygdx.game.Tokens.DamageToken;
 public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
 
-    public Renderer renderer;
-    public PlayerStatsHandler statsHandler;
-    public PlayerInventory inventory;
+    public final Renderer renderer;
+    public final PlayerStatsHandler statsHandler;
+    public final PlayerInventory inventory;
 
     public PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);

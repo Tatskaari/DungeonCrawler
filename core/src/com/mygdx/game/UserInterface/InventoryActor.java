@@ -9,14 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Inventory.Inventory;
 
-public class InventoryActor extends Window{
-    Inventory inventory;
+class InventoryActor extends Window{
+    private final Inventory inventory;
     private final TextButton inventoryCloseButton;
-    Skin skin;
+    private final Skin skin;
 
 
-    public InventoryActor(String title, Skin skin, Inventory inventory) {
-        super(title, skin);
+    public InventoryActor(Skin skin, Inventory inventory) {
+        super("Inventory", skin);
 
         this.inventory = inventory;
         this.skin = skin;

@@ -6,11 +6,11 @@ import com.mygdx.game.Inventory.InventorySlots.StandardSlot;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 
 public class Inventory {
-    Array<Array<InventorySlot>> inventorySlots;
-    private int width;
-    private int height;
+    private final Array<Array<InventorySlot>> inventorySlots;
+    private final int width;
+    private final int height;
 
-    public Inventory(int width, int height){
+    protected Inventory(int width, int height){
         inventorySlots = new Array<Array<InventorySlot>>();
         this.width = width;
         this.height = height;
@@ -23,7 +23,7 @@ public class Inventory {
         }
     }
 
-    public InventorySlot getSlot(GridPoint2 pos) {
+    protected InventorySlot getSlot(GridPoint2 pos) {
         return inventorySlots.get(pos.y).get(pos.x);
     }
 
@@ -53,22 +53,19 @@ public class Inventory {
         return false;
     }
 
-    public void setSlot(GridPoint2 pos, InventorySlot slot){
+    protected void setSlot(GridPoint2 pos, InventorySlot slot){
         inventorySlots.get(pos.y).set(pos.x, slot);
     }
 
-    public InventorySlot findSlotWithItem(InventoryItem item) {
-        InventorySlot slot = null;
+    protected InventorySlot findSlotWithItem(InventoryItem item) {
         for (int i = 0; i < width; i++) {
             for (int j =0; j < height; j++){
                 InventorySlot currentSlot = inventorySlots.get(i).get(j);
                 if (currentSlot.getItem() == item){
-                    slot = currentSlot;
-                    return slot;
+                    return currentSlot;
                 }
             }
         }
-
-        return slot;
+        return null;
     }
 }

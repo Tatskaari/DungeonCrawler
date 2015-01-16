@@ -8,12 +8,12 @@ import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
-    protected final RangeValue healthRange;
-    protected final RandomRangeValue damage;
-    private RangeValue expRange;
+    private final RangeValue healthRange;
+    final RandomRangeValue damage;
+    private final RangeValue expRange;
     private int level;
 
-    private PlayerCharacterEntity player;
+    private final PlayerCharacterEntity player;
 
     public PlayerStatsHandler(PlayerCharacterEntity player){
         level = 1;

@@ -7,15 +7,14 @@ import com.mygdx.game.Inventory.InventorySlots.HeadSlot;
 import com.mygdx.game.Inventory.ItemTypes.BodyItem;
 import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
-import com.mygdx.game.Inventory.InventoryItems.EmptySwordHandItem;
 import com.mygdx.game.Inventory.InventorySlot;
 import com.mygdx.game.Inventory.InventorySlots.SwordHandSlot;
 import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class PlayerInventory extends Inventory {
-    private GridPoint2 swordHandItemSlotPos;
-    private GridPoint2 headItemSlotPos;
-    private GridPoint2 bodyItemSlotPos;
+    private final GridPoint2 swordHandItemSlotPos;
+    private final GridPoint2 headItemSlotPos;
+    private final GridPoint2 bodyItemSlotPos;
 
     public PlayerInventory(int width, int height) {
         super(width, height);

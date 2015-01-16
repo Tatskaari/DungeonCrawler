@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
 
-public class ContextMenuActor extends Window {
+class ContextMenuActor extends Window {
     public ContextMenuActor(Skin skin, InventoryItem item){
         super(item.getItemName(), skin);
 

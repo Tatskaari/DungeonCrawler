@@ -1,7 +1,5 @@
 package com.mygdx.game.SpawnPools;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Characters.Rat;
 import com.mygdx.game.Characters.Skeleton;

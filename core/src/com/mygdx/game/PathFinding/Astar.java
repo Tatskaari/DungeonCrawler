@@ -3,7 +3,7 @@ package com.mygdx.game.PathFinding;
 import com.badlogic.gdx.utils.Array;
 
 public class Astar {
-    AstarHeuristic heuristic;
+    private final AstarHeuristic heuristic;
 
     public Astar(AstarHeuristic heuristic){
         this.heuristic = heuristic;

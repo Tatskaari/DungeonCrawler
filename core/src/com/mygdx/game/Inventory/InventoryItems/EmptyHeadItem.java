@@ -8,7 +8,7 @@ import com.mygdx.game.Inventory.ItemTypes.HeadItem;
  * Created by Tatskaari on 13/01/2015.
  */
 public class EmptyHeadItem extends HeadItem {
-    private Array<ItemContextAction> contextActions;
+    private final Array<ItemContextAction> contextActions;
 
     public EmptyHeadItem(){
         contextActions = new Array<ItemContextAction>();

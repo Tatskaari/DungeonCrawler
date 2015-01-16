@@ -9,8 +9,8 @@ import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.ResourceLoader;
 
 public class DungeonRenderer extends Renderer{
-    private Dungeon dungeon;
-    private int tileSize;
+    private final Dungeon dungeon;
+    private final int tileSize;
 
     public DungeonRenderer(Dungeon dungeon){
         this.dungeon = dungeon;
@@ -43,7 +43,7 @@ public class DungeonRenderer extends Renderer{
         }
     }
 
-    protected void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
+    void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
             float colourVal = tile.getVisibilityLevel();
             batch.setColor(colourVal, colourVal, colourVal, colourVal);
@@ -57,7 +57,7 @@ public class DungeonRenderer extends Renderer{
         }
     }
 
-    protected void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
+    void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
             batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
         }

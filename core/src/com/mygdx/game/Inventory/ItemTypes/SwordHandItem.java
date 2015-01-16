@@ -11,7 +11,7 @@ public abstract class SwordHandItem implements InventoryItem{
     private final Array<ItemContextAction> itemContextActions;
     private final SwordHandItem thisItem = this;
 
-    public SwordHandItem(){
+    protected SwordHandItem(){
         itemContextActions = new Array<ItemContextAction>();
         itemContextActions.add(new ItemContextAction() {
 

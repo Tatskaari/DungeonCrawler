@@ -4,10 +4,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 public abstract class SpawnPool <Type> {
-    private Array<ObjectAndBias> spawnTable;
-    float totalBias;
+    private final Array<ObjectAndBias> spawnTable;
+    private float totalBias;
 
-    public SpawnPool(){
+    SpawnPool(){
         spawnTable = new Array<ObjectAndBias>();
     }
 
@@ -30,7 +30,7 @@ public abstract class SpawnPool <Type> {
         throw new RuntimeException("Error calculating what to spawn.");
     }
 
-    public void addNew(Class monsterClass, float bias) {
+    void addNew(Class monsterClass, float bias) {
         spawnTable.add(new ObjectAndBias(monsterClass, bias));
         totalBias += bias;
     }

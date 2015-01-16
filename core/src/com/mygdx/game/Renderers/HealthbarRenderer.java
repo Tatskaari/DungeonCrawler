@@ -5,18 +5,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.GameHandler;
-import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
 public class HealthBarRenderer extends Renderer {
-    private int tileSize;
-    private ShapeRenderer shapeRenderer;
+    private final int tileSize;
+    private final ShapeRenderer shapeRenderer;
 
-    private Rectangle redRect;
-    private Rectangle greenRect;
+    private final Rectangle redRect;
+    private final Rectangle greenRect;
 
-    private NonPlayerCharacterEntity characterEntity;
+    private final NonPlayerCharacterEntity characterEntity;
 
 
     public HealthBarRenderer(NonPlayerCharacterEntity characterEntity){

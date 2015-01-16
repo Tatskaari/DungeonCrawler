@@ -4,14 +4,11 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemContextAction;
 
-/**
- * Created by Tatskaari on 15/01/2015.
- */
 public abstract class BodyItem extends ArmourItem{
     private final Array<ItemContextAction> itemContextActions;
     private final BodyItem thisItem = this;
 
-    public BodyItem(){
+    protected BodyItem(){
         itemContextActions = new Array<ItemContextAction>();
         itemContextActions.add(new ItemContextAction() {
 

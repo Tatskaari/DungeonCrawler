@@ -11,12 +11,12 @@ import com.mygdx.game.PathFinding.AstarNode;
 import java.awt.*;
 
 public class GenericWanderBehavior extends Behavior {
-    private NonPlayerCharacterEntity character;
+    private final NonPlayerCharacterEntity character;
     private GridPoint2 targetPoint;
     private GridPoint2 pathTarget;
     private Array<AstarNode> path;
     private int actCountdown = 0;
-    private DungeonRoom dungeonRoom;
+    private final DungeonRoom dungeonRoom;
 
     public GenericWanderBehavior(NonPlayerCharacterEntity character) {
         this.character = character;
@@ -56,7 +56,7 @@ public class GenericWanderBehavior extends Behavior {
         return generateNewPathBetween(character.getPosition(), targetPoint);
     }
 
-    public DungeonRoom getClosestRoom() {
+    DungeonRoom getClosestRoom() {
         DungeonRoom closestRoom = GameHandler.dungeon.getDungeonRoom(0);
         double closestDist = Point.distance(character.getPosition().x, character.getPosition().y, closestRoom.getX(), closestRoom.getY());
         for(int i = 1; i < GameHandler.dungeon.getRoomCount(); i++){

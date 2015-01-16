@@ -11,8 +11,8 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ResourceLoader;
 
 public class MainMenuScreen extends ScreenAdapter{
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
 
     public MainMenuScreen(){
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

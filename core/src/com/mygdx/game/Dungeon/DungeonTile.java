@@ -18,17 +18,17 @@ public abstract class DungeonTile {
     public static final int EMPTY = 0;
     public static final int FLOOR = 10;
     public static final int WALL = 20;
-    public static final int DOOR_HORIZONTAL = 30;
-    public static final int DOOR_VERTICAL = 40;
-    public static final int CORRIDOR_FLOOR = 50;
+    protected static final int DOOR_HORIZONTAL = 30;
+    protected static final int DOOR_VERTICAL = 40;
+    protected static final int CORRIDOR_FLOOR = 50;
     public static final int CORRIDOR_WALL = 60;
 
 
     private boolean tileHasBeenVisible = false;
-    private GridPoint2 pos;
-    private Array<InventoryItem> itemList;
+    private final GridPoint2 pos;
+    private final Array<InventoryItem> itemList;
 
-    public DungeonTile(GridPoint2 pos) {
+    protected DungeonTile(GridPoint2 pos) {
         this.pos = pos;
 
         itemList = new Array<InventoryItem>();

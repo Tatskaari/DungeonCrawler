@@ -5,7 +5,7 @@ import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
 
 public class EmptyItem implements InventoryItem {
-    Array<ItemContextAction> itemActions;
+    private final Array<ItemContextAction> itemActions;
 
     public EmptyItem(){
         itemActions = new Array<ItemContextAction>();

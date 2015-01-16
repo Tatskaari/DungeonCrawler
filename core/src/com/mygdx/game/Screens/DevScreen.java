@@ -14,27 +14,22 @@ import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.ResourceLoader;
 
 public class DevScreen extends ScreenAdapter {
-    private OrthographicCamera camera;
-    private SpriteBatch batch;
+    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
 
     public Screen getLastScreen() {
         return lastScreen;
     }
 
-    private Screen lastScreen;
-    private GameInputHandler gameInputHandler;
-    private DevInputHandler davInputHandler;
-    private InputMultiplexer inputMultiplexer;
-    private float zoomSpeed = 0.1f;
-    private float minZoom = 0.2f;
-    private float maxZoom = 10;
+    private final Screen lastScreen;
+    private final InputMultiplexer inputMultiplexer;
 
     public DevScreen(Screen lastScreen){
+        DevInputHandler davInputHandler = new DevInputHandler(this);
+        GameInputHandler gameInputHandler = new GameInputHandler();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         this.lastScreen = lastScreen;
-        davInputHandler = new DevInputHandler(this);
-        gameInputHandler = new GameInputHandler();
         inputMultiplexer = new InputMultiplexer();
 
         inputMultiplexer.addProcessor(davInputHandler);
@@ -48,7 +43,10 @@ public class DevScreen extends ScreenAdapter {
     }
 
     public void zoomCamera(int amount){
-        float newZoomLevel = camera.zoom + camera.zoom*amount*zoomSpeed;
+        float zoomSpeed = 0.1f;
+        float newZoomLevel = camera.zoom + camera.zoom*amount* zoomSpeed;
+        float minZoom = 0.2f;
+        float maxZoom = 10;
         if(newZoomLevel < minZoom){
             camera.zoom = minZoom;
         }else if(newZoomLevel > maxZoom){

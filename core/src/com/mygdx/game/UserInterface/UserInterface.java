@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.GameHandler;
 
 public class UserInterface {
-    private final Skin skin;
     private final Stage stage;
     private final Table bottomTable;
     private final Table topTable;
@@ -26,10 +25,10 @@ public class UserInterface {
     private final Label infoLabel;
 
     // Top table elements
-    private TextButton inventoryOpenButton;
+    private final TextButton inventoryOpenButton;
 
     public UserInterface(){
-        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("UI/UI.atlas")));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("items/item-icons.atlas")));
         stage = new Stage();
@@ -43,7 +42,7 @@ public class UserInterface {
         experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor("Inventory", skin, GameHandler.player.inventory);
+        inventory = new InventoryActor(skin, GameHandler.player.inventory);
 
 
 

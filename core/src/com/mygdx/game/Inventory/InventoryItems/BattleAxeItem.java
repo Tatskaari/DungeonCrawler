@@ -8,7 +8,7 @@ import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class BattleAxeItem extends SwordHandItem {
 
-    private Array<ItemContextAction> itemContextActions;
+    private final Array<ItemContextAction> itemContextActions;
     private final BattleAxeItem thisItem = this;
 
     public BattleAxeItem() {

@@ -10,12 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Inventory.InventorySlot;
 
 
-public class InventorySlotActor extends ImageButton {
-    private InventorySlot inventorySlot;
-    private Drawable background;
+class InventorySlotActor extends ImageButton {
+    private final InventorySlot inventorySlot;
+    private final Drawable background;
     private Color backgroundColor;
     private float padding;
-    private Skin skin;
+    private final Skin skin;
 
     public InventorySlotActor(final InventorySlot inventorySlot, final Skin skin){
         super(skin.getDrawable(inventorySlot.getItem().getItemName()));
@@ -35,11 +35,11 @@ public class InventorySlotActor extends ImageButton {
         });
     }
 
-    public void setBackgroundColor(Color c){
+    void setBackgroundColor(Color c){
         backgroundColor = c;
     }
 
-    public void setPadding(float padding){
+    void setPadding(float padding){
         this.padding = padding;
         setWidth(getWidth() + padding*2);
         setHeight(getHeight() + padding*2);

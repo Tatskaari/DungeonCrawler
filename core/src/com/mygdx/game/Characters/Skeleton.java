@@ -4,14 +4,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Inventory.InventoryItems.BattleAxeItem;
-import com.mygdx.game.Inventory.InventoryItems.SwordItem;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.SpawnPools.SkeletonLootPool;
 
 public class Skeleton extends BasicNonPlayerCharacterEntity {
     private int level;
-    private SkeletonLootPool lootPool;
+    private final SkeletonLootPool lootPool;
     private final float dropChance = 0.6f;
 
     public Skeleton(GridPoint2 position, int level) {
@@ -47,6 +45,6 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
         setHealth(5+level);
 
         this.level = level;
-        setDamageRange(0+level, 2 + level);
+        setDamageRange(level, 2 + level);
     }
 }

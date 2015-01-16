@@ -9,7 +9,7 @@ import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
  * Created by Tatskaari on 15/01/2015.
  */
 public class BodySlot implements InventorySlot {
-    BodyItem item;
+    private BodyItem item;
 
     public BodySlot(){
         empty();

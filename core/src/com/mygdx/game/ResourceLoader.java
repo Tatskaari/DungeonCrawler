@@ -1,12 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import java.awt.*;
 
 public abstract class ResourceLoader {
     //Textures
@@ -22,11 +19,11 @@ public abstract class ResourceLoader {
 
     //Fonts
     public static BitmapFont titleFont;
-    public static BitmapFont defaultFont;
+    private static BitmapFont defaultFont;
     public static BitmapFont damageFont;
     public static BitmapFont expFont;
 
-    public static TextureAtlas resTextureAtlas;
+    private static TextureAtlas resTextureAtlas;
     public static TextureAtlas itemTextureAtlas;
 
     public static void loadResources(){
@@ -34,7 +31,7 @@ public abstract class ResourceLoader {
         loadFonts();
     }
 
-    public static void loadTextures(){
+    private static void loadTextures(){
         resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.atlas"));
         itemTextureAtlas = new TextureAtlas(Gdx.files.internal("items/item-icons.atlas"));
 
@@ -49,7 +46,7 @@ public abstract class ResourceLoader {
         rat = resTextureAtlas.findRegion("rat");
     }
 
-    public static void loadFonts(){
+    private static void loadFonts(){
         defaultFont = new BitmapFont();
 
         damageFont = new BitmapFont();

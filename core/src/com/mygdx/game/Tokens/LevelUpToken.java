@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.ResourceLoader;
 
 public class LevelUpToken extends BasicToken {
-    private int level;
+    private final int level;
 
     public LevelUpToken(GridPoint2 position, int level) {
         super(position);

@@ -11,7 +11,7 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
 
 public class PlayerInputHandler extends InputAdapter {
-    private PlayerCharacterEntity player;
+    private final PlayerCharacterEntity player;
 
     public PlayerInputHandler(PlayerCharacterEntity player){
         this.player = player;
@@ -27,7 +27,7 @@ public class PlayerInputHandler extends InputAdapter {
         return checkDpadDown(keyCode);
     }
 
-    public boolean checkDpadDown(int keyCode){
+    boolean checkDpadDown(int keyCode){
         GridPoint2 position = player.getPosition();
         if(keyCode == Input.Keys.W || keyCode == Input.Keys.UP){
             position.y++;

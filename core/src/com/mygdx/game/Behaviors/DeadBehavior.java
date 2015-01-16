@@ -4,7 +4,7 @@ import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 
 public class DeadBehavior extends Behavior {
     private int respawnCounter;
-    private NonPlayerCharacterEntity character;
+    private final NonPlayerCharacterEntity character;
 
     public DeadBehavior(NonPlayerCharacterEntity character, int respawnCounter){
         this.respawnCounter = respawnCounter;

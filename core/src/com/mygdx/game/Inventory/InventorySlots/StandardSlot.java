@@ -16,16 +16,15 @@ public class StandardSlot implements InventorySlot{
     public boolean canTakeItem(InventoryItem inventoryItem) {
         if (item instanceof EmptyItem) {
             return true;
-        } else if(item.getMaxStackSize() < itemCount){
-            return true;
         } else {
-            return false;
+            return item.getMaxStackSize() < itemCount;
         }
     }
 
     public void addItem(InventoryItem inventoryItem) {
         if (canTakeItem(inventoryItem)){
             item = inventoryItem;
+            itemCount++;
         } else {
             throw new RuntimeException("Cannot add that item to this slot.");
         }

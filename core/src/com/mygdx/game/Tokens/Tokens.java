@@ -5,8 +5,8 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Renderers.TokenRenderer;
 
 public class Tokens {
-    private Array<Token> tokens;
-    public Renderer renderer;
+    private final Array<Token> tokens;
+    public final Renderer renderer;
 
     public Tokens(){
         tokens = new Array<Token>();
@@ -22,7 +22,7 @@ public class Tokens {
         tokens.add(token);
     }
 
-    public void updateTokens(){
+    void updateTokens(){
         for(Token token : tokens ){
             if(!token.isAlive()){
                 tokens.removeValue(token, true);

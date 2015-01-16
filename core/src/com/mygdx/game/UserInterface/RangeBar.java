@@ -8,11 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Utils.RangeValue;
 
-public class RangeBar extends Actor {
-    private NinePatch progressBar;
-    private RangeValue rangeValue;
-    private BitmapFont font;
-    private String prefixText;
+class RangeBar extends Actor {
+    private final NinePatch progressBar;
+    private final RangeValue rangeValue;
+    private final BitmapFont font;
+    private final String prefixText;
 
     public Color filledColor;
     public Color emptyColor;

@@ -8,10 +8,10 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
 public class GenericFindPlayerBehavior extends Behavior {
-    private NonPlayerCharacterEntity character;
-    private float pathCostThreshold = 50000;
-    private GridPoint2 targetPoint;
-    private GridPoint2 pathTarget;
+    private final NonPlayerCharacterEntity character;
+    private final float pathCostThreshold = 50000;
+    private final GridPoint2 targetPoint;
+    private final GridPoint2 pathTarget;
     private Array<AstarNode> path;
 
     public GenericFindPlayerBehavior(NonPlayerCharacterEntity character){
