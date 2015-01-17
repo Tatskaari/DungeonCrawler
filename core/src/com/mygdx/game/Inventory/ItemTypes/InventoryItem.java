@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemContextAction;
 
 public interface InventoryItem {
+    public String getTextureName();
     public String getItemName();
 
     public int getMaxStackSize();

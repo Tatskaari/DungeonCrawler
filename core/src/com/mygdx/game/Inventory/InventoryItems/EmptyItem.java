@@ -12,8 +12,13 @@ public class EmptyItem implements InventoryItem {
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "empty-slot";
+    }
+
+    @Override
+    public String getItemName() {
+        return "";
     }
 
     @Override

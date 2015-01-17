@@ -19,8 +19,13 @@ public class EmptyHeadItem extends HeadItem {
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "empty-helmet-slot";
+    }
+
+    @Override
+    public String getItemName() {
+        return "";
     }
 
     @Override

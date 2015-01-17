@@ -4,8 +4,13 @@ import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class SwordItem extends SwordHandItem {
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "sword";
+    }
+
+    @Override
+    public String getItemName() {
+        return "Short Sword";
     }
 
     @Override

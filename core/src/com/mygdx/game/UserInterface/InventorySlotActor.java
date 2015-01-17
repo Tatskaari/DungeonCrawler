@@ -18,7 +18,7 @@ class InventorySlotActor extends ImageButton {
     private final Skin skin;
 
     public InventorySlotActor(final InventorySlot inventorySlot, final Skin skin){
-        super(skin.getDrawable(inventorySlot.getItem().getItemName()));
+        super(skin.getDrawable(inventorySlot.getItem().getTextureName()));
         this.background = skin.getDrawable("rounded");
         this.inventorySlot = inventorySlot;
         this.skin = skin;
@@ -51,6 +51,8 @@ class InventorySlotActor extends ImageButton {
         batch.setColor(backgroundColor);
         background.draw(batch, getX(), getY(), getWidth(), getHeight());
         batch.setColor(Color.WHITE);
-        skin.getDrawable(inventorySlot.getItem().getItemName()).draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
+
+        Drawable itemDrawable = skin.getDrawable(inventorySlot.getItem().getTextureName());
+        itemDrawable.draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
     }
 }

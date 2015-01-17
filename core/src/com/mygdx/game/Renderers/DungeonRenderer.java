@@ -50,7 +50,7 @@ public class DungeonRenderer extends Renderer{
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
             for (int i = 0; i < tile.itemCount(); i++){
                 InventoryItem item = tile.getItem(i);
-                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getItemName());
+                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getTextureName());
                 batch.draw(textureRegion, x * tileSize, y * tileSize);
             }
             batch.setColor(1,1,1,1);

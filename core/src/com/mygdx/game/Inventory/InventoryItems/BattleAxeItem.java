@@ -28,8 +28,13 @@ public class BattleAxeItem extends SwordHandItem {
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "battle-axe";
+    }
+
+    @Override
+    public String getItemName() {
+        return "Battle Axe";
     }
 
     @Override

@@ -12,8 +12,13 @@ public class EmptySwordHandItem extends SwordHandItem {
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "empty-sword-hand-slot";
+    }
+
+    @Override
+    public String getItemName() {
+        return "";
     }
 
     @Override

@@ -12,8 +12,13 @@ public class LeatherTunicItem extends BodyItem {
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "leather-tunic";
+    }
+
+    @Override
+    public String getItemName() {
+        return "Leather Tunic";
     }
 
     @Override

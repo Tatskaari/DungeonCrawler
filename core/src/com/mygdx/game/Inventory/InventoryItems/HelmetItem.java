@@ -8,8 +8,13 @@ import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 public class HelmetItem extends HeadItem {
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "helmet";
+    }
+
+    @Override
+    public String getItemName() {
+        return "Helmet";
     }
 
     @Override
