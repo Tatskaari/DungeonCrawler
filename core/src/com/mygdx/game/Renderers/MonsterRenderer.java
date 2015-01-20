@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
 public class MonsterRenderer extends Renderer{
-    private NonPlayerCharacterEntity characterEntity;
-    private int tileSize;
-    private HealthBarRenderer healthBarRenderer;
+    private final NonPlayerCharacterEntity characterEntity;
+    private final int tileSize;
+    private final HealthBarRenderer healthBarRenderer;
 
     public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
         this.characterEntity = characterEntity;
@@ -35,7 +34,6 @@ public class MonsterRenderer extends Renderer{
     @Override
     public void devRender(float delta, SpriteBatch batch){
         if (!characterEntity.isDead()){
-            GridPoint2 pos = characterEntity.getPosition();
             batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
         }
     }

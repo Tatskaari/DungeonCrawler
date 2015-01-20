@@ -12,19 +12,23 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Tokens.DamageToken;
 
 public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacterEntity {
-    private GridPoint2 position;
+    private final GridPoint2 position;
     private int health;
     private int maxHealth;
     private Behavior behavior;
     private int minDamage;
     private int maxDamage;
 
-    public Renderer renderer;
+    private final Renderer renderer;
 
-    public BasicNonPlayerCharacterEntity(GridPoint2 position){
+    BasicNonPlayerCharacterEntity(GridPoint2 position){
         renderer = new MonsterRenderer(this);
         this.position = position;
         behavior = new GenericWanderBehavior(this);
+    }
+
+    BasicNonPlayerCharacterEntity() {
+        this(new GridPoint2(0, 0));
     }
 
     @Override
@@ -93,17 +97,21 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
         }
     }
 
+    public void setPos(GridPoint2 pos){
+        this.position.set(pos);
+    }
+
     @Override
     public void attack(CharacterEntity characterEntity) {
         int damage = MathUtils.random(minDamage, maxDamage);
         characterEntity.beAttacked(damage);
     }
 
-    public void die(){
+    void die(){
         GameHandler.player.statsHandler.addExperience(getExperienceValue());
     }
 
-    protected void setDamageRange(int minDamage, int maxDamage){
+    void setDamageRange(int minDamage, int maxDamage){
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
     }

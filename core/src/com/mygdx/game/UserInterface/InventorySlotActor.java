@@ -8,18 +8,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Inventory.InventorySlot;
-import com.mygdx.game.Inventory.InventorySlots.StandardInventorySlot;
 
 
-public class InventorySlotActor extends ImageButton {
-    private InventorySlot inventorySlot;
-    private Drawable background;
+class InventorySlotActor extends ImageButton {
+    private final InventorySlot inventorySlot;
+    private final Drawable background;
     private Color backgroundColor;
     private float padding;
-    private Skin skin;
+    private final Skin skin;
 
     public InventorySlotActor(final InventorySlot inventorySlot, final Skin skin){
-        super(skin.getDrawable(inventorySlot.getItem().getItemName()));
+        super(skin.getDrawable(inventorySlot.getItem().getTextureName()));
         this.background = skin.getDrawable("rounded");
         this.inventorySlot = inventorySlot;
         this.skin = skin;
@@ -36,11 +35,11 @@ public class InventorySlotActor extends ImageButton {
         });
     }
 
-    public void setBackgroundColor(Color c){
+    void setBackgroundColor(Color c){
         backgroundColor = c;
     }
 
-    public void setPadding(float padding){
+    void setPadding(float padding){
         this.padding = padding;
         setWidth(getWidth() + padding*2);
         setHeight(getHeight() + padding*2);
@@ -52,6 +51,8 @@ public class InventorySlotActor extends ImageButton {
         batch.setColor(backgroundColor);
         background.draw(batch, getX(), getY(), getWidth(), getHeight());
         batch.setColor(Color.WHITE);
-        skin.getDrawable(inventorySlot.getItem().getItemName()).draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
+
+        Drawable itemDrawable = skin.getDrawable(inventorySlot.getItem().getTextureName());
+        itemDrawable.draw(batch, getX() + padding, getY() + padding, getWidth() - padding * 2, getHeight() - padding * 2);
     }
 }

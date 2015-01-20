@@ -5,7 +5,7 @@ import com.mygdx.game.Tokens.Token;
 import com.mygdx.game.Tokens.Tokens;
 
 public class TokenRenderer extends Renderer {
-    Tokens tokens;
+    private final Tokens tokens;
     public TokenRenderer(Tokens tokens){
         this.tokens = tokens;
     }

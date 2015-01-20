@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.ResourceLoader;
 
 public class ExpToken extends BasicToken{
-    int experience;
+    private final int experience;
 
     public ExpToken(GridPoint2 position, int experience) {
         super(position);

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 
-public class BarebonesBatch extends ApplicationAdapter {
+class BarebonesBatch extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture texture;
     private Vector3 position;

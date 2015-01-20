@@ -5,12 +5,15 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
+import com.mygdx.game.UserInterface.UserInterface;
+import com.mygdx.game.Utils.ColouredText;
 
 public class PlayerInputHandler extends InputAdapter {
-    private PlayerCharacterEntity player;
+    private final PlayerCharacterEntity player;
 
     public PlayerInputHandler(PlayerCharacterEntity player){
         this.player = player;
@@ -26,7 +29,7 @@ public class PlayerInputHandler extends InputAdapter {
         return checkDpadDown(keyCode);
     }
 
-    public boolean checkDpadDown(int keyCode){
+    boolean checkDpadDown(int keyCode){
         GridPoint2 position = player.getPosition();
         if(keyCode == Input.Keys.W || keyCode == Input.Keys.UP){
             position.y++;
@@ -55,7 +58,12 @@ public class PlayerInputHandler extends InputAdapter {
         DungeonTile tile = GameHandler.dungeon.getDungeonTile(player.getPosition());
 
         if(tile.hasItem()){
-            player.inventory.addItem(tile.pickUpItem());
+            InventoryItem item = tile.pickUpItem();
+            if(player.inventory.addItem(item)){
+                UserInterface.growlArea.println(new ColouredText("Picked up a " + item.getItemName()));
+            } else {
+                tile.addItem(item);
+            }
         }
     }
 }

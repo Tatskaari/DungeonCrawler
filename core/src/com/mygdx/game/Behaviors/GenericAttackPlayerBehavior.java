@@ -7,7 +7,7 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
 public class GenericAttackPlayerBehavior extends Behavior {
-    private NonPlayerCharacterEntity character;
+    private final NonPlayerCharacterEntity character;
     private final GridPoint2 playersLastKnownPos;
     private Array<AstarNode> path;
     private final GridPoint2 pathTarget;

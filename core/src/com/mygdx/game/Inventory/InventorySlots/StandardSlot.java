@@ -1,23 +1,23 @@
 package com.mygdx.game.Inventory.InventorySlots;
 
 
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.InventoryItems.EmptyItem;
 import com.mygdx.game.Inventory.InventorySlot;
 
-public class StandardInventorySlot implements InventorySlot{
+public class StandardSlot implements InventorySlot{
     private InventoryItem item;
-    private int itemCount = 1;
+    private int itemCount = 0;
 
-    public StandardInventorySlot() {
+    public StandardSlot() {
         item = new EmptyItem();
     }
 
     public boolean canTakeItem(InventoryItem inventoryItem) {
-        if (item instanceof EmptyItem) {
+        if (item.isEmptyItem()) {
             return true;
-        } else if(item.getMaxStackSize() < itemCount){
-            return true;
+        } else if (item.getClass().equals(inventoryItem.getClass())) {
+            return item.getMaxStackSize() < itemCount;
         } else {
             return false;
         }
@@ -26,6 +26,7 @@ public class StandardInventorySlot implements InventorySlot{
     public void addItem(InventoryItem inventoryItem) {
         if (canTakeItem(inventoryItem)){
             item = inventoryItem;
+            itemCount++;
         } else {
             throw new RuntimeException("Cannot add that item to this slot.");
         }
@@ -39,6 +40,7 @@ public class StandardInventorySlot implements InventorySlot{
     @Override
     public void empty() {
         item = new EmptyItem();
+        itemCount = 0;
     }
 
     public InventoryItem getItem(){

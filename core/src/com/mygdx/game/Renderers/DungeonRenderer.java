@@ -1,19 +1,16 @@
 package com.mygdx.game.Renderers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.Inventory;
-import com.mygdx.game.Inventory.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.ResourceLoader;
-import org.w3c.dom.ranges.RangeException;
 
 public class DungeonRenderer extends Renderer{
-    private Dungeon dungeon;
-    private int tileSize;
+    private final Dungeon dungeon;
+    private final int tileSize;
 
     public DungeonRenderer(Dungeon dungeon){
         this.dungeon = dungeon;
@@ -46,21 +43,21 @@ public class DungeonRenderer extends Renderer{
         }
     }
 
-    protected void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
+    void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
             float colourVal = tile.getVisibilityLevel();
             batch.setColor(colourVal, colourVal, colourVal, colourVal);
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
             for (int i = 0; i < tile.itemCount(); i++){
                 InventoryItem item = tile.getItem(i);
-                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion("sword");
+                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getTextureName());
                 batch.draw(textureRegion, x * tileSize, y * tileSize);
             }
             batch.setColor(1,1,1,1);
         }
     }
 
-    protected void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
+    void devRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
         if (!tile.isEmpty()){
             batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
         }

@@ -5,22 +5,24 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.Characters.Rat;
-import com.mygdx.game.Characters.Skeleton;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
-import com.mygdx.game.ResourceLoader;
+import com.mygdx.game.SpawnPools.MonsterSpawnPool;
 
 public class DungeonGenerator {
-    private int roomMaxSize = 15;
-    private int roomMinSize = 7;
-
+    private final int roomMaxSize = 15;
+    private final int roomMinSize = 7;
+    private final MonsterSpawnPool monsterSpawnPool;
     private Dungeon dungeon;
     private int requestedRoomCount;
     private int requestedMapWidth;
     private int requestedMapHeight;
+
+    public DungeonGenerator() {
+        monsterSpawnPool = new MonsterSpawnPool();
+    }
 
     private Dungeon generateDungeon() {
         placeRooms(requestedRoomCount);
@@ -87,7 +89,6 @@ public class DungeonGenerator {
     }
 
     public void spawnMonsters(int monsterCount) {
-
         for (int i = 0; i < monsterCount; i++){
             spawnMonster();
         }
@@ -98,22 +99,15 @@ public class DungeonGenerator {
         spawnMonsterInRoom(room);
     }
 
-    public void spawnMonsterInRoom(DungeonRoom room) {
+    void spawnMonsterInRoom(DungeonRoom room) {
         GridPoint2 pos = getRandomTileInRoom(room);
-        NonPlayerCharacterEntity character = getRandomMonsterType(pos);
+        NonPlayerCharacterEntity character = monsterSpawnPool.getSpawn();
+        character.setPos(pos);
+        character.setLevel(dungeon.getLevel());
         dungeon.monsters.add(character);
     }
 
-    private NonPlayerCharacterEntity getRandomMonsterType(GridPoint2 position){
-        float roll = MathUtils.random();
-        if (roll < 0.2f){
-            return new Skeleton(position, dungeon.level);
-        }else {
-            return new Rat(position, dungeon.level-1);
-        }
-    }
-
-    public void placeRooms(int roomCount){
+    void placeRooms(int roomCount){
         for(int roomsAdded = 0; roomsAdded < roomCount; roomsAdded++){
             int width = MathUtils.random(roomMinSize, roomMaxSize);
             int height = MathUtils.random(roomMinSize, roomMaxSize);
@@ -126,7 +120,7 @@ public class DungeonGenerator {
         }
     }
 
-    public void placeCorridors(){
+    void placeCorridors(){
         for(int i = 0; i < dungeon.getRoomCount(); i++){
             int endRoom = randomExcluding(0, dungeon.getRoomCount()-1, i);
             connectRooms(dungeon.getDungeonRoom(i), dungeon.getDungeonRoom(endRoom));
@@ -141,7 +135,7 @@ public class DungeonGenerator {
         return result;
     }
 
-    public boolean addRoom(int x, int y, int width, int height){
+    boolean addRoom(int x, int y, int width, int height){
         boolean roomCanBeAdded = roomFits(x, y, width, height);
         if (roomCanBeAdded) {
             dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height, dungeon.getRoomCount()));
@@ -177,7 +171,7 @@ public class DungeonGenerator {
         return true;
     }
 
-    public void connectRooms(DungeonRoom startRoom, DungeonRoom endRoom){
+    void connectRooms(DungeonRoom startRoom, DungeonRoom endRoom){
 
         GridPoint2 startPoint;
         GridPoint2 endPoint;

@@ -17,13 +17,13 @@ public abstract class Behavior {
 
     public abstract Behavior act();
 
-    public boolean isPlayerAdjacent(GridPoint2 pos) {
+    boolean isPlayerAdjacent(GridPoint2 pos) {
         GridPoint2 playerPosition = GameHandler.player.getPosition();
         double dist = Point.distance(pos.x, pos.y, playerPosition.x, playerPosition.y);
         return dist < 1.5;
     }
 
-    public Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint){
+    Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint){
         Array<AstarNode> path;
 
         Astar astar = new Astar(new CrowFliesHeuristic());
@@ -38,7 +38,7 @@ public abstract class Behavior {
         return path;
     }
 
-    public GridPoint2 getRandomTileInRoom(DungeonRoom room){
+    GridPoint2 getRandomTileInRoom(DungeonRoom room){
         GridPoint2 tilePosition = new GridPoint2();
 
         tilePosition.y = MathUtils.random(room.getY() + 1, room.getY() + room.getHeight() - 2);
@@ -51,7 +51,7 @@ public abstract class Behavior {
         return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
     }
 
-    public GridPoint2 getRandomNonVisibleTileInAnyRoom(){
+    GridPoint2 getRandomNonVisibleTileInAnyRoom(){
         int roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
         GridPoint2 tilePos = getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
         while(GameHandler.dungeon.getDungeonTile(tilePos).isVisible()){
@@ -61,12 +61,12 @@ public abstract class Behavior {
         return tilePos;
     }
 
-    public GridPoint2 getRandomTileInAnyRoom() {
+    GridPoint2 getRandomTileInAnyRoom() {
         int roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
         return getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
     }
 
-    public boolean moveMonsterAlongPath(CharacterEntity characterEntity, Array<AstarNode> path){
+    boolean moveMonsterAlongPath(CharacterEntity characterEntity, Array<AstarNode> path){
         if (path.size == 0){
             return false;
         }

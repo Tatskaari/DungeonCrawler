@@ -1,24 +1,24 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.InventoryItem;
 import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
-public class EmptySwordHandItem implements InventoryItem {
-    private Array<ItemContextAction> itemContextActions;
+public class EmptySwordHandItem extends SwordHandItem {
+    private final Array<ItemContextAction> itemContextActions;
 
     public EmptySwordHandItem(){
         itemContextActions = new Array<ItemContextAction>();
     }
 
     @Override
-    public String getItemName() {
+    public String getTextureName() {
         return "empty-sword-hand-slot";
     }
 
     @Override
-    public int getMaxStackSize() {
-        return 1;
+    public String getItemName() {
+        return "";
     }
 
     @Override

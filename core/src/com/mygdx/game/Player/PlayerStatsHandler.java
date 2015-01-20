@@ -1,19 +1,23 @@
 package com.mygdx.game.Player;
 
+import com.apple.eawt.AppEvent;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Tokens.ExpToken;
 import com.mygdx.game.Tokens.LevelUpToken;
+import com.mygdx.game.UserInterface.UserInterface;
+import com.mygdx.game.Utils.ColouredText;
 import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
-    protected final RangeValue healthRange;
-    protected final RandomRangeValue damage;
-    private RangeValue expRange;
+    private final RangeValue healthRange;
+    final RandomRangeValue damage;
+    private final RangeValue expRange;
     private int level;
 
-    private PlayerCharacterEntity player;
+    private final PlayerCharacterEntity player;
 
     public PlayerStatsHandler(PlayerCharacterEntity player){
         level = 1;
@@ -45,7 +49,9 @@ public class PlayerStatsHandler {
         damage.setMax(damage.getMax()+1);
         healthRange.setMax(healthRange.getMax()+3);
         healthRange.setValue(healthRange.getValue()+3);
+
         GameHandler.tokens.addToken(new LevelUpToken(player.getPosition(), level));
+        UserInterface.growlArea.println(new ColouredText("Level up: " + level, Color.GREEN));
     }
 
     public RangeValue getHealthRange() {

@@ -1,6 +1,5 @@
 package com.mygdx.game.Dungeon.DungeonTiles;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;

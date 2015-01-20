@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Inventory.ItemContextAction;
 
-public class ContextMenuLabel extends Label {
+class ContextMenuLabel extends Label {
     public ContextMenuLabel(final ItemContextAction action, Skin skin) {
         super(action.getActionPrompt(), skin);
         addListener(new ClickListener(){
