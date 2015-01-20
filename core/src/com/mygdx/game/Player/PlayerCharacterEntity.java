@@ -106,6 +106,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     private float getDefenceRating(){
         float totalDefence = inventory.getHeadItem().getDefenceRating();
+        totalDefence+= inventory.getBodyItem().getDefenceRating();
+        totalDefence+= inventory.getShieldItem().getDefenceRating();
         if (totalDefence > 1){
             totalDefence = 1;
         }

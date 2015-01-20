@@ -1,6 +1,6 @@
 
 item-icons.png
-size: 256,32
+size: 512,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -25,37 +25,51 @@ empty-helmet-slot
   orig: 25, 25
   offset: 0, 0
   index: -1
-empty-slot
+empty-shield-slot
   rotate: false
   xy: 83, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-empty-sword-hand-slot
+empty-slot
   rotate: false
   xy: 110, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-helmet
+empty-sword-hand-slot
   rotate: false
   xy: 137, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-leather-tunic
+helmet
   rotate: false
   xy: 164, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-sword
+kite-shield
   rotate: false
   xy: 191, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+leather-tunic
+  rotate: false
+  xy: 218, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 245, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

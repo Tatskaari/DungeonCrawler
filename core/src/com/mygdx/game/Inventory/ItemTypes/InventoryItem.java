@@ -4,12 +4,12 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemContextAction;
 
 public interface InventoryItem {
-    public String getTextureName();
-    public String getItemName();
+    public abstract String getTextureName();
+    public abstract String getItemName();
 
-    public int getMaxStackSize();
-    public Array<ItemContextAction> getItemContextActions();
+    public abstract int getMaxStackSize();
+    public abstract Array<ItemContextAction> getItemContextActions();
 
-    public boolean isEmptyItem();
+    public abstract boolean isEmptyItem();
 
 }

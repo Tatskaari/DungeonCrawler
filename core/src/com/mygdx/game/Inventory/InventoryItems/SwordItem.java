@@ -3,6 +3,7 @@ package com.mygdx.game.Inventory.InventoryItems;
 import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class SwordItem extends SwordHandItem {
+
     @Override
     public String getTextureName() {
         return "sword";

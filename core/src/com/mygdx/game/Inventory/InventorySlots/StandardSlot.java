@@ -7,17 +7,19 @@ import com.mygdx.game.Inventory.InventorySlot;
 
 public class StandardSlot implements InventorySlot{
     private InventoryItem item;
-    private int itemCount = 1;
+    private int itemCount = 0;
 
     public StandardSlot() {
         item = new EmptyItem();
     }
 
     public boolean canTakeItem(InventoryItem inventoryItem) {
-        if (item instanceof EmptyItem) {
+        if (item.isEmptyItem()) {
             return true;
-        } else {
+        } else if (item.getClass().equals(inventoryItem.getClass())) {
             return item.getMaxStackSize() < itemCount;
+        } else {
+            return false;
         }
     }
 
@@ -38,6 +40,7 @@ public class StandardSlot implements InventorySlot{
     @Override
     public void empty() {
         item = new EmptyItem();
+        itemCount = 0;
     }
 
     public InventoryItem getItem(){

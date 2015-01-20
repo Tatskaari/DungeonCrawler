@@ -1,10 +1,8 @@
 package com.mygdx.game.SpawnPools;
 
-import com.mygdx.game.Inventory.InventoryItems.BattleAxeItem;
-import com.mygdx.game.Inventory.InventoryItems.HelmetItem;
-import com.mygdx.game.Inventory.InventoryItems.LeatherTunicItem;
-import com.mygdx.game.Inventory.InventoryItems.SwordItem;
+import com.mygdx.game.Inventory.InventoryItems.*;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
+import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
 public class SkeletonLootPool extends SpawnPool<InventoryItem> {
     public SkeletonLootPool(){
@@ -12,5 +10,6 @@ public class SkeletonLootPool extends SpawnPool<InventoryItem> {
         addNew(BattleAxeItem.class, 1);
         addNew(SwordItem.class, 3);
         addNew(HelmetItem.class, 3);
+        addNew(KiteShieldItem.class, 2);
     }
 }

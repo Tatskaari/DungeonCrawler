@@ -8,7 +8,7 @@ public abstract class BodyItem extends ArmourItem{
     private final Array<ItemContextAction> itemContextActions;
     private final BodyItem thisItem = this;
 
-    protected BodyItem(){
+    public BodyItem(){
         itemContextActions = new Array<ItemContextAction>();
         itemContextActions.add(new ItemContextAction() {
 

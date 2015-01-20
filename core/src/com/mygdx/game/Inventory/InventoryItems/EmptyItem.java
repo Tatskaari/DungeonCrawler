@@ -35,4 +35,5 @@ public class EmptyItem implements InventoryItem {
     public boolean isEmptyItem() {
         return true;
     }
+
 }

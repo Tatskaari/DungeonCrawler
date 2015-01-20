@@ -1,25 +1,25 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
-import com.mygdx.game.Inventory.ItemTypes.BodyItem;
+import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
 /**
- * Created by Tatskaari on 15/01/2015.
+ * Created by Tatskaari on 20/01/2015.
  */
-public class LeatherTunicItem extends BodyItem {
+public class KiteShieldItem extends ShieldItem {
 
     @Override
     public float getDefenceRating() {
-        return 0.3f;
+        return 0.4f;
     }
 
     @Override
     public String getTextureName() {
-        return "leather-tunic";
+        return "kite-shield";
     }
 
     @Override
     public String getItemName() {
-        return "Leather Tunic";
+        return "Kite Shield";
     }
 
     @Override
