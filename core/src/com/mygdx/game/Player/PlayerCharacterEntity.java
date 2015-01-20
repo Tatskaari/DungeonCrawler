@@ -1,5 +1,6 @@
 package com.mygdx.game.Player;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,6 +16,8 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
+import com.mygdx.game.UserInterface.UserInterface;
+import com.mygdx.game.Utils.ColouredText;
 
 public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
@@ -99,6 +102,9 @@ public class PlayerCharacterEntity implements CharacterEntity {
         DamageToken damageToken = new DamageToken(damage, position);
         GameHandler.tokens.addToken(damageToken);
         statsHandler.addToHealth(-damage);
+
+        UserInterface.growlArea.println(new ColouredText("Hit for " + damage + " damage.", Color.RED));
+
         if (statsHandler.getHealth() <= 0){
             MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
         }

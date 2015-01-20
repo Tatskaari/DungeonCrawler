@@ -16,6 +16,8 @@ public class UserInterface {
     private final Table bottomTable;
     private final Table topTable;
 
+    public static GrowlTextArea growlArea;
+
     // Inventory elements
     private final InventoryActor inventory;
 
@@ -38,6 +40,7 @@ public class UserInterface {
         inventoryOpenButton = new TextButton("Inventory", skin);
 
         bottomTable = new Table(skin);
+        growlArea = new GrowlTextArea(10);
         healthBar = new RangeBar(skin, GameHandler.player.statsHandler.getHealthRange(), "HP: ");
         experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
@@ -52,7 +55,6 @@ public class UserInterface {
         stage.addActor(bottomTable);
         stage.addActor(topTable);
         stage.addActor(inventory);
-
     }
 
     private void populateTopTable(){
@@ -85,6 +87,8 @@ public class UserInterface {
         experienceBar.emptyColor = Color.GRAY;
         experienceBar.filledColor = Color.YELLOW;
 
+        bottomTable.add(growlArea).left();
+        bottomTable.row();
         bottomTable.add(infoLabel);
         bottomTable.row();
         bottomTable.add(healthBar);

@@ -9,6 +9,8 @@ import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
+import com.mygdx.game.UserInterface.UserInterface;
+import com.mygdx.game.Utils.ColouredText;
 
 public class PlayerInputHandler extends InputAdapter {
     private final PlayerCharacterEntity player;
@@ -57,7 +59,9 @@ public class PlayerInputHandler extends InputAdapter {
 
         if(tile.hasItem()){
             InventoryItem item = tile.pickUpItem();
-            if(!player.inventory.addItem(item)){
+            if(player.inventory.addItem(item)){
+                UserInterface.growlArea.println(new ColouredText("Picked up a " + item.getItemName()));
+            } else {
                 tile.addItem(item);
             }
         }
