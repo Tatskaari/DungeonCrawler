@@ -10,6 +10,7 @@ public class SkeletonLootPool extends SpawnPool<InventoryItem> {
         addNew(BattleAxeItem.class, 1);
         addNew(SwordItem.class, 3);
         addNew(HelmetItem.class, 3);
-        addNew(KiteShieldItem.class, 2);
+        addNew(KiteShieldItem.class, 1);
+        addNew(RoundShieldItem.class, 3);
     }
 }
