@@ -14,6 +14,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
+import com.mygdx.game.Screens.GameOverScreen;
 import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
 import com.mygdx.game.UserInterface.UserInterface;
@@ -106,7 +107,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
         UserInterface.growlArea.println(new ColouredText("Hit for " + damage + " damage.", Color.RED));
 
         if (statsHandler.getHealth() <= 0){
-            MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
+            MyGdxGame.myGdxGame.setScreen(new GameOverScreen());
         }
     }
 

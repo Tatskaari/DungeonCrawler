@@ -10,12 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ResourceLoader;
 
-public class MainMenuScreen extends ScreenAdapter{
+public class GameOverScreen extends ScreenAdapter{
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
-    private float delayBeforeInput = 0.1f;
 
-    public MainMenuScreen(){
+    public GameOverScreen(){
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,0);
         camera.zoom = 1;
@@ -34,20 +33,21 @@ public class MainMenuScreen extends ScreenAdapter{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        renderText(0, 6, "You find yourself in an ancient sewer with nowhere to go but down.");
-        renderText(0, 4, "Click anywhere to descend!");
+        renderText(0, 8, "You grasp at your chest. Your hand comes back dark and sticky. You feel your strength leaving you.");
+        renderText(0, 7, "You fall to the floor cold, alone and dead.");
+        renderText(0, 4, "Continue?");
         batch.end();
 
-        if (Gdx.input.isTouched() && delayBeforeInput < 0) {
-            MyGdxGame.myGdxGame.setScreen(new GameScreen());
+        if (Gdx.input.isTouched()) {
+            MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
             dispose();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
-        delayBeforeInput-= delta;
     }
 
+    // TODO move this to a better place (utils?)
     private void renderText(float xPos, float yPos, String text){
         BitmapFont.TextBounds bounds = ResourceLoader.titleFont.getBounds(text);
         float lineHeight = bounds.height+5;

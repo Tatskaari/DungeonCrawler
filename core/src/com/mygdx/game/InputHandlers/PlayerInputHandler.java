@@ -24,6 +24,8 @@ public class PlayerInputHandler extends InputAdapter {
         if(keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(new DevScreen(MyGdxGame.myGdxGame.getScreen()));
             return true;
+        } else if (keyCode == Input.Keys.SPACE){
+            pickUpItem();
         }
 
         return checkDpadDown(keyCode);
@@ -42,8 +44,6 @@ public class PlayerInputHandler extends InputAdapter {
         }
         else if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
             position.x--;
-        } else if (keyCode == Input.Keys.SPACE){
-            pickUpItem();
         }
         if (position.equals(player.getPosition())){
             return false;
