@@ -63,6 +63,7 @@ public class PlayerInputHandler extends InputAdapter {
                 UserInterface.growlArea.println(new ColouredText("Picked up a " + item.getItemName()));
             } else {
                 tile.addItem(item);
+                UserInterface.growlArea.println(new ColouredText("You cannot pick that item up. Your inventory is full."));
             }
         }
     }
