@@ -1,6 +1,6 @@
 
 res.png
-size: 256,32
+size: 512,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -25,44 +25,51 @@ floor
   orig: 25, 25
   offset: 0, 0
   index: -1
-player
+goblin
   rotate: false
   xy: 83, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-rat
+player
   rotate: false
   xy: 110, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-skeleton
+rat
   rotate: false
   xy: 137, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-down
+skeleton
   rotate: false
   xy: 164, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-up
+stairs-down
   rotate: false
   xy: 191, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-wall
+stairs-up
   rotate: false
   xy: 218, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 245, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

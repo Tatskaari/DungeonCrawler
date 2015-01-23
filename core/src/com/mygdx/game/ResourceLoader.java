@@ -16,6 +16,7 @@ public abstract class ResourceLoader {
     public static TextureRegion player;
     public static TextureRegion skeleton;
     public static TextureRegion rat;
+    public static TextureRegion goblin;
 
     //Fonts
     public static BitmapFont titleFont;
@@ -43,6 +44,7 @@ public abstract class ResourceLoader {
         stairsDown = resTextureAtlas.findRegion("stairs-down");
         player = resTextureAtlas.findRegion("player");
         skeleton = resTextureAtlas.findRegion("skeleton");
+        goblin = resTextureAtlas.findRegion("goblin");
         rat = resTextureAtlas.findRegion("rat");
     }
 
