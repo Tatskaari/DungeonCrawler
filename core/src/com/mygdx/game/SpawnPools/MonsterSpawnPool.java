@@ -8,8 +8,8 @@ import com.mygdx.game.Characters.Skeleton;
 public class MonsterSpawnPool extends SpawnPool<NonPlayerCharacterEntity>{
 
     public MonsterSpawnPool(){
-        addNew(Skeleton.class, 1);
-        addNew(Rat.class, 2);
-        addNew(Goblin.class, 5);
+        addNew(Skeleton.class, 3);
+        addNew(Rat.class, 5);
+        addNew(Goblin.class, 2);
     }
 }

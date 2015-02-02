@@ -6,7 +6,7 @@ import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
 public class SkeletonLootPool extends SpawnPool<InventoryItem> {
     public SkeletonLootPool(){
-        addNew(LeatherTunicItem.class, 1);
+        addNew(LeatherTunicItem.class, 2);
         addNew(BattleAxeItem.class, 1);
         addNew(SwordItem.class, 3);
         addNew(HelmetItem.class, 3);
