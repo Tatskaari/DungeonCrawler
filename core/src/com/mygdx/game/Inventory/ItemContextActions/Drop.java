@@ -13,8 +13,8 @@ public class Drop implements ItemContextAction{
 
     @Override
     public void onClick() {
-        PlayerCharacterEntity player = GameHandler.player;
-        GameHandler.player.inventory.dropItem(item);
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        player.inventory.dropItem(item);
         GameHandler.dungeon.getDungeonTile(player.getPosition()).addItem(item);
     }
 

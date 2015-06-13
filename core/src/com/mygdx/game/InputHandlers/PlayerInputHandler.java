@@ -54,7 +54,7 @@ public class PlayerInputHandler extends InputAdapter {
     }
 
     private void pickUpItem() {
-        PlayerCharacterEntity player = GameHandler.player;
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
         DungeonTile tile = GameHandler.dungeon.getDungeonTile(player.getPosition());
 
         if(tile.hasItem()){

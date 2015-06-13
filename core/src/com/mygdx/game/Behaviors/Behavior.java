@@ -10,6 +10,7 @@ import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.CrowFliesHeuristic;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 import java.awt.*;
 
@@ -18,7 +19,7 @@ public abstract class Behavior {
     public abstract Behavior act();
 
     boolean isPlayerAdjacent(GridPoint2 pos) {
-        GridPoint2 playerPosition = GameHandler.player.getPosition();
+        GridPoint2 playerPosition = PlayerCharacterEntity.getInstance().getPosition();
         double dist = Point.distance(pos.x, pos.y, playerPosition.x, playerPosition.y);
         return dist < 1.5;
     }

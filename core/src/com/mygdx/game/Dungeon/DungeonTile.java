@@ -8,6 +8,7 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 import java.awt.*;
 
@@ -63,7 +64,7 @@ public abstract class DungeonTile {
     public float getVisibilityLevel() {
         if(isVisible()){
             tileHasBeenVisible = true;
-            GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+            GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
             float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
             return 1 - distance/(VIEW_DIST*2);
         } else {
@@ -72,7 +73,7 @@ public abstract class DungeonTile {
     }
 
     public boolean isVisible(){
-        GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+        GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
 
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
         if(distance > VIEW_DIST){
@@ -94,11 +95,11 @@ public abstract class DungeonTile {
     }
 
     private boolean isLOSBlocked(){
-        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition());
     }
 
     public boolean isPassable(){
-        if(pos.equals(GameHandler.player.getPosition())){
+        if(pos.equals(PlayerCharacterEntity.getInstance().getPosition())){
             return false;
         } else {
             for(CharacterEntity characterEntity : GameHandler.dungeon.monsters) {

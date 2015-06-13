@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
 
@@ -56,7 +57,7 @@ public class DevInputHandler extends InputAdapter {
         }
         if (keyCode == Input.Keys.G){
             GameHandler.dungeon = GameHandler.dungeonGenerator.regenerateDungeon();
-            GameHandler.player.placeCharacterIn(GameHandler.dungeon);
+            PlayerCharacterEntity.getInstance().placeCharacterIn(GameHandler.dungeon);
             GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
             return true;
         }

@@ -6,6 +6,7 @@ import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class GenericAttackPlayerBehavior extends Behavior {
     private final NonPlayerCharacterEntity character;
@@ -16,20 +17,22 @@ public class GenericAttackPlayerBehavior extends Behavior {
     public GenericAttackPlayerBehavior(NonPlayerCharacterEntity character){
         this.character = character;
         path = new Array<AstarNode>();
-        playersLastKnownPos = GameHandler.player.getPosition();
+        playersLastKnownPos = PlayerCharacterEntity.getInstance().getPosition();
         pathTarget = new GridPoint2(-1,-1);
     }
 
     @Override
     public Behavior act() {
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+
         if (DungeonUtils.canSeePlayerFrom(character.getPosition())){
-            playersLastKnownPos.set(GameHandler.player.getPosition());
+            playersLastKnownPos.set(player.getPosition());
         }else if (!isPlayerPositionKnown()){
             return new GenericWanderBehavior(character);
         }
 
         if (isPlayerAdjacent(character.getPosition())){
-            character.attack(GameHandler.player);
+            character.attack(player);
         } else {
             moveTowardsPlayer();
         }

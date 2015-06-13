@@ -9,6 +9,7 @@ import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.SpawnPools.MonsterSpawnPool;
 
 public class DungeonGenerator {
@@ -51,7 +52,7 @@ public class DungeonGenerator {
         generateDungeon();
 
         spawnMonsters(dungeon.getRoomCount());
-        dungeon.monsters.add(GameHandler.player);
+        dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         return dungeon;
     }

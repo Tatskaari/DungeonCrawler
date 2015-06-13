@@ -24,10 +24,9 @@ class GameScreen extends ScreenAdapter {
     public GameScreen() {
         GameHandler.dungeonGenerator = new DungeonGenerator();
         GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
-        GameHandler.player = new PlayerCharacterEntity();
         GameHandler.tokens = new Tokens();
         GameInputHandler gameInputHandler = new GameInputHandler();
-        PlayerInputHandler playerInputHandler = new PlayerInputHandler(GameHandler.player);
+        PlayerInputHandler playerInputHandler = new PlayerInputHandler(PlayerCharacterEntity.getInstance());
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
@@ -35,7 +34,7 @@ class GameScreen extends ScreenAdapter {
         batch = new SpriteBatch();
 
         GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
-        GameHandler.dungeon.monsters.add(GameHandler.player);
+        GameHandler.dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         ui = new UserInterface();
 
@@ -56,7 +55,7 @@ class GameScreen extends ScreenAdapter {
 
         batch.begin();
         GameHandler.dungeon.renderer.render(delta, batch);
-        GameHandler.player.renderer.render(delta, batch);
+        PlayerCharacterEntity.getInstance().renderer.render(delta, batch);
         GameHandler.tokens.renderer.render(delta, batch);
         batch.end();
 
@@ -64,8 +63,9 @@ class GameScreen extends ScreenAdapter {
     }
 
     void updateCamera(){
-        camera.position.x = GameHandler.player.getPosition().x * ResourceLoader.getTileSize();
-        camera.position.y = GameHandler.player.getPosition().y * ResourceLoader.getTileSize();
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        camera.position.x = player.getPosition().x * ResourceLoader.getTileSize();
+        camera.position.y = player.getPosition().y * ResourceLoader.getTileSize();
         camera.update();
     }
 

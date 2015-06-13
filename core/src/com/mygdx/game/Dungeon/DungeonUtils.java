@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class DungeonUtils {
     public static DungeonRoom getRandomNotStartDungeonRoom(Dungeon dungeon){
@@ -39,7 +40,7 @@ public class DungeonUtils {
     }
 
     public static boolean canSeePlayerFrom(GridPoint2 pos){
-        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition());
     }
 
 

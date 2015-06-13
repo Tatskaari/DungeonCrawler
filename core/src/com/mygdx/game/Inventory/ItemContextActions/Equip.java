@@ -2,6 +2,7 @@ package com.mygdx.game.Inventory.ItemContextActions;
 
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.EquipableItem;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class Equip implements ItemContextAction {
     EquipableItem item;
@@ -12,7 +13,7 @@ public class Equip implements ItemContextAction {
 
     @Override
     public void onClick() {
-        GameHandler.player.inventory.equipItem(item);
+        PlayerCharacterEntity.getInstance().inventory.equipItem(item);
     }
 
     @Override

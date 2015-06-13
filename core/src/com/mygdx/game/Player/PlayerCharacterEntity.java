@@ -27,11 +27,17 @@ public class PlayerCharacterEntity implements CharacterEntity {
     public final PlayerStatsHandler statsHandler;
     public final PlayerInventory inventory;
 
-    public PlayerCharacterEntity(){
+    private static final PlayerCharacterEntity player = new PlayerCharacterEntity();
+
+    private PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler(this);
         inventory = new PlayerInventory(5,5);
+    }
+
+    public static PlayerCharacterEntity getInstance(){
+        return player;
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -71,7 +77,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public void attack(CharacterEntity characterEntity) {
         int damage = (int) statsHandler.damage.getValue();
-        SwordHandItem weapon = GameHandler.player.inventory.getSwordHandItem();
+        SwordHandItem weapon = PlayerCharacterEntity.getInstance().inventory.getSwordHandItem();
         damage+= MathUtils.random(weapon.getAttackRating());
         characterEntity.beAttacked(damage);
     }

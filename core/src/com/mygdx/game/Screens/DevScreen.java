@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
 import com.mygdx.game.InputHandlers.GameInputHandler;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
 public class DevScreen extends ScreenAdapter {
@@ -62,7 +63,7 @@ public class DevScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         GameHandler.dungeon.renderer.devRender(delta, batch);
-        GameHandler.player.renderer.devRender(delta, batch);
+        PlayerCharacterEntity.getInstance().renderer.devRender(delta, batch);
         batch.end();
 
     }
@@ -71,7 +72,7 @@ public class DevScreen extends ScreenAdapter {
     public void show() {
         int tileSize = ResourceLoader.getTileSize();
         Gdx.input.setInputProcessor(inputMultiplexer);
-        GridPoint2 playerPos = GameHandler.player.getPosition();
+        GridPoint2 playerPos = PlayerCharacterEntity.getInstance().getPosition();
         camera.position.x = playerPos.x * tileSize;
         camera.position.y = playerPos.y * tileSize;
 

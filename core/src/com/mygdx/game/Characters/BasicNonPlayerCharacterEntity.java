@@ -8,6 +8,7 @@ import com.mygdx.game.Behaviors.GenericAttackPlayerBehavior;
 import com.mygdx.game.Behaviors.GenericWanderBehavior;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Tokens.DamageToken;
@@ -109,7 +110,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     }
 
     void die(){
-        GameHandler.player.statsHandler.addExperience(getExperienceValue());
+        PlayerCharacterEntity.getInstance().statsHandler.addExperience(getExperienceValue());
     }
 
     void setDamageRange(int minDamage, int maxDamage){

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.GameHandler;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class UserInterface {
     private final Stage stage;
@@ -31,6 +32,8 @@ public class UserInterface {
 
     public UserInterface(){
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+
         skin.addRegions(new TextureAtlas(Gdx.files.internal("UI/UI.atlas")));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("items/item-icons.atlas")));
         stage = new Stage();
@@ -41,11 +44,11 @@ public class UserInterface {
 
         bottomTable = new Table(skin);
         growlArea = new GrowlTextArea(10);
-        healthBar = new RangeBar(skin, GameHandler.player.statsHandler.getHealthRange(), "HP: ");
-        experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
+        healthBar = new RangeBar(skin, player.statsHandler.getHealthRange(), "HP: ");
+        experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor(skin, GameHandler.player.inventory);
+        inventory = new InventoryActor(skin, player.inventory);
 
 
 
@@ -99,7 +102,7 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
+        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
         stage.act(delta);
         stage.draw();
     }
