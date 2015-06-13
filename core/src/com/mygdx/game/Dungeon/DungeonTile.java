@@ -102,7 +102,7 @@ public abstract class DungeonTile {
         if(pos.equals(PlayerCharacterEntity.getInstance().getPosition())){
             return false;
         } else {
-            for(CharacterEntity characterEntity : GameHandler.dungeon.monsters) {
+            for(CharacterEntity characterEntity : Dungeon.getActiveDungeon().monsters) {
                 if(characterEntity.getPosition().equals(pos)){
                     if(!characterEntity.isDead()){
                         return false;
@@ -114,8 +114,8 @@ public abstract class DungeonTile {
     }
 
     public boolean hasMonster() {
-        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+        for(int i = 0; i < Dungeon.getActiveDungeon().monsters.size; i++){
+            CharacterEntity characterEntity = Dungeon.getActiveDungeon().monsters.get(i);
             if (characterEntity.getPosition().equals(pos)){
                 return true;
             }
@@ -125,8 +125,8 @@ public abstract class DungeonTile {
     }
 
     public CharacterEntity getMonster() {
-        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+        for(int i = 0; i < Dungeon.getActiveDungeon().monsters.size; i++){
+            CharacterEntity characterEntity = Dungeon.getActiveDungeon().monsters.get(i);
             if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
                 return characterEntity;
             }

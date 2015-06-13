@@ -19,9 +19,9 @@ public class StairsUpDungeonTile extends FloorDungeonTile{
 
     @Override
     public void onStep(){
-        Dungeon floorAbove = GameHandler.dungeon.getFloorAbove();
+        Dungeon floorAbove = Dungeon.getActiveDungeon().getFloorAbove();
         if (floorAbove != null){
-            GameHandler.dungeon = floorAbove;
+            Dungeon.setActiveDungeon(floorAbove);
             PlayerCharacterEntity.getInstance().placeAtStairsDown();
         }
     }

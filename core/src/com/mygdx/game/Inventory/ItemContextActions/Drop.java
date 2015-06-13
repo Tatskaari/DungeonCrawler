@@ -1,5 +1,6 @@
 package com.mygdx.game.Inventory.ItemContextActions;
 
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -15,7 +16,7 @@ public class Drop implements ItemContextAction{
     public void onClick() {
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
         player.inventory.dropItem(item);
-        GameHandler.dungeon.getDungeonTile(player.getPosition()).addItem(item);
+        Dungeon.getActiveDungeon().getDungeonTile(player.getPosition()).addItem(item);
     }
 
     @Override

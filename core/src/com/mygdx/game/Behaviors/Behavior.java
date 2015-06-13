@@ -3,6 +3,7 @@ package com.mygdx.game.Behaviors;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
@@ -28,7 +29,7 @@ public abstract class Behavior {
         Array<AstarNode> path;
 
         Astar astar = new Astar(new CrowFliesHeuristic());
-        Array<Array<AstarNode>> astarGraph = GameHandler.dungeon.getAstarGraph();
+        Array<Array<AstarNode>> astarGraph = Dungeon.getActiveDungeon().getAstarGraph();
 
         AstarNode startNode = astarGraph.get(startPoint.x).get(startPoint.y);
         AstarNode targetNode = astarGraph.get(targetPoint.x).get(targetPoint.y);

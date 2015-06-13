@@ -31,7 +31,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private static final PlayerCharacterEntity player = new PlayerCharacterEntity();
 
     private PlayerCharacterEntity(){
-        placeCharacterIn(GameHandler.dungeon);
+        placeCharacterIn(Dungeon.getActiveDungeon());
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler();
         inventory = new PlayerInventory(5,5);
@@ -51,21 +51,22 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     public void placeAtStairsDown(){
-        DungeonTile stairsDown = GameHandler.dungeon.getStairsDownDungeonTile();
+        DungeonTile stairsDown = Dungeon.getActiveDungeon().getStairsDownDungeonTile();
         position.set(stairsDown.getPos());
     }
+
     public void placeAtStairsUp(){
-        DungeonTile stairsUp = GameHandler.dungeon.getStairsUpDungeonTile();
+        DungeonTile stairsUp = Dungeon.getActiveDungeon().getStairsUpDungeonTile();
         position.set(stairsUp.getPos());
     }
 
     @Override
     public boolean moveTo(GridPoint2 newPosition) {
-        DungeonTile tile = GameHandler.dungeon.getDungeonTile(newPosition);
+        DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
             GameHandler.stepTurn();
-            GameHandler.dungeon.getDungeonTile(position).onStep();
+            Dungeon.getActiveDungeon().getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
@@ -134,7 +135,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     public void respawn() {
-        placeCharacterIn(GameHandler.dungeon);
+        placeCharacterIn(Dungeon.getActiveDungeon());
         statsHandler = new PlayerStatsHandler();
     }
 }

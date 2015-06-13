@@ -12,6 +12,8 @@ import com.mygdx.game.Renderers.DungeonRenderer;
 import com.mygdx.game.Renderers.Renderer;
 
 public class Dungeon {
+    private static Dungeon activeDungeon;
+
     public static final int NORTH = 1;
     public static final int EAST = 2;
     public static final int SOUTH = 3;
@@ -32,6 +34,14 @@ public class Dungeon {
     Dungeon floorAbove;
     Dungeon floorBelow;
     DungeonRoom startRoom;
+
+    public static void setActiveDungeon(Dungeon dungeon){
+        activeDungeon = dungeon;
+    }
+
+    public static Dungeon getActiveDungeon(){
+        return activeDungeon;
+    }
 
     public Dungeon(int mapWidth, int mapHeight){
         this.mapWidth = mapWidth;

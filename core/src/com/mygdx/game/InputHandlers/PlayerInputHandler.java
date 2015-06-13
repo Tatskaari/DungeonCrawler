@@ -3,6 +3,7 @@ package com.mygdx.game.InputHandlers;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
@@ -55,7 +56,7 @@ public class PlayerInputHandler extends InputAdapter {
 
     private void pickUpItem() {
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
-        DungeonTile tile = GameHandler.dungeon.getDungeonTile(player.getPosition());
+        DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(player.getPosition());
 
         if(tile.hasItem()){
             InventoryItem item = tile.pickUpItem();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
@@ -58,10 +59,11 @@ public class GenericWanderBehavior extends Behavior {
     }
 
     DungeonRoom getClosestRoom() {
-        DungeonRoom closestRoom = GameHandler.dungeon.getDungeonRoom(0);
+        Dungeon dungeon = Dungeon.getActiveDungeon();
+        DungeonRoom closestRoom = dungeon.getDungeonRoom(0);
         double closestDist = Point.distance(character.getPosition().x, character.getPosition().y, closestRoom.getX(), closestRoom.getY());
-        for(int i = 1; i < GameHandler.dungeon.getRoomCount(); i++){
-            DungeonRoom currentRoom = GameHandler.dungeon.getDungeonRoom(i);
+        for(int i = 1; i < dungeon.getRoomCount(); i++){
+            DungeonRoom currentRoom = dungeon.getDungeonRoom(i);
             double dist = Point.distance(character.getPosition().x, character.getPosition().y, currentRoom.getX(), currentRoom.getY());
             if (dist < closestDist){
                 closestDist = dist;

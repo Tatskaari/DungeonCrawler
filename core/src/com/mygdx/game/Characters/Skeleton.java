@@ -3,6 +3,7 @@ package com.mygdx.game.Characters;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.SpawnPools.SkeletonLootPool;
@@ -38,7 +39,7 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     public void die(){
         super.die();
         if(MathUtils.randomBoolean(dropChance)){
-            GameHandler.dungeon.getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
+            Dungeon.getActiveDungeon().getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
         UserInterface.growlArea.println(new ColouredText("The skeleton falls to pieces at the joints. You gain " + getExperienceValue() + " experience."));
 

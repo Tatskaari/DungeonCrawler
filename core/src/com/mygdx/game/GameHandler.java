@@ -7,7 +7,6 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Tokens.Tokens;
 
 public class GameHandler {
-    public static Dungeon dungeon;
     public static DungeonGenerator dungeonGenerator;
 
     public static void stepTurn(){
@@ -15,9 +14,11 @@ public class GameHandler {
     }
 
     private static void actMonsters(){
-       for(int i = 0; i < dungeon.monsters.size; i++){
+        Dungeon dungeon = Dungeon.getActiveDungeon();
+
+        for(int i = 0; i < dungeon.monsters.size; i++){
            CharacterEntity characterEntity = dungeon.monsters.get(i);
            characterEntity.act();
-       }
+        }
     }
 }

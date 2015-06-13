@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
@@ -38,15 +39,16 @@ public class GenericFindPlayerBehavior extends Behavior {
     }
 
     private void getNewPath(){
+        Dungeon dungeon = Dungeon.getActiveDungeon();
         int tries = 0;
-        GridPoint2 potentialTarget = DungeonUtils.getRandomTileInAnyRoom(GameHandler.dungeon);
+        GridPoint2 potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
         Array<AstarNode> potentialPath = generateNewPathBetween(character.getPosition(), potentialTarget);
 
         while (potentialPath.size == 0 || potentialPath.get(0).fScore > pathCostThreshold){
-            potentialTarget = DungeonUtils.getRandomTileInAnyRoom(GameHandler.dungeon);
+            potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
             potentialPath = generateNewPathBetween(character.getPosition(), potentialTarget);
             tries++;
-            if (tries > GameHandler.dungeon.getRoomCount()*2){
+            if (tries > dungeon.getRoomCount()*2){
                 return;
             }
         }

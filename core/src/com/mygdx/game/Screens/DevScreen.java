@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
 import com.mygdx.game.InputHandlers.GameInputHandler;
@@ -62,7 +63,7 @@ public class DevScreen extends ScreenAdapter {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        GameHandler.dungeon.renderer.devRender(delta, batch);
+        Dungeon.getActiveDungeon().renderer.devRender(delta, batch);
         PlayerCharacterEntity.getInstance().renderer.devRender(delta, batch);
         batch.end();
 

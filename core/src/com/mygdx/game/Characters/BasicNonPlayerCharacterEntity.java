@@ -6,6 +6,7 @@ import com.mygdx.game.Behaviors.Behavior;
 import com.mygdx.game.Behaviors.DeadBehavior;
 import com.mygdx.game.Behaviors.GenericAttackPlayerBehavior;
 import com.mygdx.game.Behaviors.GenericWanderBehavior;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -92,7 +93,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
 
     @Override
     public boolean moveTo(GridPoint2 position) {
-        if(GameHandler.dungeon.isTilePassable(position)){
+        if(Dungeon.getActiveDungeon().isTilePassable(position)){
             this.position.set(position);
             return true;
         } else {
