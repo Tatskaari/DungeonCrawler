@@ -5,10 +5,15 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Renderers.TokenRenderer;
 
 public class Tokens {
+    private static final Tokens instance = new Tokens();
     private final Array<Token> tokens;
     public final Renderer renderer;
 
-    public Tokens(){
+    public static Tokens getInstance(){
+        return instance;
+    }
+
+    private Tokens(){
         tokens = new Array<Token>();
         this.renderer = new TokenRenderer(this);
     }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Tokens.ExpToken;
 import com.mygdx.game.Tokens.LevelUpToken;
+import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 import com.mygdx.game.Utils.RandomRangeValue;
@@ -30,7 +31,7 @@ public class PlayerStatsHandler {
 
     public void addExperience(int exp){
         expRange.setValue(expRange.getValue() + exp);
-        GameHandler.tokens.addToken(new ExpToken(player.getPosition(), exp));
+        Tokens.getInstance().addToken(new ExpToken(player.getPosition(), exp));
         if (expRange.getValue() >= expRange.getMax()){
             levelUp();
         }
@@ -50,7 +51,7 @@ public class PlayerStatsHandler {
         healthRange.setMax(healthRange.getMax()+3);
         healthRange.setValue(healthRange.getValue()+3);
 
-        GameHandler.tokens.addToken(new LevelUpToken(player.getPosition(), level));
+        Tokens.getInstance().addToken(new LevelUpToken(player.getPosition(), level));
         UserInterface.growlArea.println(new ColouredText("Level up: " + level, Color.GREEN));
     }
 

@@ -22,9 +22,9 @@ class GameScreen extends ScreenAdapter {
     private final UserInterface ui;
 
     public GameScreen() {
+        //TODO remove this static stuff in favour of singletons
         GameHandler.dungeonGenerator = new DungeonGenerator();
         GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
-        GameHandler.tokens = new Tokens();
         GameInputHandler gameInputHandler = new GameInputHandler();
         PlayerInputHandler playerInputHandler = new PlayerInputHandler(PlayerCharacterEntity.getInstance());
 
@@ -56,7 +56,7 @@ class GameScreen extends ScreenAdapter {
         batch.begin();
         GameHandler.dungeon.renderer.render(delta, batch);
         PlayerCharacterEntity.getInstance().renderer.render(delta, batch);
-        GameHandler.tokens.renderer.render(delta, batch);
+        Tokens.getInstance().renderer.render(delta, batch);
         batch.end();
 
         ui.draw(delta);

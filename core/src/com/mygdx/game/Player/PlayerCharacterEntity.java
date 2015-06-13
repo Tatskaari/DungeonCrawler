@@ -17,6 +17,7 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.GameOverScreen;
 import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
+import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
@@ -107,7 +108,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     public void beAttacked(int damage){
         damage = MathUtils.ceil(damage*(1-getDefenceRating()));
         DamageToken damageToken = new DamageToken(damage, position);
-        GameHandler.tokens.addToken(damageToken);
+        Tokens.getInstance().addToken(damageToken);
         statsHandler.addToHealth(-damage);
 
         UserInterface.growlArea.println(new ColouredText("Hit for " + damage + " damage.", Color.RED));

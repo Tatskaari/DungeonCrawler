@@ -12,6 +12,7 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Tokens.DamageToken;
+import com.mygdx.game.Tokens.Tokens;
 
 public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacterEntity {
     private final GridPoint2 position;
@@ -50,7 +51,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     @Override
     public void beAttacked(int damage) {
         DamageToken damageToken = new DamageToken(damage, position);
-        GameHandler.tokens.addToken(damageToken);
+        Tokens.getInstance().addToken(damageToken);
         health-= damage;
     }
 
