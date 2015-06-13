@@ -22,10 +22,10 @@ public class MonsterRenderer extends Renderer{
     @Override
     public void render(float delta, SpriteBatch batch) {
         if (!characterEntity.isDead()){
-            float visibility = Dungeon.getActiveDungeon().getDungeonTile(characterEntity.getPosition()).getVisibilityLevel();
-            batch.setColor(visibility, visibility, visibility, 1);
             GridPoint2 pos = characterEntity.getPosition();
             if (Dungeon.getActiveDungeon().getDungeonTile(pos).isVisible()){
+                float visibility = Dungeon.getActiveDungeon().getDungeonTile(characterEntity.getPosition()).getVisibilityLevel();
+                batch.setColor(visibility, visibility, visibility, 1);
                 batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
                 healthBarRenderer.render(delta, batch);
             }

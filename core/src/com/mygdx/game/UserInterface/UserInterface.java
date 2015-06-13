@@ -1,10 +1,12 @@
 package com.mygdx.game.UserInterface;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -66,13 +68,23 @@ public class UserInterface {
         topTable.left().top();
 
         inventoryOpenButton.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        inventory.setVisible(!inventory.isVisible());
-                    }
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    inventory.setVisible(!inventory.isVisible());
                 }
+            }
         );
+
+        stage.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.TAB){
+                    inventory.setVisible(!inventory.isVisible());
+                }
+                return false;
+            }
+        });
 
         topTable.add(inventoryOpenButton);
 
@@ -117,4 +129,6 @@ public class UserInterface {
     public InputProcessor getInputProcessor(){
         return stage;
     }
+
+
 }

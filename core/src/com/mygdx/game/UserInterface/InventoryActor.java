@@ -37,11 +37,6 @@ class InventoryActor extends Window{
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        for (Actor actor : getStage().getActors()){
-                            if (actor instanceof ContextMenuActor){
-                                actor.remove();
-                            }
-                        }
                         setVisible(false);
                     }
                 }
@@ -76,5 +71,18 @@ class InventoryActor extends Window{
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         positionAndSize();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        //Stage can be bull if the inventory has not been added to the stage yet
+        if (!visible && getStage() != null){
+            for (Actor actor : getStage().getActors()){
+                if (actor instanceof ContextMenuActor){
+                    actor.remove();
+                }
+            }
+        }
+        super.setVisible(visible);
     }
 }
