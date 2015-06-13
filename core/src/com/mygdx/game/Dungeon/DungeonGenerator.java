@@ -87,7 +87,6 @@ public class DungeonGenerator {
         dungeon.stairsUpDungeonTile = stairsUpDungeonTile;
     }
 
-    //TODO refactor this into the monster factory classes
     public void spawnMonsters(int monsterCount) {
         monsterSpawnPool = new MonsterSpawnPool(dungeon);
         for (int i = 0; i < monsterCount; i++){

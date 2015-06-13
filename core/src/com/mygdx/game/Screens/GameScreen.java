@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonGenerator;
+import com.mygdx.game.Dungeon.DungeonGeneratorFactory;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -23,9 +24,8 @@ class GameScreen extends ScreenAdapter {
     private final UserInterface ui;
 
     public GameScreen() {
-        //TODO remove this static stuff in favour of singletons
-        GameHandler.dungeonGenerator = new DungeonGenerator();
-        Dungeon dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
+        DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDefaultDungeonGenerator();
+        Dungeon dungeon = dungeonGenerator.generateDungeon(50, 50, 20);
         Dungeon.setActiveDungeon(dungeon);
         GameInputHandler gameInputHandler = new GameInputHandler();
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
@@ -37,7 +37,7 @@ class GameScreen extends ScreenAdapter {
 
         batch = new SpriteBatch();
 
-        GameHandler.dungeonGenerator.spawnMonsters(dungeon.getRoomCount());
+        dungeonGenerator.spawnMonsters(dungeon.getRoomCount());
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         ui = new UserInterface();

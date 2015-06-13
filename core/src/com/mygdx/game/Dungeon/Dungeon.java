@@ -161,7 +161,7 @@ public class Dungeon {
 
     public Dungeon getFloorBelow(){
         if (floorBelow == null){
-            return floorBelow = GameHandler.dungeonGenerator.generateDungeonBelow(this);
+            return floorBelow = DungeonGeneratorFactory.getDefaultDungeonGenerator().generateDungeonBelow(this);
         } else {
             return floorBelow;
         }

@@ -7,8 +7,6 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Tokens.Tokens;
 
 public class GameHandler {
-    public static DungeonGenerator dungeonGenerator;
-
     public static void stepTurn(){
         actMonsters();
     }
