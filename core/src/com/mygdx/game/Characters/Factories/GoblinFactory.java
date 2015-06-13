@@ -3,14 +3,27 @@ package com.mygdx.game.Characters.Factories;
 import com.mygdx.game.Characters.BasicNonPlayerCharacterEntity;
 import com.mygdx.game.Characters.Goblin;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Factory;
 
 /**
  * Created by Tatskaari on 13/06/2015.
  */
-public class GoblinFactory implements Factory<NonPlayerCharacterEntity> {
+public class GoblinFactory extends MonsterFactory {
+    private final Dungeon dungeon;
+
+    public GoblinFactory(Dungeon dungeon){
+        this.dungeon = dungeon;
+    }
     @Override
     public Goblin newInstance() {
-        return new Goblin();
+        Goblin goblin = new Goblin();
+        initialise(goblin);
+        return goblin;
+    }
+
+    @Override
+    protected Dungeon getDungeon() {
+        return dungeon;
     }
 }

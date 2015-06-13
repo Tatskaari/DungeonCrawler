@@ -7,14 +7,10 @@ import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 
 public class MonsterSpawnPool extends SpawnPool<NonPlayerCharacterEntity> {
-    private final Dungeon dungeon;
 
     public MonsterSpawnPool(Dungeon dungeon){
-        this.dungeon = dungeon;
-
-        //TODO Add factories for rats and goblins
+        addNew(new RatFactory(dungeon), 5);
         addNew(new SkeletonFactory(dungeon), 3);
-        addNew(new RatFactory(), 5);
-        addNew(new GoblinFactory(), 2);
+        addNew(new GoblinFactory(dungeon), 2);
     }
 }

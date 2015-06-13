@@ -14,15 +14,12 @@ import com.mygdx.game.SpawnPools.MonsterSpawnPool;
 public class DungeonGenerator {
     private final int roomMaxSize = 15;
     private final int roomMinSize = 7;
-    private final MonsterSpawnPool monsterSpawnPool;
+    private MonsterSpawnPool monsterSpawnPool;
     private Dungeon dungeon;
     private int requestedRoomCount;
     private int requestedMapWidth;
     private int requestedMapHeight;
 
-    public DungeonGenerator() {
-        monsterSpawnPool = new MonsterSpawnPool(dungeon);
-    }
 
     private Dungeon generateDungeon() {
         placeRooms(requestedRoomCount);
@@ -73,10 +70,10 @@ public class DungeonGenerator {
         GridPoint2 stairsDownPos;
 
         DungeonRoom startRoom = dungeon.startRoom;
-        DungeonRoom endRoom = getRandomNotStartDungeonRoom();
+        DungeonRoom endRoom = DungeonUtils.getRandomNotStartDungeonRoom(dungeon);
 
-        stairsUpPos = getRandomTileInRoom(startRoom);
-        stairsDownPos = getRandomTileInRoom(endRoom);
+        stairsUpPos = DungeonUtils.getRandomTileInRoom(startRoom);
+        stairsDownPos = DungeonUtils.getRandomTileInRoom(endRoom);
 
         StairsUpDungeonTile stairsUpDungeonTile = new StairsUpDungeonTile(stairsUpPos);
         StairsDownDungeonTile stairsDownDungeonTile = new StairsDownDungeonTile(stairsDownPos);
@@ -90,23 +87,10 @@ public class DungeonGenerator {
 
     //TODO refactor this into the monster factory classes
     public void spawnMonsters(int monsterCount) {
+        monsterSpawnPool = new MonsterSpawnPool(dungeon);
         for (int i = 0; i < monsterCount; i++){
-            spawnMonster();
+            dungeon.monsters.add(monsterSpawnPool.getNewInstance());
         }
-    }
-
-    public void spawnMonster() {
-        DungeonRoom room = getRandomNotStartDungeonRoom();
-        spawnMonsterInRoom(room);
-    }
-
-    //TODO move this into a "getRandomNonPlayerRoom" in dungeonUtils
-    void spawnMonsterInRoom(DungeonRoom room) {
-        GridPoint2 pos = getRandomTileInRoom(room);
-        NonPlayerCharacterEntity character = monsterSpawnPool.getNewInstance();
-        character.setPos(pos);
-        character.setLevel(dungeon.getLevel());
-        dungeon.monsters.add(character);
     }
 
     void placeRooms(int roomCount){
@@ -178,8 +162,8 @@ public class DungeonGenerator {
         GridPoint2 startPoint;
         GridPoint2 endPoint;
 
-        startPoint = getRandomTileInRoom(startRoom);
-        endPoint = getRandomTileInRoom(endRoom);
+        startPoint = DungeonUtils.getRandomTileInRoom(startRoom);
+        endPoint = DungeonUtils.getRandomTileInRoom(endRoom);
 
         Astar astar = new Astar(new GridBasedHeuristic());
         Array<Array<AstarNode>> dungeonAsGraph = getDungeonAsAstarNodeGraph();
@@ -239,23 +223,6 @@ public class DungeonGenerator {
             }
         }
         return graph;
-    }
-
-    private GridPoint2 getRandomTileInRoom(DungeonRoom room){
-        GridPoint2 tilePosition = new GridPoint2();
-
-        tilePosition.y = MathUtils.random(room.getY()+1, room.getY() + room.getHeight()-2);
-        tilePosition.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
-
-        return tilePosition;
-    }
-
-    private DungeonRoom getRandomNotStartDungeonRoom(){
-        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-        while (roomIndex == dungeon.startRoom.getRoomNumber()){
-            roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-        }
-        return dungeon.getDungeonRoom(roomIndex);
     }
 
     private boolean addCorridorTile(GridPoint2 pos, int direction){
