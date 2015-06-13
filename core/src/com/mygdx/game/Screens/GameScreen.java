@@ -26,6 +26,8 @@ class GameScreen extends ScreenAdapter {
         GameHandler.dungeonGenerator = new DungeonGenerator();
         GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
         GameInputHandler gameInputHandler = new GameInputHandler();
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        player.respawn();
         PlayerInputHandler playerInputHandler = new PlayerInputHandler(PlayerCharacterEntity.getInstance());
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

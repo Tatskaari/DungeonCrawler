@@ -25,7 +25,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
 
     public final Renderer renderer;
-    public final PlayerStatsHandler statsHandler;
+    public PlayerStatsHandler statsHandler;
     public final PlayerInventory inventory;
 
     private static final PlayerCharacterEntity player = new PlayerCharacterEntity();
@@ -33,7 +33,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private PlayerCharacterEntity(){
         placeCharacterIn(GameHandler.dungeon);
         renderer = new PlayerRenderer(this);
-        statsHandler = new PlayerStatsHandler(this);
+        statsHandler = new PlayerStatsHandler();
         inventory = new PlayerInventory(5,5);
     }
 
@@ -131,5 +131,10 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public TextureRegion getTexture() {
         return ResourceLoader.player;
+    }
+
+    public void respawn() {
+        placeCharacterIn(GameHandler.dungeon);
+        statsHandler = new PlayerStatsHandler();
     }
 }

@@ -18,20 +18,18 @@ public class PlayerStatsHandler {
     private final RangeValue expRange;
     private int level;
 
-    private final PlayerCharacterEntity player;
+    private float health;
 
-    public PlayerStatsHandler(PlayerCharacterEntity player){
+    public PlayerStatsHandler(){
         level = 1;
         healthRange = new RangeValue(0, 50, 50);
         expRange = new RangeValue(0, getNextLevelExp(level), 0);
         damage = new RandomRangeValue(0,5);
-
-        this.player = player;
     }
 
     public void addExperience(int exp){
         expRange.setValue(expRange.getValue() + exp);
-        Tokens.getInstance().addToken(new ExpToken(player.getPosition(), exp));
+        Tokens.getInstance().addToken(new ExpToken(PlayerCharacterEntity.getInstance().getPosition(), exp));
         if (expRange.getValue() >= expRange.getMax()){
             levelUp();
         }
@@ -51,7 +49,7 @@ public class PlayerStatsHandler {
         healthRange.setMax(healthRange.getMax()+3);
         healthRange.setValue(healthRange.getValue()+3);
 
-        Tokens.getInstance().addToken(new LevelUpToken(player.getPosition(), level));
+        Tokens.getInstance().addToken(new LevelUpToken(PlayerCharacterEntity.getInstance().getPosition(), level));
         UserInterface.growlArea.println(new ColouredText("Level up: " + level, Color.GREEN));
     }
 
@@ -77,5 +75,9 @@ public class PlayerStatsHandler {
 
     public int getLevel() {
         return level;
+    }
+
+    public void resetHealth(float health) {
+        this.health = getMaxHealth();
     }
 }
