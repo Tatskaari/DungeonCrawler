@@ -2,6 +2,7 @@ package com.mygdx.game.UserInterface;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -36,6 +37,11 @@ class InventoryActor extends Window{
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        for (Actor actor : getStage().getActors()){
+                            if (actor instanceof ContextMenuActor){
+                                actor.remove();
+                            }
+                        }
                         setVisible(false);
                     }
                 }

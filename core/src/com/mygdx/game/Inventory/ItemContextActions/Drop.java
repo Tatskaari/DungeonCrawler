@@ -1,13 +1,9 @@
 package com.mygdx.game.Inventory.ItemContextActions;
 
 import com.mygdx.game.GameHandler;
-import com.mygdx.game.Inventory.Inventory;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
-/**
- * Created by Tatskaari on 13/06/2015.
- */
 public class Drop implements ItemContextAction{
     private InventoryItem item;
 
