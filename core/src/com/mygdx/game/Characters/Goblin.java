@@ -9,9 +9,6 @@ import com.mygdx.game.SpawnPools.SkeletonLootPool;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
-/**
- * Created by Tatskaari on 21/01/2015.
- */
 public class Goblin extends BasicNonPlayerCharacterEntity {
     private int level;
     private final SkeletonLootPool lootPool;
@@ -41,7 +38,7 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
     public void die(){
         super.die();
         if(MathUtils.randomBoolean(dropChance)){
-            GameHandler.dungeon.getDungeonTile(getPosition()).addItem(lootPool.getSpawn());
+            GameHandler.dungeon.getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
         UserInterface.growlArea.println(new ColouredText("The goblin's belly splits open at the force of your strike. You gain " + getExperienceValue() + " experience."));
 

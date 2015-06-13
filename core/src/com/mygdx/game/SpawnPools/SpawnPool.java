@@ -1,38 +1,38 @@
 package com.mygdx.game.SpawnPools;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Factory;
 
-public abstract class SpawnPool <Type> {
-    private final Array<ObjectAndBias> spawnTable;
-    private float totalBias;
+import java.util.HashMap;
+import java.util.Map;
 
-    SpawnPool(){
-        spawnTable = new Array<ObjectAndBias>();
+
+/**
+ * Created by Tatskaari on 13/06/2015.
+ */
+public abstract class SpawnPool<Type> {
+    private float totalBias = 0;
+    private HashMap<Factory<Type>, Float> spawnTable = new HashMap<Factory<Type>, Float>();
+
+    public void addNew(Factory<Type> factory, float bias){
+        totalBias+=bias;
+        spawnTable.put(factory, bias);
     }
 
-    public Type getSpawn() {
+    public Type getNewInstance(){
         float roll = MathUtils.random(totalBias);
         float runningBiasTotal = 0;
 
-        for(int i = 0; i < spawnTable.size; i++){
-            ObjectAndBias currentSpawnable = spawnTable.get(i);
-            if (roll >= runningBiasTotal && (roll < runningBiasTotal + currentSpawnable.bias)){
-                try {
-                    return (Type)currentSpawnable.objectClass.newInstance();
-                } catch (Exception e) {
-                    throw new RuntimeException("Error spawning in pool: ", e);
-                }
+        for (Map.Entry<Factory<Type>, Float> FactoryBiasMapEntry : spawnTable.entrySet()){
+            Factory<Type> currentFactory = FactoryBiasMapEntry.getKey();
+            float currentBias = FactoryBiasMapEntry.getValue();
+
+            if (roll >= runningBiasTotal && (roll < runningBiasTotal + currentBias)){
+                return currentFactory.newInstance();
             }
-            runningBiasTotal += currentSpawnable.bias;
+            runningBiasTotal += currentBias;
         }
 
         throw new RuntimeException("Error calculating what to spawn.");
     }
-
-    void addNew(Class monsterClass, float bias) {
-        spawnTable.add(new ObjectAndBias(monsterClass, bias));
-        totalBias += bias;
-    }
-
 }

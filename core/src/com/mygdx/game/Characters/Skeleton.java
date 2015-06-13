@@ -38,7 +38,7 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     public void die(){
         super.die();
         if(MathUtils.randomBoolean(dropChance)){
-            GameHandler.dungeon.getDungeonTile(getPosition()).addItem(lootPool.getSpawn());
+            GameHandler.dungeon.getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
         UserInterface.growlArea.println(new ColouredText("The skeleton falls to pieces at the joints. You gain " + getExperienceValue() + " experience."));
 

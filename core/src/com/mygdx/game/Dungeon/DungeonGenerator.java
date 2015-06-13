@@ -21,7 +21,7 @@ public class DungeonGenerator {
     private int requestedMapHeight;
 
     public DungeonGenerator() {
-        monsterSpawnPool = new MonsterSpawnPool();
+        monsterSpawnPool = new MonsterSpawnPool(dungeon);
     }
 
     private Dungeon generateDungeon() {
@@ -88,6 +88,7 @@ public class DungeonGenerator {
         dungeon.stairsUpDungeonTile = stairsUpDungeonTile;
     }
 
+    //TODO refactor this into the monster factory classes
     public void spawnMonsters(int monsterCount) {
         for (int i = 0; i < monsterCount; i++){
             spawnMonster();
@@ -99,9 +100,10 @@ public class DungeonGenerator {
         spawnMonsterInRoom(room);
     }
 
+    //TODO move this into a "getRandomNonPlayerRoom" in dungeonUtils
     void spawnMonsterInRoom(DungeonRoom room) {
         GridPoint2 pos = getRandomTileInRoom(room);
-        NonPlayerCharacterEntity character = monsterSpawnPool.getSpawn();
+        NonPlayerCharacterEntity character = monsterSpawnPool.getNewInstance();
         character.setPos(pos);
         character.setLevel(dungeon.getLevel());
         dungeon.monsters.add(character);
