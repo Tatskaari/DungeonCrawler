@@ -4,7 +4,6 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
@@ -25,7 +24,7 @@ public abstract class DungeonTile {
     public static final int CORRIDOR_WALL = 60;
 
 
-    private boolean tileHasBeenVisible = false;
+    private boolean tileIsDescovered = false;
     private final GridPoint2 pos;
     private final Array<InventoryItem> itemList;
 
@@ -63,7 +62,7 @@ public abstract class DungeonTile {
 
     public float getVisibilityLevel() {
         if(isVisible()){
-            tileHasBeenVisible = true;
+            tileIsDescovered = true;
             GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
             float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
             return 1 - distance/(VIEW_DIST*2);
@@ -86,7 +85,7 @@ public abstract class DungeonTile {
     }
 
     private float getHasBeenVisibleVisibility(){
-        if(tileHasBeenVisible){
+        if(tileIsDescovered){
             return FOW_VISIBILITY;
         }
         else{
@@ -157,5 +156,9 @@ public abstract class DungeonTile {
 
     public InventoryItem getItem(int i){
         return itemList.get(i);
+    }
+
+    public boolean isDescovered() {
+        return tileIsDescovered;
     }
 }

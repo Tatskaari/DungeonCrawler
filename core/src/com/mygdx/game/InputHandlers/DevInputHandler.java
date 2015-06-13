@@ -3,6 +3,7 @@ package com.mygdx.game.InputHandlers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonGenerator;
 import com.mygdx.game.Dungeon.DungeonGeneratorFactory;
@@ -11,68 +12,21 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
+import com.mygdx.game.Screens.MapScreen;
 
-public class DevInputHandler extends InputAdapter {
-    private final DevScreen devScreen;
+public class DevInputHandler extends MapInputHandler {
 
-    private int lastFrameX, lastFrameY;
-
-    public DevInputHandler(DevScreen devScreen){
-        this.devScreen = devScreen;
-    }
-
-    @Override
-    public boolean touchDown (int x, int y, int pointer, int button) {
-        if (!Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
-            return false;
-        }
-        lastFrameX = x;
-        lastFrameY = y;
-        return true;
-    }
-
-    @Override
-    public boolean touchDragged (int x, int y, int pointer){
-        if (!Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
-            return false;
-        }
-        int deltaX = x - lastFrameX;
-        int deltaY = y - lastFrameY;
-        lastFrameX = x;
-        lastFrameY = y;
-
-        devScreen.moveCamera(deltaX, deltaY);
-
-        return true;
-    }
-
-    @Override
-    public boolean scrolled(int amount){
-        devScreen.zoomCamera(amount);
-        return true;
+    public DevInputHandler(DevScreen lastScreen) {
+        super(lastScreen);
     }
 
     @Override
     public boolean keyDown(int keyCode){
-        if (keyCode == Input.Keys.CONTROL_LEFT){
-            MyGdxGame.myGdxGame.setScreen(devScreen.getLastScreen());
-            return true;
+        if (keyCode == Input.Keys.M){
+            return false;
+        } if (keyCode == Input.Keys.CONTROL_LEFT) {
+            MyGdxGame.myGdxGame.setScreen(getLastScreen());
         }
-        if (keyCode == Input.Keys.G){
-            DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDefaultDungeonGenerator();
-            Dungeon newDungeon = dungeonGenerator.regenerateDungeon();
-            Dungeon.setActiveDungeon(newDungeon);
-            PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
-            dungeonGenerator.spawnMonsters(newDungeon, newDungeon.getRoomCount());
-            return true;
-        }
-        if (keyCode == Input.Keys.R){
-            ResourceLoader.loadResources();
-            return true;
-        }
-        if (keyCode == Input.Keys.N){
-            GameHandler.stepTurn();
-        }
-        return false;
+        return super.keyDown(keyCode);
     }
 }

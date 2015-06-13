@@ -10,6 +10,7 @@ import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
+import com.mygdx.game.Screens.MapScreen;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
@@ -25,7 +26,12 @@ public class PlayerInputHandler extends InputAdapter {
         if(keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(new DevScreen(MyGdxGame.myGdxGame.getScreen()));
             return true;
-        } else if (keyCode == Input.Keys.SPACE){
+        }
+        else if(keyCode == Input.Keys.M){
+            MyGdxGame.myGdxGame.setScreen(new MapScreen(MyGdxGame.myGdxGame.getScreen()));
+            return true;
+        }
+        else if (keyCode == Input.Keys.SPACE){
             pickUpItem();
         }
 

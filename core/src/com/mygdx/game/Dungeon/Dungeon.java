@@ -19,7 +19,7 @@ public class Dungeon {
     public static final int SOUTH = 3;
     public static final int WEST = 4;
 
-    public final Renderer renderer;
+    public final DungeonRenderer renderer;
     public final Array<CharacterEntity> monsters;
 
     private final DungeonTile[][] map;
