@@ -2,7 +2,7 @@ package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
-import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 
 public class EmptyItem implements InventoryItem {
     private final Array<ItemContextAction> itemActions;

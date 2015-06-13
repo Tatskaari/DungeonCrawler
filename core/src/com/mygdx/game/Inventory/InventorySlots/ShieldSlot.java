@@ -31,7 +31,7 @@ public class ShieldSlot implements InventorySlot {
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptyShieldItem();
     }
 

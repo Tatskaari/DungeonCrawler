@@ -12,7 +12,7 @@ public class BodySlot implements InventorySlot {
     private BodyItem item;
 
     public BodySlot(){
-        empty();
+        emptySlot();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class BodySlot implements InventorySlot {
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptyBodyItem();
     }
 }

@@ -1,8 +1,5 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.ItemContextAction;
-import com.mygdx.game.Inventory.ItemTypes.ArmourItem;
 import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
 /**

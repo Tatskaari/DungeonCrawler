@@ -60,7 +60,7 @@ public class PlayerInventory extends Inventory {
         if (!oldItem.isEmptyItem()){
             fromSlot.replaceItem(oldItem);
         } else {
-            fromSlot.empty();
+            fromSlot.emptySlot();
         }
 
         slot.replaceItem(item);
@@ -72,5 +72,19 @@ public class PlayerInventory extends Inventory {
 
     public void equipItemInShieldSlot(ShieldItem shieldItem) {
         moveItemToSlot(shieldItem, getSlot(shieldItemSlotPos));
+    }
+
+    public void equipItem(EquipableItem item){
+        if (item instanceof SwordHandItem) {
+            equipItemInSwordHandSlot((SwordHandItem)item);
+        } else if (item instanceof ShieldItem) {
+            equipItemInShieldSlot((ShieldItem)item);
+        } else if (item instanceof HeadItem) {
+            equipItemInHeadSlot((HeadItem)item);
+        } else if (item instanceof BodyItem){
+            equipItemInBodySlot((BodyItem) item);
+        } else {
+            throw new RuntimeException("Unknown item type " + item.toString());
+        }
     }
 }

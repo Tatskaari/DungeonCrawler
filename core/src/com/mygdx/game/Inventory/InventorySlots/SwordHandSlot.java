@@ -27,7 +27,7 @@ public class SwordHandSlot implements InventorySlot {
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptySwordHandItem();
     }
 

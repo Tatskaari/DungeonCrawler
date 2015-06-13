@@ -68,4 +68,15 @@ public class Inventory {
         }
         return null;
     }
+
+    public void dropItem(InventoryItem item) {
+        for (int i = 0; i < width; i++) {
+            for (int j =0; j < height; j++){
+                InventorySlot currentSlot = inventorySlots.get(i).get(j);
+                if (currentSlot.getItem() == item){
+                    currentSlot.emptySlot();
+                }
+            }
+        }
+    }
 }

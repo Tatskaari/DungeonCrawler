@@ -38,7 +38,7 @@ public class StandardSlot implements InventorySlot{
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptyItem();
         itemCount = 0;
     }
