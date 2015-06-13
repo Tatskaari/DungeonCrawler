@@ -2,11 +2,9 @@ package com.mygdx.game.Dungeon;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.GameHandler;
+import com.mygdx.game.LineOfSight;
 
-/**
- * Created by Tatskaari on 13/06/2015.
- */
 public class DungeonUtils {
     public static DungeonRoom getRandomNotStartDungeonRoom(Dungeon dungeon){
         int roomIndex = MathUtils.random(dungeon.getRoomCount() - 1);
@@ -28,5 +26,25 @@ public class DungeonUtils {
     public static GridPoint2 getRandomSpawnLocation(Dungeon dungeon){
         DungeonRoom room = getRandomNotStartDungeonRoom(dungeon);
         return getRandomTileInRoom(room);
+    }
+
+    public static GridPoint2 getRandomNonVisibleTileInAnyRoom(Dungeon dungeon){
+        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+        GridPoint2 tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
+        while(dungeon.getDungeonTile(tilePos).isVisible()){
+            roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+            tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
+        }
+        return tilePos;
+    }
+
+    public static boolean canSeePlayerFrom(GridPoint2 pos){
+        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+    }
+
+
+    public static GridPoint2 getRandomTileInAnyRoom(Dungeon dungeon) {
+        int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
+        return getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
     }
 }

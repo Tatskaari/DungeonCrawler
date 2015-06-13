@@ -3,6 +3,7 @@ package com.mygdx.game.Behaviors;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
@@ -21,7 +22,7 @@ public class GenericAttackPlayerBehavior extends Behavior {
 
     @Override
     public Behavior act() {
-        if (canSeePlayerFrom(character.getPosition())){
+        if (DungeonUtils.canSeePlayerFrom(character.getPosition())){
             playersLastKnownPos.set(GameHandler.player.getPosition());
         }else if (!isPlayerPositionKnown()){
             return new GenericWanderBehavior(character);

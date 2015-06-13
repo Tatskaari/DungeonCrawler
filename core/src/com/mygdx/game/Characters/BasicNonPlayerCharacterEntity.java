@@ -6,6 +6,7 @@ import com.mygdx.game.Behaviors.Behavior;
 import com.mygdx.game.Behaviors.DeadBehavior;
 import com.mygdx.game.Behaviors.GenericAttackPlayerBehavior;
 import com.mygdx.game.Behaviors.GenericWanderBehavior;
+import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -39,7 +40,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
                 die();
             }
         }
-        else if(Behavior.canSeePlayerFrom(getPosition())){
+        else if(DungeonUtils.canSeePlayerFrom(getPosition())){
             behavior = new GenericAttackPlayerBehavior(this);
         }
         behavior = behavior.act();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.DungeonRoom;
+import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
@@ -51,7 +52,7 @@ public class GenericWanderBehavior extends Behavior {
     }
 
     private Array<AstarNode> getNewPath(){
-        targetPoint = getRandomTileInRoom(dungeonRoom);
+        targetPoint = DungeonUtils.getRandomTileInRoom(dungeonRoom);
         pathTarget = targetPoint;
         return generateNewPathBetween(character.getPosition(), targetPoint);
     }

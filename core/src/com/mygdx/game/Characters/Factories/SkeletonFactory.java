@@ -14,7 +14,6 @@ public class SkeletonFactory extends MonsterFactory{
         this.dungeon = dungeon;
     }
 
-    //TODO make a basicMonsterFactory that will spawn monsters in a room not ocupied by the player (currently done in the dungeon and dead bahvior classes)
     @Override
     public Skeleton newInstance() {
         Skeleton skeleton = new Skeleton();

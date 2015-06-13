@@ -38,34 +38,6 @@ public abstract class Behavior {
         return path;
     }
 
-    GridPoint2 getRandomTileInRoom(DungeonRoom room){
-        GridPoint2 tilePosition = new GridPoint2();
-
-        tilePosition.y = MathUtils.random(room.getY() + 1, room.getY() + room.getHeight() - 2);
-        tilePosition.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
-
-        return tilePosition;
-    }
-
-    public static boolean canSeePlayerFrom(GridPoint2 pos){
-        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
-    }
-
-    GridPoint2 getRandomNonVisibleTileInAnyRoom(){
-        int roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
-        GridPoint2 tilePos = getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
-        while(GameHandler.dungeon.getDungeonTile(tilePos).isVisible()){
-            roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
-            tilePos = getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
-        }
-        return tilePos;
-    }
-
-    GridPoint2 getRandomTileInAnyRoom() {
-        int roomIndex = MathUtils.random(GameHandler.dungeon.getRoomCount()-1);
-        return getRandomTileInRoom(GameHandler.dungeon.getDungeonRoom(roomIndex));
-    }
-
     boolean moveMonsterAlongPath(CharacterEntity characterEntity, Array<AstarNode> path){
         if (path.size == 0){
             return false;
