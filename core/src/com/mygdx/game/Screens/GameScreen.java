@@ -25,7 +25,7 @@ class GameScreen extends ScreenAdapter {
 
     public GameScreen() {
         DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDefaultDungeonGenerator();
-        Dungeon dungeon = dungeonGenerator.generateDungeon(50, 50, 20);
+        Dungeon dungeon = dungeonGenerator.generateDungeon();
         Dungeon.setActiveDungeon(dungeon);
         GameInputHandler gameInputHandler = new GameInputHandler();
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
@@ -37,7 +37,7 @@ class GameScreen extends ScreenAdapter {
 
         batch = new SpriteBatch();
 
-        dungeonGenerator.spawnMonsters(dungeon.getRoomCount());
+        dungeonGenerator.spawnMonsters(dungeon, dungeon.getRoomCount());
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         ui = new UserInterface();

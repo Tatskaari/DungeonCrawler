@@ -4,8 +4,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
@@ -16,19 +14,23 @@ public class DungeonGenerator {
     private final int roomMaxSize = 15;
     private final int roomMinSize = 7;
     private MonsterSpawnPool monsterSpawnPool;
-    private Dungeon dungeon;
     private int requestedRoomCount;
     private int requestedMapWidth;
     private int requestedMapHeight;
 
+    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount){
+        requestedRoomCount = roomCount;
+        requestedMapHeight = mapHeight;
+        requestedMapWidth = mapWidth;
+    }
 
-    private Dungeon generateDungeon() {
-        placeRooms(requestedRoomCount);
-        placeCorridors();
+    private Dungeon generateDungeonTiles(Dungeon dungeon) {
+        placeRooms(dungeon, requestedRoomCount);
+        placeCorridors(dungeon);
 
         int startRoom = MathUtils.random(dungeon.getRoomCount()-1);
         dungeon.startRoom = dungeon.getDungeonRoom(startRoom);
-        placeStartAndEndStairs();
+        placeStartAndEndStairs(dungeon);
 
         dungeon.updateLineOfSightResistanceMap();
 
@@ -36,38 +38,34 @@ public class DungeonGenerator {
     }
 
     public Dungeon regenerateDungeon(){
-        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
+        Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
         Dungeon oldDungeon = Dungeon.getActiveDungeon();
         dungeon.floorAbove = oldDungeon.floorAbove;
         dungeon.floorBelow = oldDungeon.floorBelow;
         dungeon.level = oldDungeon.level;
-        return generateDungeon();
+        return generateDungeonTiles(dungeon);
     }
 
     public Dungeon generateDungeonBelow(Dungeon parentDungeon){
         requestedMapHeight = parentDungeon.getMapHeight();
         requestedMapWidth = parentDungeon.getMapWidth();
 
-        dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, parentDungeon);
+        Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, parentDungeon);
 
-        generateDungeon();
+        generateDungeonTiles(dungeon);
 
-        spawnMonsters(dungeon.getRoomCount());
+        spawnMonsters(dungeon, dungeon.getRoomCount());
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         return dungeon;
     }
 
-    public Dungeon generateDungeon(int mapWidth, int mapHeight, int roomCount){
-        requestedRoomCount = roomCount;
-        requestedMapHeight = mapHeight;
-        requestedMapWidth = mapWidth;
-        dungeon = new Dungeon(mapWidth, mapHeight);
-
-        return generateDungeon();
+    public Dungeon generateDungeon(){
+        Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
+        return generateDungeonTiles(dungeon);
     }
 
-    private void placeStartAndEndStairs() {
+    private void placeStartAndEndStairs(Dungeon dungeon) {
         GridPoint2 stairsUpPos;
         GridPoint2 stairsDownPos;
 
@@ -87,14 +85,14 @@ public class DungeonGenerator {
         dungeon.stairsUpDungeonTile = stairsUpDungeonTile;
     }
 
-    public void spawnMonsters(int monsterCount) {
+    public void spawnMonsters(Dungeon dungeon, int monsterCount) {
         monsterSpawnPool = new MonsterSpawnPool(dungeon);
         for (int i = 0; i < monsterCount; i++){
             dungeon.monsters.add(monsterSpawnPool.getNewInstance());
         }
     }
 
-    void placeRooms(int roomCount){
+    void placeRooms(Dungeon dungeon, int roomCount){
         for(int roomsAdded = 0; roomsAdded < roomCount; roomsAdded++){
             int width = MathUtils.random(roomMinSize, roomMaxSize);
             int height = MathUtils.random(roomMinSize, roomMaxSize);
@@ -102,15 +100,15 @@ public class DungeonGenerator {
             int x = MathUtils.random(dungeon.getMapWidth() - width);
             int y = MathUtils.random(dungeon.getMapHeight() - height);
 
-            addRoom(x, y, width, height);
+            addRoom(dungeon, x, y, width, height);
 
         }
     }
 
-    void placeCorridors(){
+    void placeCorridors(Dungeon dungeon){
         for(int i = 0; i < dungeon.getRoomCount(); i++){
             int endRoom = randomExcluding(0, dungeon.getRoomCount()-1, i);
-            connectRooms(dungeon.getDungeonRoom(i), dungeon.getDungeonRoom(endRoom));
+            connectRooms(dungeon, dungeon.getDungeonRoom(i), dungeon.getDungeonRoom(endRoom));
         }
     }
 
@@ -122,8 +120,8 @@ public class DungeonGenerator {
         return result;
     }
 
-    boolean addRoom(int x, int y, int width, int height){
-        boolean roomCanBeAdded = roomFits(x, y, width, height);
+    boolean addRoom(Dungeon dungeon, int x, int y, int width, int height){
+        boolean roomCanBeAdded = roomFits(dungeon, x, y, width, height);
         if (roomCanBeAdded) {
             dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height, dungeon.getRoomCount()));
 
@@ -147,7 +145,7 @@ public class DungeonGenerator {
         return roomCanBeAdded;
     }
 
-    private boolean roomFits(int x, int y, int width, int height){
+    private boolean roomFits(Dungeon dungeon, int x, int y, int width, int height){
         for(int i = x; i < x + width; i++){
             for(int j = y; j < y + height; j++){
                 if(!dungeon.isTileEmpty(new GridPoint2(i, j))){
@@ -158,7 +156,7 @@ public class DungeonGenerator {
         return true;
     }
 
-    void connectRooms(DungeonRoom startRoom, DungeonRoom endRoom){
+    void connectRooms(Dungeon dungeon, DungeonRoom startRoom, DungeonRoom endRoom){
 
         GridPoint2 startPoint;
         GridPoint2 endPoint;
@@ -167,13 +165,13 @@ public class DungeonGenerator {
         endPoint = DungeonUtils.getRandomTileInRoom(endRoom);
 
         Astar astar = new Astar(new GridBasedHeuristic());
-        Array<Array<AstarNode>> dungeonAsGraph = getDungeonAsAstarNodeGraph();
+        Array<Array<AstarNode>> dungeonAsGraph = getDungeonAsAstarNodeGraph(dungeon);
         Array<AstarNode> path = astar.getPath(dungeonAsGraph, dungeonAsGraph.get(startPoint.x).get(startPoint.y), dungeonAsGraph.get(endPoint.x).get(endPoint.y));
 
-        placeCorridorAlongPath(path);
+        placeCorridorAlongPath(dungeon, path);
     }
 
-    private void placeCorridorAlongPath(Array<AstarNode> path){
+    private void placeCorridorAlongPath(Dungeon dungeon, Array<AstarNode> path){
         int lastDirection = -1;
         for(int i = 0; i < path.size; i++){
             int direction;
@@ -184,9 +182,9 @@ public class DungeonGenerator {
             }else{
                 direction = lastDirection;
             }
-            addCorridorTile(position, direction);
+            addCorridorTile(dungeon, position, direction);
             if (lastDirection != direction){
-                terminateCorridor(position);
+                terminateCorridor(dungeon, position);
             }
         }
     }
@@ -209,7 +207,7 @@ public class DungeonGenerator {
         return -1;
     }
 
-    private Array<Array<AstarNode>> getDungeonAsAstarNodeGraph() {
+    private Array<Array<AstarNode>> getDungeonAsAstarNodeGraph(Dungeon dungeon) {
         Array<Array<AstarNode>> graph = new Array<Array<AstarNode>>();
         for(int i = 0; i < dungeon.getMapWidth(); i++){
             graph.add(new Array<AstarNode>());
@@ -226,7 +224,7 @@ public class DungeonGenerator {
         return graph;
     }
 
-    private boolean addCorridorTile(GridPoint2 pos, int direction){
+    private boolean addCorridorTile(Dungeon dungeon, GridPoint2 pos, int direction){
         GridPoint2 nextPos;
 
         if (direction == Dungeon.EAST){
@@ -245,7 +243,7 @@ public class DungeonGenerator {
         // Set wall tiles to doors unless you are parallel to the wall
         if(dungeon.getTileType(pos) == DungeonTile.WALL){
             if (dungeon.getTileType(nextPos) == DungeonTile.WALL){
-                terminateCorridor(pos);
+                terminateCorridor(dungeon, pos);
                 return false;
             }else{
                 if (direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
@@ -265,31 +263,31 @@ public class DungeonGenerator {
         if(dungeon.getTileType(pos) == DungeonTile.EMPTY || dungeon.getTileType(pos) == DungeonTile.CORRIDOR_WALL) {
             dungeon.setTile(new CorridorFloorDungeonTile(pos));
             if(direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
-                addCorridorWall(new GridPoint2(pos.x+1, pos.y));
-                addCorridorWall(new GridPoint2(pos.x-1, pos.y));
+                addCorridorWall(dungeon, new GridPoint2(pos.x+1, pos.y));
+                addCorridorWall(dungeon, new GridPoint2(pos.x-1, pos.y));
             } else {
-                addCorridorWall(new GridPoint2(pos.x, pos.y+1));
-                addCorridorWall(new GridPoint2(pos.x, pos.y-1));
+                addCorridorWall(dungeon, new GridPoint2(pos.x, pos.y+1));
+                addCorridorWall(dungeon, new GridPoint2(pos.x, pos.y-1));
             }
             return true;
         }
 
-        terminateCorridor(pos);
+        terminateCorridor(dungeon, pos);
 
         // Default to false as we have encountered an unrecognised tile.
         return false;
     }
 
-    private void addCorridorWall(GridPoint2 pos){
+    private void addCorridorWall(Dungeon dungeon, GridPoint2 pos){
         if (dungeon.getTileType(pos) == DungeonTile.EMPTY){
             dungeon.setTile(new CorridorWallDungeonTile(pos));
         }
     }
 
-    private void terminateCorridor(GridPoint2 pos){
+    private void terminateCorridor(Dungeon dungeon, GridPoint2 pos){
         for (int i = -1; i <= 1; i++){
             for(int j = -1; j <= 1;  j++){
-                addCorridorWall(new GridPoint2(pos.x + i, pos.y + j));
+                addCorridorWall(dungeon, new GridPoint2(pos.x + i, pos.y + j));
             }
         }
     }

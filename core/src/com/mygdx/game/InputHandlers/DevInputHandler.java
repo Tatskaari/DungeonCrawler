@@ -60,9 +60,10 @@ public class DevInputHandler extends InputAdapter {
         }
         if (keyCode == Input.Keys.G){
             DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDefaultDungeonGenerator();
-            Dungeon.setActiveDungeon(dungeonGenerator.regenerateDungeon());
-            PlayerCharacterEntity.getInstance().placeCharacterIn(Dungeon.getActiveDungeon());
-            dungeonGenerator.spawnMonsters(Dungeon.getActiveDungeon().getRoomCount());
+            Dungeon newDungeon = dungeonGenerator.regenerateDungeon();
+            Dungeon.setActiveDungeon(newDungeon);
+            PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
+            dungeonGenerator.spawnMonsters(newDungeon, newDungeon.getRoomCount());
             return true;
         }
         if (keyCode == Input.Keys.R){
