@@ -63,10 +63,12 @@ public class DungeonRenderer extends Renderer{
             float colourVal = tile.getVisibilityLevel();
             batch.setColor(colourVal, colourVal, colourVal, colourVal);
             batch.draw(tile.getTileTexture(), x * tileSize, y * tileSize);
-            for (int i = 0; i < tile.itemCount(); i++){
-                InventoryItem item = tile.getItem(i);
-                TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getTextureName());
-                batch.draw(textureRegion, x * tileSize, y * tileSize);
+            if (tile.isVisible()){
+                for (int i = 0; i < tile.itemCount(); i++){
+                    InventoryItem item = tile.getItem(i);
+                    TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getTextureName());
+                    batch.draw(textureRegion, x * tileSize, y * tileSize);
+                }
             }
             batch.setColor(1,1,1,1);
         }
