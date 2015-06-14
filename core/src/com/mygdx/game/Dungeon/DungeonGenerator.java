@@ -18,6 +18,7 @@ public class DungeonGenerator {
     private int requestedMapWidth;
     private int requestedMapHeight;
 
+    //TODO break this up into an interface and abstract class
     public DungeonGenerator(int mapWidth, int mapHeight, int roomCount){
         requestedRoomCount = roomCount;
         requestedMapHeight = mapHeight;
@@ -241,8 +242,8 @@ public class DungeonGenerator {
         }
 
         // Set wall tiles to doors unless you are parallel to the wall
-        if(dungeon.getTileType(pos) == DungeonTile.WALL){
-            if (dungeon.getTileType(nextPos) == DungeonTile.WALL){
+        if(dungeon.getDungeonTile(pos) instanceof WallDungeonTile){
+            if (dungeon.getDungeonTile(nextPos) instanceof WallDungeonTile){
                 terminateCorridor(dungeon, pos);
                 return false;
             }else{
@@ -256,11 +257,11 @@ public class DungeonGenerator {
         }
 
         // Ignore tiles that are already floor tiles
-        if (dungeon.getTileType(pos) == DungeonTile.FLOOR){
+        if (dungeon.getDungeonTile(pos) instanceof FloorDungeonTile){
             return true;
         }
 
-        if(dungeon.getTileType(pos) == DungeonTile.EMPTY || dungeon.getTileType(pos) == DungeonTile.CORRIDOR_WALL) {
+        if(dungeon.getDungeonTile(pos) instanceof EmptyDungeonTile || dungeon.getDungeonTile(pos) instanceof CorridorWallDungeonTile) {
             dungeon.setTile(new CorridorFloorDungeonTile(pos));
             if(direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
                 addCorridorWall(dungeon, new GridPoint2(pos.x+1, pos.y));
@@ -279,7 +280,7 @@ public class DungeonGenerator {
     }
 
     private void addCorridorWall(Dungeon dungeon, GridPoint2 pos){
-        if (dungeon.getTileType(pos) == DungeonTile.EMPTY){
+        if (dungeon.getDungeonTile(pos) instanceof EmptyDungeonTile){
             dungeon.setTile(new CorridorWallDungeonTile(pos));
         }
     }

@@ -14,16 +14,7 @@ import java.awt.*;
 public abstract class DungeonTile {
     private final int VIEW_DIST = 12;
     private final float FOW_VISIBILITY = 0.4f;
-
-    public static final int EMPTY = 0;
-    public static final int FLOOR = 10;
-    public static final int WALL = 20;
-    protected static final int DOOR_HORIZONTAL = 30;
-    protected static final int DOOR_VERTICAL = 40;
-    protected static final int CORRIDOR_FLOOR = 50;
-    public static final int CORRIDOR_WALL = 60;
-
-
+    
     private boolean tileIsDescovered = false;
     private final GridPoint2 pos;
     private final Array<InventoryItem> itemList;
@@ -37,8 +28,6 @@ public abstract class DungeonTile {
     public abstract float getCorridorPlacingCost();
 
     public abstract boolean isVisionObstructing();
-
-    public abstract int getTileType();
 
     public abstract TextureRegion getTileTexture();
 

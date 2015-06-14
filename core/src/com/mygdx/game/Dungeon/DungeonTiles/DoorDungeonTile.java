@@ -6,15 +6,16 @@ import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.ResourceLoader;
 
 public class DoorDungeonTile extends DungeonTile {
-    private final int tileType;
     private final TextureRegion texture;
+    private final boolean isHorizontal;
+
     public DoorDungeonTile(GridPoint2 pos, boolean isHorizontal) {
         super(pos);
+        this.isHorizontal = isHorizontal;
+
         if(isHorizontal){
-            tileType = DungeonTile.DOOR_HORIZONTAL;
             texture = ResourceLoader.doorHorizontal;
         }else{
-            tileType = DungeonTile.DOOR_VERTICAL;
             texture = ResourceLoader.doorVertical;
         }
     }
@@ -27,12 +28,6 @@ public class DoorDungeonTile extends DungeonTile {
     @Override
     public boolean isVisionObstructing() {
         return true;
-    }
-
-
-    @Override
-    public int getTileType() {
-        return tileType;
     }
 
     @Override

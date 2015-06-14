@@ -25,11 +25,6 @@ public class EmptyDungeonTile extends DungeonTile {
     }
 
     @Override
-    public int getTileType() {
-        return 0;
-    }
-
-    @Override
     public TextureRegion getTileTexture() {
         return null;
     }

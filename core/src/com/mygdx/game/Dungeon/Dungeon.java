@@ -6,10 +6,8 @@ import com.mygdx.game.Characters.*;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
-import com.mygdx.game.Renderers.Renderer;
 
 public class Dungeon {
     private static Dungeon activeDungeon;
@@ -19,6 +17,7 @@ public class Dungeon {
     public static final int SOUTH = 3;
     public static final int WEST = 4;
 
+    //TODO create a renderable interface and have a list of renderables to iterate through
     public final DungeonRenderer renderer;
     public final Array<CharacterEntity> monsters;
 
@@ -26,7 +25,7 @@ public class Dungeon {
     private final Array<DungeonRoom> dungeonRooms;
     private final int mapWidth;
     private final int mapHeight;
-    private float[][] LineOfSightResMap;
+    private float[][] lineOfSightResMap;
     int level;
 
     StairsDownDungeonTile stairsDownDungeonTile;
@@ -68,12 +67,6 @@ public class Dungeon {
         this.floorAbove = floorAbove;
     }
 
-
-
-    public int getTileType(GridPoint2 pos){
-        return map[pos.x+1][pos.y+1].getTileType();
-    }
-
     public int getRoomCount(){
         return dungeonRooms.size;
     }
@@ -99,8 +92,8 @@ public class Dungeon {
         return map[pos.x+1][pos.y+1].isPassable();
     }
 
-    public DungeonTile getDungeonTile(GridPoint2 coord){
-        return map[coord.x+1][coord.y+1];
+    public DungeonTile getDungeonTile(GridPoint2 pos){
+        return map[pos.x+1][pos.y+1];
     }
 
     public DungeonTile getDungeonTile(int x, int y){
@@ -133,22 +126,23 @@ public class Dungeon {
         return astarGraph;
     }
 
+    // Updates a grid of 1s or 0s that represent if a tile is visible. Used by the LOS algo.
     public void updateLineOfSightResistanceMap(){
-        LineOfSightResMap = new float[mapWidth+2][mapHeight+2];
+        lineOfSightResMap = new float[mapWidth+2][mapHeight+2];
 
         for (int i = 0; i < mapWidth+2; i++){
             for (int j = 0; j < mapHeight+2; j++){
                 if(map[i][j].isVisionObstructing()){
-                    LineOfSightResMap[i][j] = 1;
+                    lineOfSightResMap[i][j] = 1;
                 } else {
-                    LineOfSightResMap[i][j] = 0;
+                    lineOfSightResMap[i][j] = 0;
                 }
             }
         }
     }
 
     public float[][] getLineOfSightResMap(){
-        return LineOfSightResMap;
+        return lineOfSightResMap;
     }
 
     public DungeonRoom getStartRoom() {

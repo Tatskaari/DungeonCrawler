@@ -21,11 +21,6 @@ public class FloorDungeonTile extends DungeonTile {
     }
 
     @Override
-    public int getTileType() {
-        return DungeonTile.FLOOR;
-    }
-
-    @Override
     public TextureRegion getTileTexture() {
         return ResourceLoader.floor;
     }

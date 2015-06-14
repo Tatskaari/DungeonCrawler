@@ -26,11 +26,6 @@ public class CorridorWallDungeonTile extends DungeonTile {
     }
 
     @Override
-    public int getTileType() {
-        return DungeonTile.CORRIDOR_WALL;
-    }
-
-    @Override
     public TextureRegion getTileTexture() {
         return ResourceLoader.wall;
     }

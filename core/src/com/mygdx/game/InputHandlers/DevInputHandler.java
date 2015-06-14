@@ -20,6 +20,8 @@ public class DevInputHandler extends MapInputHandler {
         super(lastScreen);
     }
 
+    // TODO add the dev tools
+    // 1. regenerate, 2. spawn monster
     @Override
     public boolean keyDown(int keyCode){
         if (keyCode == Input.Keys.M){
