@@ -16,7 +16,7 @@ public class SkeletonFactory extends MonsterFactory{
 
     @Override
     public Skeleton newInstance() {
-        Skeleton skeleton = new Skeleton();
+        Skeleton skeleton = new Skeleton(dungeon);
         initialise(skeleton);
         return skeleton;
     }

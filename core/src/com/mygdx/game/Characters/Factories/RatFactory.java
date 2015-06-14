@@ -12,7 +12,7 @@ public class RatFactory extends MonsterFactory{
 
     @Override
     public Rat newInstance() {
-        Rat rat = new Rat();
+        Rat rat = new Rat(dungeon);
         initialise(rat);
         return rat;
     }

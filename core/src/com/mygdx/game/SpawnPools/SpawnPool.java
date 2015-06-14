@@ -6,10 +6,6 @@ import com.mygdx.game.Factory;
 import java.util.HashMap;
 import java.util.Map;
 
-
-/**
- * Created by Tatskaari on 13/06/2015.
- */
 public abstract class SpawnPool<Type> {
     private float totalBias = 0;
     private HashMap<Factory<Type>, Float> spawnTable = new HashMap<Factory<Type>, Float>();
@@ -34,5 +30,10 @@ public abstract class SpawnPool<Type> {
         }
 
         throw new RuntimeException("Error calculating what to spawn.");
+    }
+
+    public void reset(){
+        spawnTable = new HashMap<Factory<Type>, Float>();
+        totalBias = 0;
     }
 }

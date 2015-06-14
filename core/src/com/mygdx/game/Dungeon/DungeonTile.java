@@ -14,14 +14,16 @@ import java.awt.*;
 public abstract class DungeonTile {
     private final int VIEW_DIST = 12;
     private final float FOW_VISIBILITY = 0.4f;
-    
+
+    private final Dungeon dungeon;
+
     private boolean tileIsDescovered = false;
     private final GridPoint2 pos;
     private final Array<InventoryItem> itemList;
 
-    protected DungeonTile(GridPoint2 pos) {
+    protected DungeonTile(GridPoint2 pos, Dungeon dungeon) {
         this.pos = pos;
-
+        this.dungeon = dungeon;
         itemList = new Array<InventoryItem>();
     }
 
@@ -90,7 +92,7 @@ public abstract class DungeonTile {
         if(pos.equals(PlayerCharacterEntity.getInstance().getPosition())){
             return false;
         } else {
-            for(CharacterEntity characterEntity : Dungeon.getActiveDungeon().monsters) {
+            for(CharacterEntity characterEntity : dungeon.monsters) {
                 if(characterEntity.getPosition().equals(pos)){
                     if(!characterEntity.isDead()){
                         return false;
@@ -102,8 +104,8 @@ public abstract class DungeonTile {
     }
 
     public boolean hasMonster() {
-        for(int i = 0; i < Dungeon.getActiveDungeon().monsters.size; i++){
-            CharacterEntity characterEntity = Dungeon.getActiveDungeon().monsters.get(i);
+        for(int i = 0; i < dungeon.monsters.size; i++){
+            CharacterEntity characterEntity = dungeon.monsters.get(i);
             if (characterEntity.getPosition().equals(pos)){
                 return true;
             }
@@ -113,8 +115,8 @@ public abstract class DungeonTile {
     }
 
     public CharacterEntity getMonster() {
-        for(int i = 0; i < Dungeon.getActiveDungeon().monsters.size; i++){
-            CharacterEntity characterEntity = Dungeon.getActiveDungeon().monsters.get(i);
+        for(int i = 0; i < dungeon.monsters.size; i++){
+            CharacterEntity characterEntity = dungeon.monsters.get(i);
             if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
                 return characterEntity;
             }

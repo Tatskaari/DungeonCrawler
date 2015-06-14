@@ -25,21 +25,6 @@ public abstract class Behavior {
         return dist < 1.5;
     }
 
-    Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint){
-        Array<AstarNode> path;
-
-        Astar astar = new Astar(new CrowFliesHeuristic());
-        Array<Array<AstarNode>> astarGraph = Dungeon.getActiveDungeon().getAstarGraph();
-
-        AstarNode startNode = astarGraph.get(startPoint.x).get(startPoint.y);
-        AstarNode targetNode = astarGraph.get(targetPoint.x).get(targetPoint.y);
-
-        path = astar.getPath(astarGraph, startNode, targetNode);
-        path.pop(); //Get rid of the node we're currently on
-
-        return path;
-    }
-
     boolean moveMonsterAlongPath(CharacterEntity characterEntity, Array<AstarNode> path){
         if (path.size == 0){
             return false;

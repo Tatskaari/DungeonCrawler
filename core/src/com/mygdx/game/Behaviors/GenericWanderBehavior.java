@@ -55,11 +55,11 @@ public class GenericWanderBehavior extends Behavior {
     private Array<AstarNode> getNewPath(){
         targetPoint = DungeonUtils.getRandomTileInRoom(dungeonRoom);
         pathTarget = targetPoint;
-        return generateNewPathBetween(character.getPosition(), targetPoint);
+        return DungeonUtils.generateNewPathBetween(character.getPosition(), targetPoint, character.getDungeon());
     }
 
     DungeonRoom getClosestRoom() {
-        Dungeon dungeon = Dungeon.getActiveDungeon();
+        Dungeon dungeon = character.getDungeon();
         DungeonRoom closestRoom = dungeon.getDungeonRoom(0);
         double closestDist = Point.distance(character.getPosition().x, character.getPosition().y, closestRoom.getX(), closestRoom.getY());
         for(int i = 1; i < dungeon.getRoomCount(); i++){

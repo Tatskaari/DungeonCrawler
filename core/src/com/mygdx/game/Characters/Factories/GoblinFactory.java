@@ -11,7 +11,7 @@ public class GoblinFactory extends MonsterFactory {
     }
     @Override
     public Goblin newInstance() {
-        Goblin goblin = new Goblin();
+        Goblin goblin = new Goblin(dungeon);
         initialise(goblin);
         return goblin;
     }

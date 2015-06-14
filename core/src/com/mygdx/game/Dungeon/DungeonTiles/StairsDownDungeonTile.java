@@ -9,8 +9,8 @@ import com.mygdx.game.ResourceLoader;
 
 public class StairsDownDungeonTile extends FloorDungeonTile {
 
-    public StairsDownDungeonTile(GridPoint2 pos) {
-        super(pos);
+    public StairsDownDungeonTile(GridPoint2 pos, Dungeon dungeon) {
+        super(pos, dungeon);
     }
 
     @Override

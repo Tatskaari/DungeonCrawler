@@ -15,15 +15,15 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
     private final SkeletonLootPool lootPool;
     private final float dropChance = 0.7f;
 
-    public Goblin(GridPoint2 position, int level) {
-        super(position);
+    public Goblin(GridPoint2 position, int level, Dungeon dungeon) {
+        super(position, dungeon);
         lootPool = new SkeletonLootPool();
 
         setLevel(level);
     }
 
-    public Goblin(){
-        this(new GridPoint2(0,0), 1);
+    public Goblin(Dungeon dungeon) {
+        this(new GridPoint2(0,0), 1, dungeon);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
     }
     @Override
     public void setLevel(int level) {
-        setMaxHealth(8+level);
-        setHealth(8+level);
+        setMaxHealth(8+level*2);
+        setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(2+level, 7 + level);
+        setDamageRange(2+level*2, 7+level*2);
     }
 }

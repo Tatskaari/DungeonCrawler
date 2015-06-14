@@ -42,11 +42,11 @@ public class GenericFindPlayerBehavior extends Behavior {
         Dungeon dungeon = Dungeon.getActiveDungeon();
         int tries = 0;
         GridPoint2 potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
-        Array<AstarNode> potentialPath = generateNewPathBetween(character.getPosition(), potentialTarget);
+        Array<AstarNode> potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());
 
         while (potentialPath.size == 0 || potentialPath.get(0).fScore > pathCostThreshold){
             potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
-            potentialPath = generateNewPathBetween(character.getPosition(), potentialTarget);
+            potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());
             tries++;
             if (tries > dungeon.getRoomCount()*2){
                 return;

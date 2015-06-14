@@ -31,10 +31,10 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private static final PlayerCharacterEntity player = new PlayerCharacterEntity();
 
     private PlayerCharacterEntity(){
-        placeCharacterIn(Dungeon.getActiveDungeon());
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler();
         inventory = new PlayerInventory(5,5);
+        position = new GridPoint2(0,0);
     }
 
     public static PlayerCharacterEntity getInstance(){

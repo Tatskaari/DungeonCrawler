@@ -22,17 +22,15 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     private Behavior behavior;
     private int minDamage;
     private int maxDamage;
+    private final Dungeon dungeon;
 
     private final Renderer renderer;
 
-    BasicNonPlayerCharacterEntity(GridPoint2 position){
+    BasicNonPlayerCharacterEntity(GridPoint2 position, Dungeon dungeon){
+        this.dungeon = dungeon;
         renderer = new MonsterRenderer(this);
         this.position = position;
         behavior = new GenericWanderBehavior(this);
-    }
-
-    BasicNonPlayerCharacterEntity() {
-        this(new GridPoint2(0, 0));
     }
 
     @Override
@@ -118,5 +116,10 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     void setDamageRange(int minDamage, int maxDamage){
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
+    }
+
+    @Override
+    public Dungeon getDungeon() {
+        return dungeon;
     }
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.Characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
@@ -10,14 +11,14 @@ import com.mygdx.game.Utils.ColouredText;
 public class Rat extends BasicNonPlayerCharacterEntity {
     private int level;
 
-    public Rat(GridPoint2 position, int level) {
-        super(position);
+    public Rat(GridPoint2 position, int level, Dungeon dungeon) {
+        super(position, dungeon);
 
         setLevel(level);
     }
 
-    public Rat(){
-        this(new GridPoint2(0, 0), 1);
+    public Rat(Dungeon dungeon) {
+        this(new GridPoint2(0,0), 1, dungeon);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class Rat extends BasicNonPlayerCharacterEntity {
     @Override
     public void setLevel(int level) {
         setMaxHealth(5+level);
-        setHealth(5+level);
+        setHealth(getMaxHealth());
 
         this.level = level;
         setDamageRange(level, 2 + level);

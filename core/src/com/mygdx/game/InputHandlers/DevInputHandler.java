@@ -30,13 +30,14 @@ public class DevInputHandler extends MapInputHandler {
         }
         else if (keyCode == Input.Keys.G){
             Dungeon oldDungeon = Dungeon.getActiveDungeon();
-            Dungeon newDungeon = DungeonGeneratorFactory.getDefaultDungeonGenerator().regenerateDungeon(oldDungeon);
+            Dungeon newDungeon = DungeonGeneratorFactory.getDungeonGenerator(oldDungeon.getLevel()).regenerateDungeon(oldDungeon);
             Dungeon.setActiveDungeon(newDungeon);
             PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
         }
         else if (keyCode == Input.Keys.S) {
-            DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDefaultDungeonGenerator();
-            dungeonGenerator.spawnMonsters(Dungeon.getActiveDungeon(), 1);
+            Dungeon dungeon = Dungeon.getActiveDungeon();
+            DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDungeonGenerator(dungeon.getLevel());
+            dungeonGenerator.spawnMonsters(dungeon, 1);
         }
 
         return super.keyDown(keyCode);

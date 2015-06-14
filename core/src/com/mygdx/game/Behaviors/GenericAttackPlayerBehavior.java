@@ -45,7 +45,7 @@ public class GenericAttackPlayerBehavior extends Behavior {
 
     private void moveTowardsPlayer(){
         if (!playersLastKnownPos.equals(pathTarget)){
-            path = generateNewPathBetween(character.getPosition(), playersLastKnownPos);
+            path = DungeonUtils.generateNewPathBetween(character.getPosition(), playersLastKnownPos, character.getDungeon());
             pathTarget.set(playersLastKnownPos);
         }
         if (path.size > 0){

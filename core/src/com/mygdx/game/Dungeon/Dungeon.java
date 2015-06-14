@@ -8,6 +8,7 @@ import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
+import com.mygdx.game.SpawnPools.SpawnPool;
 
 public class Dungeon {
     private static Dungeon activeDungeon;
@@ -51,7 +52,7 @@ public class Dungeon {
         map = new DungeonTile[mapWidth+2][mapHeight+2];
         for(int i = 0; i < mapWidth+2; i++){
             for (int j = 0; j < mapHeight+2; j++){
-                map[i][j] = new EmptyDungeonTile(new GridPoint2(i-1, j-1));
+                map[i][j] = new EmptyDungeonTile(new GridPoint2(i-1, j-1), this);
             }
         }
 
@@ -155,7 +156,7 @@ public class Dungeon {
 
     public Dungeon getFloorBelow(){
         if (floorBelow == null){
-            return floorBelow = DungeonGeneratorFactory.getDefaultDungeonGenerator().generateDungeonBelow(this);
+            return floorBelow = DungeonGeneratorFactory.getDungeonGenerator(getLevel()+1).generateDungeonBelow(this);
         } else {
             return floorBelow;
         }

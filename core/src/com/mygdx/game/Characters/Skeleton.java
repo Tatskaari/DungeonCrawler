@@ -15,15 +15,15 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     private final SkeletonLootPool lootPool;
     private final float dropChance = 0.7f;
 
-    public Skeleton(GridPoint2 position, int level) {
-        super(position);
+    public Skeleton(GridPoint2 position, int level, Dungeon dungeon) {
+        super(position, dungeon);
         lootPool = new SkeletonLootPool();
 
         setLevel(level);
     }
 
-    public Skeleton(){
-        this(new GridPoint2(0,0), 1);
+    public Skeleton(Dungeon dungeon) {
+        this(new GridPoint2(0,0), 1, dungeon);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     @Override
     public void setLevel(int level) {
         setMaxHealth(5+level);
-        setHealth(5+level);
+        setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(level, 2 + level);
+        setDamageRange(level, 2+level*2);
     }
 }

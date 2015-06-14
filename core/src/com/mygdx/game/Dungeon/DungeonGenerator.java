@@ -3,29 +3,34 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.SpawnPools.MonsterSpawnPool;
+import com.mygdx.game.SpawnPools.SpawnPool;
 
 public class DungeonGenerator {
     private final int roomMaxSize = 15;
     private final int roomMinSize = 7;
-    private MonsterSpawnPool monsterSpawnPool;
     private int requestedRoomCount;
     private int requestedMapWidth;
     private int requestedMapHeight;
 
+    private MonsterSpawnPool monsterSpawnPool;
+
     //TODO break this up into an interface and abstract class
-    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount){
+    //TODO validate the dungeon exit is reachable otherwise regenerate the dungeon
+    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool){
         requestedRoomCount = roomCount;
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
+        this.monsterSpawnPool = monsterSpawnPool;
     }
 
-    private Dungeon generateDungeonTiles(Dungeon dungeon) {
+    private void generateDungeonTiles(Dungeon dungeon) {
         placeRooms(dungeon, requestedRoomCount);
         placeCorridors(dungeon);
 
@@ -34,8 +39,6 @@ public class DungeonGenerator {
         placeStartAndEndStairs(dungeon);
 
         dungeon.updateLineOfSightResistanceMap();
-
-        return dungeon;
     }
 
     public Dungeon regenerateDungeon(Dungeon oldDungeon){
@@ -43,7 +46,9 @@ public class DungeonGenerator {
         dungeon.floorAbove = oldDungeon.floorAbove;
         dungeon.floorBelow = oldDungeon.floorBelow;
         dungeon.level = oldDungeon.level;
-        return generateDungeonTiles(dungeon);
+        generateDungeonTiles(dungeon);
+
+        return dungeon;
     }
 
     public Dungeon generateDungeonBelow(Dungeon parentDungeon){
@@ -62,7 +67,11 @@ public class DungeonGenerator {
 
     public Dungeon generateDungeon(){
         Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
-        return generateDungeonTiles(dungeon);
+        generateDungeonTiles(dungeon);
+        spawnMonsters(dungeon, dungeon.getRoomCount());
+        dungeon.monsters.add(PlayerCharacterEntity.getInstance());
+
+        return dungeon;
     }
 
     private void placeStartAndEndStairs(Dungeon dungeon) {
@@ -75,8 +84,8 @@ public class DungeonGenerator {
         stairsUpPos = DungeonUtils.getRandomTileInRoom(startRoom);
         stairsDownPos = DungeonUtils.getRandomTileInRoom(endRoom);
 
-        StairsUpDungeonTile stairsUpDungeonTile = new StairsUpDungeonTile(stairsUpPos);
-        StairsDownDungeonTile stairsDownDungeonTile = new StairsDownDungeonTile(stairsDownPos);
+        StairsUpDungeonTile stairsUpDungeonTile = new StairsUpDungeonTile(stairsUpPos, dungeon);
+        StairsDownDungeonTile stairsDownDungeonTile = new StairsDownDungeonTile(stairsDownPos, dungeon);
 
         dungeon.setTile(stairsUpDungeonTile);
         dungeon.setTile(stairsDownDungeonTile);
@@ -86,7 +95,7 @@ public class DungeonGenerator {
     }
 
     public void spawnMonsters(Dungeon dungeon, int monsterCount) {
-        monsterSpawnPool = new MonsterSpawnPool(dungeon);
+        monsterSpawnPool.initialisePool(dungeon);
         for (int i = 0; i < monsterCount; i++){
             dungeon.monsters.add(monsterSpawnPool.getNewInstance());
         }
@@ -127,18 +136,18 @@ public class DungeonGenerator {
 
             for(int i = x+1; i < x + width-1; i++){
                 for(int j = y+1; j < y + height-1; j++) {
-                    dungeon.setTile(new FloorDungeonTile(new GridPoint2(i, j)));
+                    dungeon.setTile(new FloorDungeonTile(new GridPoint2(i, j), dungeon));
                 }
             }
 
             for (int j = x; j < width+x; j++) {
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, y)));
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, height + y - 1)));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, y), dungeon));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, height + y - 1), dungeon));
             }
 
             for (int i = y; i < height+y; i++) {
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(x, i)));
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(x + width - 1, i)));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(x, i), dungeon));
+                dungeon.setTile(new WallDungeonTile(new GridPoint2(x + width - 1, i), dungeon));
             }
         }
 
@@ -247,9 +256,9 @@ public class DungeonGenerator {
                 return false;
             }else{
                 if (direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
-                    dungeon.setTile(new DoorDungeonTile(pos, true));
+                    dungeon.setTile(new DoorDungeonTile(pos, dungeon, true));
                 }else if (direction == Dungeon.EAST || direction == Dungeon.WEST){
-                    dungeon.setTile(new DoorDungeonTile(pos, false));
+                    dungeon.setTile(new DoorDungeonTile(pos, dungeon, false));
                 }
                 return true;
             }
@@ -261,7 +270,7 @@ public class DungeonGenerator {
         }
 
         if(dungeon.getDungeonTile(pos) instanceof EmptyDungeonTile || dungeon.getDungeonTile(pos) instanceof CorridorWallDungeonTile) {
-            dungeon.setTile(new CorridorFloorDungeonTile(pos));
+            dungeon.setTile(new CorridorFloorDungeonTile(pos, dungeon));
             if(direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
                 addCorridorWall(dungeon, new GridPoint2(pos.x+1, pos.y));
                 addCorridorWall(dungeon, new GridPoint2(pos.x-1, pos.y));
@@ -280,7 +289,7 @@ public class DungeonGenerator {
 
     private void addCorridorWall(Dungeon dungeon, GridPoint2 pos){
         if (dungeon.getDungeonTile(pos) instanceof EmptyDungeonTile){
-            dungeon.setTile(new CorridorWallDungeonTile(pos));
+            dungeon.setTile(new CorridorWallDungeonTile(pos, dungeon));
         }
     }
 
