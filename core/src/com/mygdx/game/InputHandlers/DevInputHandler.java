@@ -26,9 +26,17 @@ public class DevInputHandler extends MapInputHandler {
     public boolean keyDown(int keyCode){
         if (keyCode == Input.Keys.M){
             return false;
-        } if (keyCode == Input.Keys.CONTROL_LEFT) {
+        }
+        else if (keyCode == Input.Keys.CONTROL_LEFT) {
             MyGdxGame.myGdxGame.setScreen(getLastScreen());
         }
+        else if (keyCode == Input.Keys.G){
+            Dungeon oldDungeon = Dungeon.getActiveDungeon();
+            Dungeon newDungeon = DungeonGeneratorFactory.getDefaultDungeonGenerator().regenerateDungeon(oldDungeon);
+            Dungeon.setActiveDungeon(newDungeon);
+            PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
+        }
+
         return super.keyDown(keyCode);
     }
 }

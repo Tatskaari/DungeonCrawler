@@ -38,9 +38,8 @@ public class DungeonGenerator {
         return dungeon;
     }
 
-    public Dungeon regenerateDungeon(){
+    public Dungeon regenerateDungeon(Dungeon oldDungeon){
         Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
-        Dungeon oldDungeon = Dungeon.getActiveDungeon();
         dungeon.floorAbove = oldDungeon.floorAbove;
         dungeon.floorBelow = oldDungeon.floorBelow;
         dungeon.level = oldDungeon.level;
