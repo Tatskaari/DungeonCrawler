@@ -33,8 +33,8 @@ public class PlayerInputHandler extends InputAdapter {
         }
         else if (keyCode == Input.Keys.SPACE){
             pickUpItem();
+            return true;
         }
-        
 
         return checkDpadDown(keyCode);
     }
