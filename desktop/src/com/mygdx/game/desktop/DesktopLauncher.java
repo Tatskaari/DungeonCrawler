@@ -2,6 +2,8 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.LineOfSight;
 import com.mygdx.game.MyGdxGame;
 
 public class DesktopLauncher {
@@ -16,5 +18,7 @@ public class DesktopLauncher {
 		config.height = 768;
 		config.resizable = true;
 		new LwjglApplication(new MyGdxGame(), config);
+
+//		LineOfSight.runLine(new GridPoint2(2, 6), new GridPoint2(2, 2));
 	}
 }

@@ -24,7 +24,7 @@ public class GenericAttackPlayerBehavior extends Behavior {
     public Behavior act() {
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
 
-        if (DungeonUtils.canSeePlayerFrom(character.getPosition())){
+        if (DungeonUtils.canSeePlayerFrom(character.getPosition(), character.getDungeon())){
             playersLastKnownPos.set(player.getPosition());
         }else if (!isPlayerPositionKnown()){
             return new GenericWanderBehavior(character);

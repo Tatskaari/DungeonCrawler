@@ -82,7 +82,7 @@ public abstract class DungeonTile {
     }
 
     private boolean isLOSBlocked(){
-        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition());
+        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition(), dungeon);
     }
 
     public boolean isPassable(){

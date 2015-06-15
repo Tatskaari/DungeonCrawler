@@ -40,7 +40,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
                 die();
             }
         }
-        else if(DungeonUtils.canSeePlayerFrom(getPosition())){
+        else if(DungeonUtils.canSeePlayerFrom(getPosition(), dungeon)){
             behavior = new GenericAttackPlayerBehavior(this);
         }
         behavior = behavior.act();

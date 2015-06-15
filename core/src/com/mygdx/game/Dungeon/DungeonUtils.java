@@ -44,8 +44,8 @@ public class DungeonUtils {
     }
 
 
-    public static boolean canSeePlayerFrom(GridPoint2 pos){
-        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition());
+    public static boolean canSeePlayerFrom(GridPoint2 pos, Dungeon dungeon){
+        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition(), dungeon);
     }
 
 
