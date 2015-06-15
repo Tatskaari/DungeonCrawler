@@ -70,4 +70,11 @@ public class DungeonUtils {
 
         return path;
     }
+
+    public static boolean checkDungeonCompletable(Dungeon dungeon){
+        DungeonTile startDungeonTile = dungeon.getStairsUpDungeonTile();
+        DungeonTile endDungeonTile = dungeon.getStairsDownDungeonTile();
+
+        return generateNewPathBetween(startDungeonTile.getPos(), endDungeonTile.getPos(), dungeon).get(0).fScore < 50000;
+    }
 }

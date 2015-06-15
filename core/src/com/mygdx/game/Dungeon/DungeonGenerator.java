@@ -14,8 +14,6 @@ public class DungeonGenerator {
     private MonsterSpawnPool monsterSpawnPool;
     private ItemSpawnPool itemSpawnPool;
 
-    //TODO validate the dungeon exit is reachable otherwise regenerate the dungeon
-    //TODO add an item spawner
     public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool, ItemSpawnPool itemSpawnPool){
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
@@ -32,7 +30,7 @@ public class DungeonGenerator {
         dungeon.level = oldDungeon.level;
         mapGenerator.generateDungeonTiles(dungeon, requestedRoomCount);
 
-        return dungeon;
+        return regenerateIfIncompletable(dungeon);
     }
 
     public Dungeon generateDungeonBelow(Dungeon parentDungeon){
@@ -44,7 +42,7 @@ public class DungeonGenerator {
         spawnItems(dungeon, dungeon.getRoomCount()/3);
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
-        return dungeon;
+        return regenerateIfIncompletable(dungeon);
     }
 
     public Dungeon generateDungeon(){
@@ -55,6 +53,14 @@ public class DungeonGenerator {
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         return dungeon;
+    }
+
+    private Dungeon regenerateIfIncompletable(Dungeon dungeon){
+        if (!DungeonUtils.checkDungeonCompletable(dungeon)){
+            return regenerateDungeon(dungeon);
+        } else {
+            return dungeon;
+        }
     }
 
     public void spawnMonsters(Dungeon dungeon, int monsterCount) {

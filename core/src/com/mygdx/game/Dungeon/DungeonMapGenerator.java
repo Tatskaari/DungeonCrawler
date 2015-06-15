@@ -9,6 +9,7 @@ import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.Utils.MiscUtils;
 
+
 public class DungeonMapGenerator {
     private static final int ROOM_MAX_SIZE = 15;
     private static final int ROOM_MIN_SIZE = 7;
