@@ -1,7 +1,6 @@
-package com.mygdx.game.SpawnPools;
+package com.mygdx.game.SpawnPools.MonsterSpawnPools;
 
 import com.mygdx.game.Characters.Factories.RatFactory;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 
 public class T1MonsterSpawnPool extends MonsterSpawnPool {

@@ -33,7 +33,7 @@ public class DungeonUtils {
         return getRandomTileInRoom(room);
     }
 
-    public static GridPoint2 getRandomNonVisibleTileInAnyRoom(Dungeon dungeon){
+    public static GridPoint2 getRandomNonVisibleTilePosInAnyRoom(Dungeon dungeon){
         int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
         GridPoint2 tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
         while(dungeon.getDungeonTile(tilePos).isVisible()){
@@ -42,6 +42,7 @@ public class DungeonUtils {
         }
         return tilePos;
     }
+
 
     public static boolean canSeePlayerFrom(GridPoint2 pos){
         return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition());
@@ -54,6 +55,8 @@ public class DungeonUtils {
     }
 
     public static Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint, Dungeon dungeon){
+        GameHandler.PATH_GEN_COUNT_THIS_STEP++;
+
         Array<AstarNode> path;
 
         Astar astar = new Astar(new CrowFliesHeuristic());

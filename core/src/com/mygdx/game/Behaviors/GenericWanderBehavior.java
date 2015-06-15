@@ -58,6 +58,7 @@ public class GenericWanderBehavior extends Behavior {
         return DungeonUtils.generateNewPathBetween(character.getPosition(), targetPoint, character.getDungeon());
     }
 
+    //TODO move this to the dungeon utils class
     DungeonRoom getClosestRoom() {
         Dungeon dungeon = character.getDungeon();
         DungeonRoom closestRoom = dungeon.getDungeonRoom(0);

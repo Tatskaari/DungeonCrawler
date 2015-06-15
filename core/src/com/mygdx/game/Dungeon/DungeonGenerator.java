@@ -1,16 +1,8 @@
 package com.mygdx.game.Dungeon;
 
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.Dungeon.DungeonTiles.*;
-import com.mygdx.game.PathFinding.Astar;
-import com.mygdx.game.PathFinding.AstarNode;
-import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.Player.PlayerCharacterEntity;
-import com.mygdx.game.SpawnPools.MonsterSpawnPool;
-import com.mygdx.game.SpawnPools.SpawnPool;
+import com.mygdx.game.SpawnPools.ItemSpawnPools.ItemSpawnPool;
+import com.mygdx.game.SpawnPools.MonsterSpawnPools.MonsterSpawnPool;
 
 public class DungeonGenerator {
     private int requestedMapWidth;
@@ -20,13 +12,16 @@ public class DungeonGenerator {
     private DungeonMapGenerator mapGenerator;
 
     private MonsterSpawnPool monsterSpawnPool;
+    private ItemSpawnPool itemSpawnPool;
 
     //TODO validate the dungeon exit is reachable otherwise regenerate the dungeon
-    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool){
+    //TODO add an item spawner
+    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool, ItemSpawnPool itemSpawnPool){
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
         requestedRoomCount = roomCount;
         this.monsterSpawnPool = monsterSpawnPool;
+        this.itemSpawnPool = itemSpawnPool;
         mapGenerator = new DungeonMapGenerator();
     }
 
@@ -46,6 +41,7 @@ public class DungeonGenerator {
         mapGenerator.generateDungeonTiles(dungeon, requestedRoomCount);
 
         spawnMonsters(dungeon, dungeon.getRoomCount());
+        spawnItems(dungeon, dungeon.getRoomCount()/3);
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         return dungeon;
@@ -55,6 +51,7 @@ public class DungeonGenerator {
         Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight);
         mapGenerator.generateDungeonTiles(dungeon, requestedRoomCount);
         spawnMonsters(dungeon, dungeon.getRoomCount());
+        spawnItems(dungeon, dungeon.getRoomCount()/3);
         dungeon.monsters.add(PlayerCharacterEntity.getInstance());
 
         return dungeon;
@@ -64,6 +61,13 @@ public class DungeonGenerator {
         monsterSpawnPool.initialisePool(dungeon);
         for (int i = 0; i < monsterCount; i++){
             dungeon.monsters.add(monsterSpawnPool.getNewInstance());
+        }
+    }
+
+    public void spawnItems(Dungeon dungeon, int itemCount){
+        itemSpawnPool.initialisePool(dungeon);
+        for (int i = 0; i < itemCount; i++){
+            itemSpawnPool.getNewInstance();
         }
     }
 }

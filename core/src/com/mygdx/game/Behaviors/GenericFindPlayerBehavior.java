@@ -30,31 +30,39 @@ public class GenericFindPlayerBehavior extends Behavior {
             if (MathUtils.randomBoolean()){
                 return new GenericWanderBehavior(character);
             }
-            getNewPath();
+            if (!getNewPath()){
+                return new GenericWanderBehavior(character);
+            }
         }
         if (!moveMonsterAlongPath(character, path)){
-            getNewPath();
+            if (!getNewPath()){
+                return new GenericWanderBehavior(character);
+            }
         }
         return this;
     }
 
-    private void getNewPath(){
+    private boolean getNewPath(){
         Dungeon dungeon = Dungeon.getActiveDungeon();
         int tries = 0;
         GridPoint2 potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
         Array<AstarNode> potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());
 
+        //Loop trying to find a path to a random room. Give up after 3 tries.
+        //TODO build the fScore limit into the algo to avoid unnecesairy path generation
         while (potentialPath.size == 0 || potentialPath.get(0).fScore > pathCostThreshold){
             potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
             potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());
             tries++;
-            if (tries > dungeon.getRoomCount()*2){
-                return;
+            if (tries >= 3){
+                return false;
             }
         }
 
         pathTarget.set(potentialTarget);
 
         path = potentialPath;
+
+        return true;
     }
 }
