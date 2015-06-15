@@ -10,7 +10,7 @@ public class BasicItemFactory<ItemType extends InventoryItem> implements Factory
         this.itemTypeClass = itemTypeClass;
     }
 
-    //TODO consider if this is the best apporach.
+    //TODO consider if this is the best approach.
     @Override
     public InventoryItem newInstance() {
         try {

@@ -1,10 +1,7 @@
 package com.mygdx.game.Characters.Factories;
 
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Characters.Skeleton;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonUtils;
-import com.mygdx.game.Factory;
 
 public class SkeletonFactory extends MonsterFactory{
 

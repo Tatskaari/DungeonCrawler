@@ -4,11 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
-/**
- * Created by Tatskaari on 20/01/2015.
- */
 public class EmptyShieldItem extends ShieldItem {
-    Array<ItemContextAction> itemContextActions;
+    private final Array<ItemContextAction> itemContextActions;
 
     public EmptyShieldItem(){
         itemContextActions = new Array<ItemContextAction>();

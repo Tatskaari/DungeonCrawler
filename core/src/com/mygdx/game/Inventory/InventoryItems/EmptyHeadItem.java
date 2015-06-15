@@ -4,9 +4,6 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 
-/**
- * Created by Tatskaari on 13/01/2015.
- */
 public class EmptyHeadItem extends HeadItem {
     private final Array<ItemContextAction> contextActions;
 

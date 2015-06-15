@@ -6,12 +6,10 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
 public class GenericFindPlayerBehavior extends Behavior {
     private final NonPlayerCharacterEntity character;
-    private final float pathCostThreshold = 50000;
     private final GridPoint2 targetPoint;
     private final GridPoint2 pathTarget;
     private Array<AstarNode> path;
@@ -49,7 +47,9 @@ public class GenericFindPlayerBehavior extends Behavior {
         Array<AstarNode> potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());
 
         //Loop trying to find a path to a random room. Give up after 3 tries.
-        //TODO build the fScore limit into the algo to avoid unnecesairy path generation
+        //TODO build the fScore limit into the algo to avoid unnecessary path generation
+        float pathCostThreshold = 50000;
+
         while (potentialPath.size == 0 || potentialPath.get(0).fScore > pathCostThreshold){
             potentialTarget = DungeonUtils.getRandomTileInAnyRoom(dungeon);
             potentialPath = DungeonUtils.generateNewPathBetween(character.getPosition(), potentialTarget, character.getDungeon());

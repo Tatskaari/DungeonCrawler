@@ -1,16 +1,9 @@
 package com.mygdx.game.Behaviors;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonRoom;
-import com.mygdx.game.GameHandler;
-import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
-import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
 import java.awt.*;

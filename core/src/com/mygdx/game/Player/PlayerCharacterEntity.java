@@ -15,7 +15,6 @@ import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.GameOverScreen;
-import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.game.Tokens.DamageToken;
 import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
@@ -89,8 +88,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     @Override
-    public boolean isDead() {
-        return statsHandler.getHealth() <= 0;
+    public boolean isAlive() {
+        return statsHandler.getHealth() > 0;
     }
 
     @Override

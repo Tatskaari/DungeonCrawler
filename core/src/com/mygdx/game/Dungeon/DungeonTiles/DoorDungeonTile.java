@@ -8,11 +8,9 @@ import com.mygdx.game.ResourceLoader;
 
 public class DoorDungeonTile extends DungeonTile {
     private final TextureRegion texture;
-    private final boolean isHorizontal;
 
     public DoorDungeonTile(GridPoint2 pos, Dungeon dungeon, boolean isHorizontal) {
         super(pos, dungeon);
-        this.isHorizontal = isHorizontal;
 
         if(isHorizontal){
             texture = ResourceLoader.doorHorizontal;

@@ -5,14 +5,14 @@ import com.mygdx.game.SpawnPools.ItemSpawnPools.ItemSpawnPool;
 import com.mygdx.game.SpawnPools.MonsterSpawnPools.MonsterSpawnPool;
 
 public class DungeonGenerator {
-    private int requestedMapWidth;
-    private int requestedMapHeight;
-    private int requestedRoomCount;
+    private final int requestedMapWidth;
+    private final int requestedMapHeight;
+    private final int requestedRoomCount;
 
-    private DungeonMapGenerator mapGenerator;
+    private final DungeonMapGenerator mapGenerator;
 
-    private MonsterSpawnPool monsterSpawnPool;
-    private ItemSpawnPool itemSpawnPool;
+    private final MonsterSpawnPool monsterSpawnPool;
+    private final ItemSpawnPool itemSpawnPool;
 
     public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool, ItemSpawnPool itemSpawnPool){
         requestedMapHeight = mapHeight;
@@ -70,7 +70,7 @@ public class DungeonGenerator {
         }
     }
 
-    public void spawnItems(Dungeon dungeon, int itemCount){
+    void spawnItems(Dungeon dungeon, int itemCount){
         itemSpawnPool.initialisePool(dungeon);
         for (int i = 0; i < itemCount; i++){
             itemSpawnPool.getNewInstance();

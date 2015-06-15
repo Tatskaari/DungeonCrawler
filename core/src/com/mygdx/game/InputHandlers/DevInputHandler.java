@@ -1,18 +1,12 @@
 package com.mygdx.game.InputHandlers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Screen;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonGenerator;
 import com.mygdx.game.Dungeon.DungeonGeneratorFactory;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
-import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.Screens.DevScreen;
-import com.mygdx.game.Screens.MapScreen;
 
 public class DevInputHandler extends MapInputHandler {
 

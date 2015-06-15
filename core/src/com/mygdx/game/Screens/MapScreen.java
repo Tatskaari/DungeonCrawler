@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.InputHandlers.DevInputHandler;
 import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.InputHandlers.MapInputHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -89,15 +88,15 @@ public class MapScreen extends ScreenAdapter {
         batch.dispose();
     }
 
-    public OrthographicCamera getCamera(){
+    OrthographicCamera getCamera(){
         return camera;
     }
 
-    public SpriteBatch getBatch() {
+    SpriteBatch getBatch() {
         return batch;
     }
 
-    public InputProcessor getInputProcessor() {
+    InputProcessor getInputProcessor() {
         return new MapInputHandler(this);
     }
 }

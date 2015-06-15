@@ -3,15 +3,10 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.DevInputHandler;
-import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
-import com.mygdx.game.ResourceLoader;
 
 public class DevScreen extends MapScreen {
 

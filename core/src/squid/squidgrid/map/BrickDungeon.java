@@ -1,6 +1,5 @@
 package squid.squidgrid.map;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;

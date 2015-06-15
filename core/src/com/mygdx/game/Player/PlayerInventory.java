@@ -31,7 +31,7 @@ public class PlayerInventory extends Inventory {
 
 
 
-    public void equipItemInSwordHandSlot(SwordHandItem item){
+    void equipItemInSwordHandSlot(SwordHandItem item){
         moveItemToSlot(item, getSlot(swordHandItemSlotPos));
     }
 
@@ -39,7 +39,7 @@ public class PlayerInventory extends Inventory {
         return (SwordHandItem) getSlot(swordHandItemSlotPos).getItem();
     }
 
-    public void equipItemInHeadSlot(HeadItem item) {
+    void equipItemInHeadSlot(HeadItem item) {
         moveItemToSlot(item, getSlot(headItemSlotPos));
     }
 
@@ -66,11 +66,11 @@ public class PlayerInventory extends Inventory {
         slot.replaceItem(item);
     }
 
-    public void equipItemInBodySlot(BodyItem bodyItem) {
+    void equipItemInBodySlot(BodyItem bodyItem) {
         moveItemToSlot(bodyItem, getSlot(bodyItemSlotPos));
     }
 
-    public void equipItemInShieldSlot(ShieldItem shieldItem) {
+    void equipItemInShieldSlot(ShieldItem shieldItem) {
         moveItemToSlot(shieldItem, getSlot(shieldItemSlotPos));
     }
 

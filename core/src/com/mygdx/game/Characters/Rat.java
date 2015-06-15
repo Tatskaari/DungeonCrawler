@@ -11,14 +11,14 @@ import com.mygdx.game.Utils.ColouredText;
 public class Rat extends BasicNonPlayerCharacterEntity {
     private int level;
 
-    public Rat(GridPoint2 position, int level, Dungeon dungeon) {
+    private Rat(GridPoint2 position, int level, Dungeon dungeon) {
         super(position, dungeon);
 
         setLevel(level);
     }
 
     public Rat(Dungeon dungeon) {
-        this(new GridPoint2(0,0), 1, dungeon);
+        this(new GridPoint2(0,0), dungeon.getLevel(), dungeon);
     }
 
     @Override
@@ -31,8 +31,7 @@ public class Rat extends BasicNonPlayerCharacterEntity {
         return 1 + level/2;
     }
 
-    @Override
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         setMaxHealth(5+level);
         setHealth(getMaxHealth());
 

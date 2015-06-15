@@ -7,7 +7,6 @@ import com.mygdx.game.Characters.NonPlayerCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonUtils;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.PathFinding.AstarNode;
 
 import java.awt.*;

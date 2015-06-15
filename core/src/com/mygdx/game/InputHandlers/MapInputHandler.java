@@ -4,18 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonGenerator;
-import com.mygdx.game.Dungeon.DungeonGeneratorFactory;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Player.PlayerCharacterEntity;
-import com.mygdx.game.ResourceLoader;
-import com.mygdx.game.Screens.DevScreen;
 import com.mygdx.game.Screens.MapScreen;
 
 public class MapInputHandler extends InputAdapter{
-    private MapScreen screen;
+    private final MapScreen screen;
 
     private int lastFrameX, lastFrameY;
 
@@ -63,7 +56,7 @@ public class MapInputHandler extends InputAdapter{
         return false;
     }
 
-    public Screen getLastScreen(){
+    Screen getLastScreen(){
         return screen.getLastScreen();
     }
 }

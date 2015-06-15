@@ -12,12 +12,12 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 import java.awt.*;
 
 public abstract class DungeonTile {
-    private final int VIEW_DIST = 12;
-    private final float FOW_VISIBILITY = 0.4f;
+    private static final int VIEW_DIST = 12;
+    private static final float FOW_VISIBILITY = 0.4f;
 
     private final Dungeon dungeon;
 
-    private boolean tileIsDescovered = false;
+    private boolean tileIsDiscovered = false;
     private final GridPoint2 pos;
     private final Array<InventoryItem> itemList;
 
@@ -53,7 +53,7 @@ public abstract class DungeonTile {
 
     public float getVisibilityLevel() {
         if(isVisible()){
-            tileIsDescovered = true;
+            tileIsDiscovered = true;
             GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
             float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
             return 1 - distance/(VIEW_DIST*2);
@@ -66,17 +66,14 @@ public abstract class DungeonTile {
         GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
 
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
-        if(distance > VIEW_DIST){
+        if (distance > VIEW_DIST) {
             return false;
-        }else if(distance < 1.5f) {
-            return true;
-        } else {
-            return isLOSBlocked();
-        }
+        } else
+            return distance < 1.5f || isLOSBlocked();
     }
 
     private float getHasBeenVisibleVisibility(){
-        if(tileIsDescovered){
+        if(tileIsDiscovered){
             return FOW_VISIBILITY;
         }
         else{
@@ -94,7 +91,7 @@ public abstract class DungeonTile {
         } else {
             for(CharacterEntity characterEntity : dungeon.monsters) {
                 if(characterEntity.getPosition().equals(pos)){
-                    if(!characterEntity.isDead()){
+                    if(characterEntity.isAlive()){
                         return false;
                     }
                 }
@@ -117,7 +114,7 @@ public abstract class DungeonTile {
     public CharacterEntity getMonster() {
         for(int i = 0; i < dungeon.monsters.size; i++){
             CharacterEntity characterEntity = dungeon.monsters.get(i);
-            if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
+            if (characterEntity.getPosition().equals(pos) && characterEntity.isAlive()){
                 return characterEntity;
             }
         }
@@ -133,9 +130,7 @@ public abstract class DungeonTile {
         return itemList.pop();
     }
 
-    public void onStep(){
-        return;
-    }
+    public void onStep(){}
 
     public boolean hasItem() {
         return itemList.size > 0;
@@ -149,7 +144,7 @@ public abstract class DungeonTile {
         return itemList.get(i);
     }
 
-    public boolean isDescovered() {
-        return tileIsDescovered;
+    public boolean isDiscovered() {
+        return tileIsDiscovered;
     }
 }

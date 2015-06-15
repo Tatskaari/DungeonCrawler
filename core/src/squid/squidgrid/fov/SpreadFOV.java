@@ -1,8 +1,6 @@
 package squid.squidgrid.fov;
 
-import static squid.squidgrid.fov.TranslucenceWrapperFOV.RayType.PRIMARY;
 import squid.annotation.Beta;
-import squid.squidgrid.util.Direction;
 
 /**
  * Performs FOV by pushing values outwards from the source location. It will

@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class UserInterface {
@@ -46,7 +45,7 @@ public class UserInterface {
         inventoryOpenButton = new TextButton("Inventory", skin);
 
         bottomTable = new Table(skin);
-        growlArea = new GrowlTextArea(10);
+        growlArea = new GrowlTextArea();
         healthBar = new RangeBar(skin, player.statsHandler.getHealthRange(), "HP: ");
         experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);

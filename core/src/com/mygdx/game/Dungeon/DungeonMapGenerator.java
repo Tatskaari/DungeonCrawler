@@ -10,11 +10,11 @@ import com.mygdx.game.PathFinding.GridBasedHeuristic;
 import com.mygdx.game.Utils.MiscUtils;
 
 
-public class DungeonMapGenerator {
+class DungeonMapGenerator {
     private static final int ROOM_MAX_SIZE = 15;
     private static final int ROOM_MIN_SIZE = 7;
 
-    protected void generateDungeonTiles(Dungeon dungeon, int requestedRoomCount) {
+    void generateDungeonTiles(Dungeon dungeon, int requestedRoomCount) {
         placeRooms(dungeon, requestedRoomCount);
         placeCorridors(dungeon);
 
@@ -65,9 +65,8 @@ public class DungeonMapGenerator {
         }
     }
 
-    private boolean addRoom(Dungeon dungeon, int x, int y, int width, int height){
-        boolean roomCanBeAdded = roomFits(dungeon, x, y, width, height);
-        if (roomCanBeAdded) {
+    private void addRoom(Dungeon dungeon, int x, int y, int width, int height){
+        if (roomFits(dungeon, x, y, width, height)) {
             dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height, dungeon.getRoomCount()));
 
             for(int i = x+1; i < x + width-1; i++){
@@ -86,8 +85,6 @@ public class DungeonMapGenerator {
                 dungeon.setTile(new WallDungeonTile(new GridPoint2(x + width - 1, i), dungeon));
             }
         }
-
-        return roomCanBeAdded;
     }
 
     private boolean roomFits(Dungeon dungeon, int x, int y, int width, int height){
@@ -169,7 +166,7 @@ public class DungeonMapGenerator {
         return graph;
     }
 
-    private boolean addCorridorTile(Dungeon dungeon, GridPoint2 pos, int direction){
+    private void addCorridorTile(Dungeon dungeon, GridPoint2 pos, int direction){
         GridPoint2 nextPos;
 
         if (direction == Dungeon.EAST){
@@ -189,20 +186,20 @@ public class DungeonMapGenerator {
         if(dungeon.getDungeonTile(pos) instanceof WallDungeonTile){
             if (dungeon.getDungeonTile(nextPos) instanceof WallDungeonTile){
                 terminateCorridor(dungeon, pos);
-                return false;
+                return;
             }else{
                 if (direction == Dungeon.NORTH || direction == Dungeon.SOUTH){
                     dungeon.setTile(new DoorDungeonTile(pos, dungeon, true));
                 }else if (direction == Dungeon.EAST || direction == Dungeon.WEST){
                     dungeon.setTile(new DoorDungeonTile(pos, dungeon, false));
                 }
-                return true;
+                return;
             }
         }
 
         // Ignore tiles that are already floor tiles
         if (dungeon.getDungeonTile(pos) instanceof FloorDungeonTile){
-            return true;
+            return;
         }
 
         if(dungeon.getDungeonTile(pos) instanceof EmptyDungeonTile || dungeon.getDungeonTile(pos) instanceof CorridorWallDungeonTile) {
@@ -214,13 +211,10 @@ public class DungeonMapGenerator {
                 addCorridorWall(dungeon, new GridPoint2(pos.x, pos.y+1));
                 addCorridorWall(dungeon, new GridPoint2(pos.x, pos.y-1));
             }
-            return true;
+            return;
         }
 
         terminateCorridor(dungeon, pos);
-
-        // Default to false as we have encountered an unrecognised tile.
-        return false;
     }
 
     private void addCorridorWall(Dungeon dungeon, GridPoint2 pos){

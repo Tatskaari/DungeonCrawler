@@ -1,6 +1,5 @@
 package com.mygdx.game.Renderers;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Dungeon.Dungeon;
@@ -81,7 +80,7 @@ public class DungeonRenderer extends Renderer{
     }
 
     void mapRenderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {
-        if (!tile.isEmpty() && tile.isDescovered()){
+        if (!tile.isEmpty() && tile.isDiscovered()){
             batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
         }
     }

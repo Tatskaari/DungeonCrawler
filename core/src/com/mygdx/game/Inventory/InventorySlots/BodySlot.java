@@ -5,9 +5,6 @@ import com.mygdx.game.Inventory.InventorySlot;
 import com.mygdx.game.Inventory.ItemTypes.BodyItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 
-/**
- * Created by Tatskaari on 15/01/2015.
- */
 public class BodySlot implements InventorySlot {
     private BodyItem item;
 

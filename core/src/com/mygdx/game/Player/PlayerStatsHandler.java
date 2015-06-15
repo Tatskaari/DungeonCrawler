@@ -1,9 +1,7 @@
 package com.mygdx.game.Player;
 
-import com.apple.eawt.AppEvent;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Tokens.ExpToken;
 import com.mygdx.game.Tokens.LevelUpToken;
 import com.mygdx.game.Tokens.Tokens;
@@ -17,8 +15,6 @@ public class PlayerStatsHandler {
     final RandomRangeValue damage;
     private final RangeValue expRange;
     private int level;
-
-    private float health;
 
     public PlayerStatsHandler(){
         level = 1;
@@ -75,9 +71,5 @@ public class PlayerStatsHandler {
 
     public int getLevel() {
         return level;
-    }
-
-    public void resetHealth(float health) {
-        this.health = getMaxHealth();
     }
 }

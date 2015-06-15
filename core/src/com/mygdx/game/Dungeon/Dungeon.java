@@ -8,7 +8,6 @@ import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
-import com.mygdx.game.SpawnPools.SpawnPool;
 
 public class Dungeon {
     private static Dungeon activeDungeon;

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.SpawnPools.SkeletonLootPool;
 import com.mygdx.game.UserInterface.UserInterface;
@@ -13,9 +12,9 @@ import com.mygdx.game.Utils.ColouredText;
 public class Goblin extends BasicNonPlayerCharacterEntity {
     private int level;
     private final SkeletonLootPool lootPool;
-    private final float dropChance = 0.7f;
+    private static final float DROP_CHANCE = 0.7f;
 
-    public Goblin(GridPoint2 position, int level, Dungeon dungeon) {
+    private Goblin(GridPoint2 position, int level, Dungeon dungeon) {
         super(position, dungeon);
         lootPool = new SkeletonLootPool();
 
@@ -23,7 +22,7 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
     }
 
     public Goblin(Dungeon dungeon) {
-        this(new GridPoint2(0,0), 1, dungeon);
+        this(new GridPoint2(0,0), dungeon.getLevel(), dungeon);
     }
 
     @Override
@@ -38,14 +37,13 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
 
     public void die(){
         super.die();
-        if(MathUtils.randomBoolean(dropChance)){
+        if(MathUtils.randomBoolean(DROP_CHANCE)){
             Dungeon.getActiveDungeon().getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
         UserInterface.growlArea.println(new ColouredText("The goblin's belly splits open at the force of your strike. You gain " + getExperienceValue() + " experience."));
 
     }
-    @Override
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         setMaxHealth(8+level*2);
         setHealth(getMaxHealth());
 

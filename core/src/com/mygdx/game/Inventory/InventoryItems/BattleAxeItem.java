@@ -5,11 +5,6 @@ import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class BattleAxeItem extends SwordHandItem {
 
-    private final BattleAxeItem thisItem = this;
-
-    public BattleAxeItem() {
-    }
-
     @Override
     public String getTextureName() {
         return "battle-axe";

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.SpawnPools.SkeletonLootPool;
 import com.mygdx.game.UserInterface.UserInterface;
@@ -13,9 +12,9 @@ import com.mygdx.game.Utils.ColouredText;
 public class Skeleton extends BasicNonPlayerCharacterEntity {
     private int level;
     private final SkeletonLootPool lootPool;
-    private final float dropChance = 0.7f;
+    private static final float DROP_CHANCE = 0.7f;
 
-    public Skeleton(GridPoint2 position, int level, Dungeon dungeon) {
+    private Skeleton(GridPoint2 position, int level, Dungeon dungeon) {
         super(position, dungeon);
         lootPool = new SkeletonLootPool();
 
@@ -23,7 +22,7 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
     }
 
     public Skeleton(Dungeon dungeon) {
-        this(new GridPoint2(0,0), 1, dungeon);
+        this(new GridPoint2(0,0), dungeon.getLevel(), dungeon);
     }
 
     @Override
@@ -38,14 +37,13 @@ public class Skeleton extends BasicNonPlayerCharacterEntity {
 
     public void die(){
         super.die();
-        if(MathUtils.randomBoolean(dropChance)){
+        if(MathUtils.randomBoolean(DROP_CHANCE)){
             Dungeon.getActiveDungeon().getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
         UserInterface.growlArea.println(new ColouredText("The skeleton falls to pieces at the joints. You gain " + getExperienceValue() + " experience."));
 
     }
-    @Override
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         setMaxHealth(5+level);
         setHealth(getMaxHealth());
 

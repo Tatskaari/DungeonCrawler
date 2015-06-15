@@ -5,12 +5,14 @@ import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
 
 public class DeadBehavior extends Behavior {
+    private static final int RESPAWN_TIME = 20;
+
     private int respawnCounter;
     private final NonPlayerCharacterEntity character;
 
-    public DeadBehavior(NonPlayerCharacterEntity character, int respawnCounter){
-        this.respawnCounter = respawnCounter;
+    public DeadBehavior(NonPlayerCharacterEntity character){
         this.character = character;
+        respawnCounter = RESPAWN_TIME;
     }
 
     @Override

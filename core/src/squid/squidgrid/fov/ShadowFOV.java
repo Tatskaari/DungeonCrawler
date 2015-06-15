@@ -96,7 +96,7 @@ public class ShadowFOV implements FOVSolver {
 
                 //check if it's within the lightable area and light if needed
                 if (rStrat.radius(deltaX, deltaY) <= radius) {
-                    float bright = (float) (1 - (decay * rStrat.radius(deltaX, deltaY) / force));
+                    float bright = 1 - (decay * rStrat.radius(deltaX, deltaY) / force);
                     lightMap[currentX][currentY] = bright;
                 }
 

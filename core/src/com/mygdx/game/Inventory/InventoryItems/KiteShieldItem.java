@@ -2,9 +2,6 @@ package com.mygdx.game.Inventory.InventoryItems;
 
 import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
-/**
- * Created by Tatskaari on 20/01/2015.
- */
 public class KiteShieldItem extends ShieldItem {
 
     @Override

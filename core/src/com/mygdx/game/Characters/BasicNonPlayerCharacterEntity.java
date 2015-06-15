@@ -8,7 +8,6 @@ import com.mygdx.game.Behaviors.GenericAttackPlayerBehavior;
 import com.mygdx.game.Behaviors.GenericWanderBehavior;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Renderers.MonsterRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -35,9 +34,9 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
 
     @Override
     public void act() {
-        if (isDead()){
+        if (!isAlive()){
             if (!(behavior instanceof DeadBehavior)){
-                behavior = new DeadBehavior(this, 20);
+                behavior = new DeadBehavior(this);
                 die();
             }
         }
@@ -55,8 +54,8 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     }
 
     @Override
-    public boolean isDead() {
-        return health <= 0;
+    public boolean isAlive() {
+        return health > 0;
     }
 
     @Override
@@ -74,8 +73,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
         this.health = health;
     }
 
-    @Override
-    public void setMaxHealth(int maxHealth){
+    void setMaxHealth(int maxHealth){
         this.maxHealth = maxHealth;
     }
 

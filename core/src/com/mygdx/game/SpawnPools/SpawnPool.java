@@ -10,7 +10,7 @@ public abstract class SpawnPool<Type> {
     private float totalBias = 0;
     private HashMap<Factory<Type>, Float> spawnTable = new HashMap<Factory<Type>, Float>();
 
-    public void addNew(Factory<Type> factory, float bias){
+    protected void addNew(Factory<Type> factory, float bias){
         totalBias+=bias;
         spawnTable.put(factory, bias);
     }
@@ -32,7 +32,7 @@ public abstract class SpawnPool<Type> {
         throw new RuntimeException("Error calculating what to spawn.");
     }
 
-    public void reset(){
+    protected void reset(){
         spawnTable = new HashMap<Factory<Type>, Float>();
         totalBias = 0;
     }
