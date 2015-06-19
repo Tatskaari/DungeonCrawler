@@ -14,15 +14,15 @@ public class Goblin extends BasicNonPlayerCharacterEntity {
     private final SkeletonLootPool lootPool;
     private static final float DROP_CHANCE = 0.7f;
 
-    private Goblin(GridPoint2 position, int level, Dungeon dungeon) {
-        super(position, dungeon);
+    private Goblin(int level, Dungeon dungeon) {
+        super(dungeon);
         lootPool = new SkeletonLootPool();
 
         setLevel(level);
     }
 
     public Goblin(Dungeon dungeon) {
-        this(new GridPoint2(0,0), dungeon.getLevel(), dungeon);
+        this(dungeon.getLevel(), dungeon);
     }
 
     @Override

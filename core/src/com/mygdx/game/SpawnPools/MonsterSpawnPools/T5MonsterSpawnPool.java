@@ -1,11 +1,11 @@
 package com.mygdx.game.SpawnPools.MonsterSpawnPools;
 
-import com.mygdx.game.Characters.Factories.GoblinFactory;
+import com.mygdx.game.Characters.Goblin;
 import com.mygdx.game.Dungeon.Dungeon;
 
 public class T5MonsterSpawnPool extends MonsterSpawnPool {
     public void initialisePool(Dungeon dungeon){
         reset();
-        addNew(new GoblinFactory(dungeon), 2);
+        addNew(() -> new Goblin(dungeon), 2);
     }
 }

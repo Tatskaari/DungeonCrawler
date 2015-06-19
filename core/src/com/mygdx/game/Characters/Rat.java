@@ -11,14 +11,14 @@ import com.mygdx.game.Utils.ColouredText;
 public class Rat extends BasicNonPlayerCharacterEntity {
     private int level;
 
-    private Rat(GridPoint2 position, int level, Dungeon dungeon) {
-        super(position, dungeon);
+    private Rat(int level, Dungeon dungeon) {
+        super(dungeon);
 
         setLevel(level);
     }
 
     public Rat(Dungeon dungeon) {
-        this(new GridPoint2(0,0), dungeon.getLevel(), dungeon);
+        this(dungeon.getLevel(), dungeon);
     }
 
     @Override

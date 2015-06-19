@@ -25,10 +25,10 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
 
     private final Renderer renderer;
 
-    BasicNonPlayerCharacterEntity(GridPoint2 position, Dungeon dungeon){
+    BasicNonPlayerCharacterEntity(Dungeon dungeon){
         this.dungeon = dungeon;
         renderer = new MonsterRenderer(this);
-        this.position = position;
+        this.position = DungeonUtils.getRandomNonVisibleTilePosInAnyRoom(dungeon);
         behavior = new GenericWanderBehavior(this);
     }
 

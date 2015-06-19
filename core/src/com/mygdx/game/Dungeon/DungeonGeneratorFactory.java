@@ -1,6 +1,6 @@
 package com.mygdx.game.Dungeon;
 
-import com.mygdx.game.SpawnPools.ItemSpawnPools.T1ItemSpawnPool;
+import com.mygdx.game.SpawnPools.ItemSpawnPools.*;
 import com.mygdx.game.SpawnPools.MonsterSpawnPools.*;
 
 public class DungeonGeneratorFactory {
@@ -14,10 +14,10 @@ public class DungeonGeneratorFactory {
     static {
         //TODO level the item spawn as you get deeper
         T1Dungeons = new DungeonGenerator(50, 50, 25, new T1MonsterSpawnPool(), new T1ItemSpawnPool());
-        T2Dungeons = new DungeonGenerator(60, 60, 35, new T2MonsterSpawnPool(), new T1ItemSpawnPool());
-        T3Dungeons = new DungeonGenerator(65, 65, 40, new T3MonsterSpawnPool(), new T1ItemSpawnPool());
-        T4Dungeons = new DungeonGenerator(70, 70, 45, new T4MonsterSpawnPool(), new T1ItemSpawnPool());
-        T5Dungeons = new DungeonGenerator(75, 75, 50, new T5MonsterSpawnPool(), new T1ItemSpawnPool());
+        T2Dungeons = new DungeonGenerator(60, 60, 35, new T2MonsterSpawnPool(), new T2ItemSpawnPool());
+        T3Dungeons = new DungeonGenerator(65, 65, 40, new T3MonsterSpawnPool(), new T3ItemSpawnPool());
+        T4Dungeons = new DungeonGenerator(70, 70, 45, new T4MonsterSpawnPool(), new T4ItemSpawnPool());
+        T5Dungeons = new DungeonGenerator(75, 75, 50, new T5MonsterSpawnPool(), new T5ItemSpawnPool());
     }
 
 
