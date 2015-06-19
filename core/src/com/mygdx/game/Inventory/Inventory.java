@@ -11,12 +11,12 @@ public class Inventory {
     private final int height;
 
     protected Inventory(int width, int height){
-        inventorySlots = new Array<Array<InventorySlot>>();
+        inventorySlots = new Array<>();
         this.width = width;
         this.height = height;
 
         for(int i = 0; i < width; i++){
-            inventorySlots.add(new Array<InventorySlot>());
+            inventorySlots.add(new Array<>());
             for (int j = 0; j < height; j++){
                 inventorySlots.get(i).add(new StandardSlot());
             }
@@ -79,4 +79,13 @@ public class Inventory {
             }
         }
     }
+
+    public void emptyInventory(){
+        for(int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
+                inventorySlots.get(i).get(j).emptySlot();
+            }
+        }
+    }
+
 }

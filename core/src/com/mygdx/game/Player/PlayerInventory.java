@@ -10,13 +10,16 @@ import com.mygdx.game.Inventory.InventorySlot;
 import com.mygdx.game.Inventory.InventorySlots.SwordHandSlot;
 
 public class PlayerInventory extends Inventory {
+    private static final int WIDTH = 5;
+    private static final int HEIGHT = 5;
+
     private final GridPoint2 swordHandItemSlotPos;
     private final GridPoint2 headItemSlotPos;
     private final GridPoint2 bodyItemSlotPos;
     private final GridPoint2 shieldItemSlotPos;
 
-    public PlayerInventory(int width, int height) {
-        super(width, height);
+    public PlayerInventory() {
+        super(WIDTH, HEIGHT);
 
         swordHandItemSlotPos = new GridPoint2(0,0);
         headItemSlotPos = new GridPoint2(1, 0);

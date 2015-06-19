@@ -6,7 +6,6 @@ import com.mygdx.game.Inventory.InventoryItems.RoundShieldItem;
 import com.mygdx.game.Inventory.InventoryItems.SwordItem;
 
 public class T1ItemSpawnPool extends ItemSpawnPool{
-    //TODO add new item spawn pool tiers
     public T1ItemSpawnPool(){
         addNew(SwordItem::new, 3);
         addNew(RoundShieldItem::new, 3);

@@ -2,9 +2,6 @@ package com.mygdx.game.SpawnPools.ItemSpawnPools;
 
 import com.mygdx.game.Inventory.InventoryItems.*;
 
-/**
- * Created by Tatskaari on 19/06/2015.
- */
 public class T3ItemSpawnPool extends ItemSpawnPool{
     public T3ItemSpawnPool(){
         addNew(SwordItem::new, 3);

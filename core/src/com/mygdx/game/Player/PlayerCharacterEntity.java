@@ -32,7 +32,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private PlayerCharacterEntity(){
         renderer = new PlayerRenderer(this);
         statsHandler = new PlayerStatsHandler();
-        inventory = new PlayerInventory(5,5);
+        inventory = new PlayerInventory();
         position = new GridPoint2(0,0);
     }
 
@@ -136,5 +136,6 @@ public class PlayerCharacterEntity implements CharacterEntity {
     public void respawn() {
         placeCharacterIn(Dungeon.getActiveDungeon());
         statsHandler = new PlayerStatsHandler();
+        inventory.emptyInventory();
     }
 }
