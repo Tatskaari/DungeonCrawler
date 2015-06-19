@@ -29,6 +29,8 @@ public class DungeonGenerator {
         dungeon.floorBelow = oldDungeon.floorBelow;
         dungeon.level = oldDungeon.level;
         mapGenerator.generateDungeonTiles(dungeon, requestedRoomCount);
+        spawnMonsters(dungeon, dungeon.getRoomCount());
+        spawnItems(dungeon, dungeon.getRoomCount()/3);
 
         return regenerateIfIncompletable(dungeon);
     }

@@ -29,14 +29,19 @@ public class DungeonUtils {
     }
 
     public static GridPoint2 getRandomSpawnLocation(Dungeon dungeon){
-        DungeonRoom room = getRandomNotStartDungeonRoom(dungeon);
+        DungeonRoom room;
+        GridPoint2 pos;
+        do{
+            room = getRandomNotStartDungeonRoom(dungeon);
+            pos = getRandomTileInRoom(room);
+        } while (!dungeon.getDungeonTile(pos).isPassable());
         return getRandomTileInRoom(room);
     }
 
     public static GridPoint2 getRandomNonVisibleTilePosInAnyRoom(Dungeon dungeon){
         int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
         GridPoint2 tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
-        while(dungeon.getDungeonTile(tilePos).isVisible()){
+        while(dungeon.getDungeonTile(tilePos).isVisible() || dungeon.getDungeonTile(tilePos).isVisionObstructing()){
             roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
             tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
         }

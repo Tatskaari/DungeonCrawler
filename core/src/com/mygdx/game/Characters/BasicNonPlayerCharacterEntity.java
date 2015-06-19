@@ -28,7 +28,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
     BasicNonPlayerCharacterEntity(Dungeon dungeon){
         this.dungeon = dungeon;
         renderer = new MonsterRenderer(this);
-        this.position = DungeonUtils.getRandomNonVisibleTilePosInAnyRoom(dungeon);
+        this.position = DungeonUtils.getRandomSpawnLocation(dungeon);
         behavior = new GenericWanderBehavior(this);
     }
 

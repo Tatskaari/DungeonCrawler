@@ -147,4 +147,8 @@ public abstract class DungeonTile {
     public boolean isDiscovered() {
         return tileIsDiscovered;
     }
+
+    public Array<InventoryItem> getItems() {
+        return itemList;
+    }
 }
