@@ -10,79 +10,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Inventory.Inventory;
 
-class InventoryActor extends Window{
+class InventoryActor extends CenterScreenWindow{
     private final Inventory inventory;
-    private final TextButton inventoryCloseButton;
-    private final Skin skin;
+
 
     //TODO stop the player input handler when in the inventory
     public InventoryActor(Skin skin, Inventory inventory) {
         super("Inventory", skin);
-
         this.inventory = inventory;
-        this.skin = skin;
-
-        inventoryCloseButton = new TextButton("X", skin);
-
         populateInventory();
-        positionAndSize();
-
-        setVisible(false);
-        setMovable(false);
-
     }
 
     private void populateInventory(){
-        inventoryCloseButton.addListener(
-                new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        setVisible(false);
-                    }
-                }
-        );
-
-        getButtonTable().add(inventoryCloseButton).height(getPadTop());
-
         defaults().fill().expand();
         row();
 
         for (int i = 0; i < inventory.getWidth(); i++){
             for (int j = 0; j < inventory.getHeight(); j++){
-                InventorySlotActor slot = new InventorySlotActor(inventory.getSlot(j, i), skin);
+                InventorySlotActor slot = new InventorySlotActor(inventory.getSlot(j, i), getSkin());
                 add(slot);
             }
             row();
         }
-    }
-
-    private void positionAndSize(){
-        int screenHeight = Gdx.graphics.getHeight();
-
-        float size = 0.8f*screenHeight;
-        float y = 0.1f*screenHeight;
-        float x = (Gdx.graphics.getWidth() - size)/2;
-
-        setPosition(x,y);
-        setSize(size, size);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        positionAndSize();
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        //Stage can be bull if the inventory has not been added to the stage yet
-        if (!visible && getStage() != null){
-            for (Actor actor : getStage().getActors()){
-                if (actor instanceof ContextMenuActor){
-                    actor.remove();
-                }
-            }
-        }
-        super.setVisible(visible);
     }
 }

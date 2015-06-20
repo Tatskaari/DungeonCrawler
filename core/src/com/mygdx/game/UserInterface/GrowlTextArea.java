@@ -14,7 +14,7 @@ public class GrowlTextArea extends Actor {
     private final BitmapFont.TextBounds em;
 
     public GrowlTextArea() {
-        queue = new ArrayQueue<ColouredText>(BUFFER_SIZE);
+        queue = new ArrayQueue<>(BUFFER_SIZE);
         font = new BitmapFont();
         em = font.getBounds("M");
 

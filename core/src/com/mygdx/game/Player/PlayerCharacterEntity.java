@@ -9,8 +9,6 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.ItemTypes.OffHandSwordItem;
-import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
@@ -79,13 +77,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     @Override
     public void attack(CharacterEntity characterEntity) {
         int damage = (int) statsHandler.damage.getValue();
-        int attackRating=0;
-        SwordHandItem weapon = PlayerCharacterEntity.getInstance().inventory.getSwordHandItem();
-        attackRating+= weapon.getAttackRating();
-        if (inventory.hasOffHandSword()){
-            attackRating += inventory.getOffHandItem().getAttackRating();
-        }
-        damage+= MathUtils.random(attackRating);
+        damage+= MathUtils.random(inventory.getAttackRating());
         characterEntity.beAttacked(damage);
     }
 
@@ -112,7 +104,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void beAttacked(int damage){
-        damage = MathUtils.ceil(damage*(1-getDefenceRating()));
+        damage = MathUtils.ceil(damage*(1- inventory.getArmourRating()));
         DamageToken damageToken = new DamageToken(damage, position);
         Tokens.getInstance().addToken(damageToken);
         statsHandler.addToHealth(-damage);
@@ -122,16 +114,6 @@ public class PlayerCharacterEntity implements CharacterEntity {
         if (statsHandler.getHealth() <= 0){
             MyGdxGame.myGdxGame.setScreen(new GameOverScreen());
         }
-    }
-
-    private float getDefenceRating(){
-        float totalDefence = inventory.getHeadItem().getDefenceRating();
-        totalDefence+= inventory.getBodyItem().getDefenceRating();
-        totalDefence+= inventory.getShieldItem().getDefenceRating();
-        if (totalDefence > 1){
-            totalDefence = 1;
-        }
-        return totalDefence;
     }
 
     @Override

@@ -17,7 +17,7 @@ class ContextMenuActor extends Window {
         Array<ItemContextAction> actions = item.getItemContextActions();
 
         for (int i = 0; i < actions.size; i++){
-            add(new ContextMenuLabel(actions.get(i), skin));
+            add(new ContextMenuLabel(actions.get(i), skin)).width(getWidth());
             row();
         }
         defaults().fill().expand();

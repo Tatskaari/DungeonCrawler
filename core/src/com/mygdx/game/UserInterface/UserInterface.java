@@ -21,8 +21,9 @@ public class UserInterface {
 
     public static GrowlTextArea growlArea;
 
-    // Inventory elements
+    // CenterScreenWindows
     private final InventoryActor inventory;
+    private final DeveloperInfo devInfoScreen;
 
     // Bottom table elements
     private final RangeBar healthBar;
@@ -31,6 +32,7 @@ public class UserInterface {
 
     // Top table elements
     private final TextButton inventoryOpenButton;
+    private final TextButton devInfoOpenButton;
 
     public UserInterface(){
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
@@ -43,6 +45,7 @@ public class UserInterface {
 
         topTable = new Table(skin);
         inventoryOpenButton = new TextButton("Inventory", skin);
+        devInfoOpenButton = new TextButton("Dev Info", skin);
 
         bottomTable = new Table(skin);
         growlArea = new GrowlTextArea();
@@ -51,6 +54,7 @@ public class UserInterface {
         infoLabel = new Label("", skin);
 
         inventory = new InventoryActor(skin, player.inventory);
+        devInfoScreen = new DeveloperInfo(skin);
 
 
 
@@ -60,6 +64,7 @@ public class UserInterface {
         stage.addActor(bottomTable);
         stage.addActor(topTable);
         stage.addActor(inventory);
+        stage.addActor(devInfoScreen);
     }
 
     private void populateTopTable(){
@@ -70,22 +75,32 @@ public class UserInterface {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    inventory.setVisible(!inventory.isVisible());
+                    CenterScreenWindow.toggleActiveWindow(inventory);
                 }
             }
+        );
+
+        devInfoOpenButton.addListener(
+                new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        CenterScreenWindow.toggleActiveWindow(devInfoScreen);
+                    }
+                }
         );
 
         stage.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.TAB){
-                    inventory.setVisible(!inventory.isVisible());
+                    CenterScreenWindow.toggleActiveWindow(inventory);
                 }
                 return false;
             }
         });
 
         topTable.add(inventoryOpenButton);
+        topTable.add(devInfoOpenButton);
 
         topTable.pack();
     }

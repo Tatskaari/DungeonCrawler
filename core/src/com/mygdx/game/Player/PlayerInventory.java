@@ -108,4 +108,24 @@ public class PlayerInventory extends Inventory {
     public OffHandSwordItem getOffHandItem() {
         return (OffHandSwordItem) getSlot(offHandSlotPos).getItem();
     }
+
+    public int getAttackRating() {
+        int attackRating=0;
+        SwordHandItem weapon = PlayerCharacterEntity.getInstance().inventory.getSwordHandItem();
+        attackRating+= weapon.getAttackRating();
+        if (hasOffHandSword()){
+            attackRating += getOffHandItem().getAttackRating();
+        }
+        return attackRating;
+    }
+
+    public float getArmourRating(){
+        float totalDefence = getHeadItem().getDefenceRating();
+        totalDefence+= getBodyItem().getDefenceRating();
+        totalDefence+= getShieldItem().getDefenceRating();
+        if (totalDefence > 1){
+            totalDefence = 1;
+        }
+        return totalDefence;
+    }
 }
