@@ -21,6 +21,6 @@ public class SwordItem extends SwordHandItem {
 
     @Override
     public int getAttackRating(){
-        return 3;
+        return 1;
     }
 }

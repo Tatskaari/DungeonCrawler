@@ -8,6 +8,10 @@ import com.mygdx.game.Utils.ColouredText;
 
 
 public class Rat extends BasicMonsterCharacterEntity {
+    private static final int BASE_HEALTH = 5;
+    private static final int BASE_DAMAGE = 2;
+    private static final int BASE_XP = 1;
+
     private int level;
 
     private Rat(int level, Dungeon dungeon) {
@@ -27,15 +31,15 @@ public class Rat extends BasicMonsterCharacterEntity {
 
     @Override
     public int getExperienceValue() {
-        return 1 + level/2;
+        return Math.floorDiv(level-1, 2) + BASE_XP;
     }
 
     private void setLevel(int level) {
-        setMaxHealth(5+level);
+        setMaxHealth(BASE_HEALTH+level);
         setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(level, 2 + level);
+        setDamageRange(level, BASE_DAMAGE + level);
     }
 
     @Override

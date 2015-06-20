@@ -23,19 +23,19 @@ public class DungeonGeneratorFactory {
 
     public static DungeonGenerator getDungeonGenerator(int level){
         //TODO balance the level progression
-        if (level < 2) {
+        if (level <= 1) {
             //Rats and boring mobs
             return T1Dungeons;
         }
-        else if (level < 3) {
+        else if (level <= 2) {
             //Skeletons and rats
             return T2Dungeons;
         }
-        else if (level < 4) {
+        else if (level <= 5) {
             //Skeletons rats and goblins
             return T3Dungeons;
         }
-        else if (level < 5) {
+        else if (level <= 7) {
             //Skeletons and Goblins
             return T4Dungeons;
         }

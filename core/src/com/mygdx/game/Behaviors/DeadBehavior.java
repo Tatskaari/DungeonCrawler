@@ -5,7 +5,7 @@ import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
 
 public class DeadBehavior extends Behavior {
-    private static final int RESPAWN_TIME = 20;
+    private static final int RESPAWN_TIME = 80;
 
     private int respawnCounter;
     private final MonsterCharacterEntity character;

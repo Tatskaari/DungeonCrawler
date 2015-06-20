@@ -11,6 +11,11 @@ import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
+    private static final int BASE_HEALTH = 30;
+    private static final int BASE_DAMAGE = 4;
+    private static final int XP_LEVEL_RATIO = 13;
+
+
     private final RangeValue healthRange;
     final RandomRangeValue damage;
     private final RangeValue expRange;
@@ -18,9 +23,9 @@ public class PlayerStatsHandler {
 
     public PlayerStatsHandler(){
         level = 1;
-        healthRange = new RangeValue(0, 50, 50);
+        healthRange = new RangeValue(0, BASE_HEALTH, BASE_HEALTH);
         expRange = new RangeValue(0, getNextLevelExp(level), 0);
-        damage = new RandomRangeValue(0,5);
+        damage = new RandomRangeValue(0,BASE_DAMAGE);
     }
 
     public void addExperience(int exp){
@@ -32,12 +37,13 @@ public class PlayerStatsHandler {
     }
 
     private int getNextLevelExp(float level){
-        return MathUtils.round(level * 8f + level * level + 0.25f * level * level * level);
+        return MathUtils.round(level*XP_LEVEL_RATIO);
     }
 
     private void levelUp(){
         level++;
-        expRange.setMin(getNextLevelExp(level-1));
+        expRange.setValue(0);
+        expRange.setMin(0);
         expRange.setMax(getNextLevelExp(level));
 
         damage.setMin(damage.getMin()+1);

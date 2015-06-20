@@ -9,9 +9,13 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class Skeleton extends BasicMonsterCharacterEntity {
+    private static final float DROP_CHANCE = 0.3f;
+    private static final int BASE_HEALTH = 10;
+    private static final int BASE_DAMAGE = 5;
+    private static final int BASE_XP = 2;
+
     private int level;
     private final SkeletonLootPool lootPool;
-    private static final float DROP_CHANCE = 0.7f;
 
     private Skeleton(int level, Dungeon dungeon) {
         super(dungeon);
@@ -31,7 +35,7 @@ public class Skeleton extends BasicMonsterCharacterEntity {
 
     @Override
     public int getExperienceValue() {
-        return 3 + level/2;
+        return Math.floorDiv(level, 2) + BASE_XP;
     }
 
     public void die(){
@@ -43,10 +47,10 @@ public class Skeleton extends BasicMonsterCharacterEntity {
 
     }
     private void setLevel(int level) {
-        setMaxHealth(5+level);
+        setMaxHealth(BASE_HEALTH +level);
         setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(level, 2+level*2);
+        setDamageRange(level, BASE_DAMAGE+level);
     }
 }

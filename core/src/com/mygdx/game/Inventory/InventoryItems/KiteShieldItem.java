@@ -6,7 +6,7 @@ public class KiteShieldItem extends ShieldItem {
 
     @Override
     public float getDefenceRating() {
-        return 0.4f;
+        return 0.3f;
     }
 
     @Override

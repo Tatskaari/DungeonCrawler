@@ -27,6 +27,6 @@ public class BattleAxeItem extends SwordHandItem {
 
     @Override
     public int getAttackRating(){
-        return 5;
+        return 3;
     }
 }

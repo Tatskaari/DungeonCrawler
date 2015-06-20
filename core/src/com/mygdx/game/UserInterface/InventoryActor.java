@@ -15,7 +15,7 @@ class InventoryActor extends Window{
     private final TextButton inventoryCloseButton;
     private final Skin skin;
 
-
+    //TODO stop the player input handler when in the inventory
     public InventoryActor(Skin skin, Inventory inventory) {
         super("Inventory", skin);
 
