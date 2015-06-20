@@ -3,16 +3,16 @@ package com.mygdx.game.Renderers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.ResourceLoader;
 
 public class MonsterRenderer extends Renderer{
-    private final NonPlayerCharacterEntity characterEntity;
+    private final MonsterCharacterEntity characterEntity;
     private final int tileSize;
     private final HealthBarRenderer healthBarRenderer;
 
-    public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
+    public MonsterRenderer(MonsterCharacterEntity characterEntity){
         this.characterEntity = characterEntity;
         tileSize = ResourceLoader.getTileSize();
         healthBarRenderer = new HealthBarRenderer(characterEntity);

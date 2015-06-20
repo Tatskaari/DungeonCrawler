@@ -1,14 +1,13 @@
 package com.mygdx.game.Characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 
-public class Rat extends BasicNonPlayerCharacterEntity {
+public class Rat extends BasicMonsterCharacterEntity {
     private int level;
 
     private Rat(int level, Dungeon dungeon) {

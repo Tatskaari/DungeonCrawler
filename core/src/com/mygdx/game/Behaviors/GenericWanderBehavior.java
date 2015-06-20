@@ -3,7 +3,7 @@ package com.mygdx.game.Behaviors;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonUtils;
@@ -12,14 +12,14 @@ import com.mygdx.game.PathFinding.AstarNode;
 import java.awt.*;
 
 public class GenericWanderBehavior extends Behavior {
-    private final NonPlayerCharacterEntity character;
+    private final MonsterCharacterEntity character;
     private GridPoint2 targetPoint;
     private GridPoint2 pathTarget;
     private Array<AstarNode> path;
     private int actCountdown = 0;
     private final DungeonRoom dungeonRoom;
 
-    public GenericWanderBehavior(NonPlayerCharacterEntity character) {
+    public GenericWanderBehavior(MonsterCharacterEntity character) {
         this.character = character;
         dungeonRoom = getClosestRoom();
         path = getNewPath();

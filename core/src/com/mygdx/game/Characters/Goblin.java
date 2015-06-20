@@ -1,7 +1,6 @@
 package com.mygdx.game.Characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.ResourceLoader;
@@ -9,7 +8,7 @@ import com.mygdx.game.SpawnPools.SkeletonLootPool;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
-public class Goblin extends BasicNonPlayerCharacterEntity {
+public class Goblin extends BasicMonsterCharacterEntity {
     private int level;
     private final SkeletonLootPool lootPool;
     private static final float DROP_CHANCE = 0.7f;

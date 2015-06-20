@@ -14,7 +14,7 @@ import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.Tokens.DamageToken;
 import com.mygdx.game.Tokens.Tokens;
 
-public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacterEntity {
+public abstract class BasicMonsterCharacterEntity implements MonsterCharacterEntity {
     private final GridPoint2 position;
     private int health;
     private int maxHealth;
@@ -25,7 +25,7 @@ public abstract class BasicNonPlayerCharacterEntity implements NonPlayerCharacte
 
     private final Renderer renderer;
 
-    BasicNonPlayerCharacterEntity(Dungeon dungeon){
+    BasicMonsterCharacterEntity(Dungeon dungeon){
         this.dungeon = dungeon;
         renderer = new MonsterRenderer(this);
         this.position = DungeonUtils.getRandomSpawnLocation(dungeon);

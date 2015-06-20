@@ -1,6 +1,6 @@
 package com.mygdx.game.Behaviors;
 
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonUtils;
 
@@ -8,9 +8,9 @@ public class DeadBehavior extends Behavior {
     private static final int RESPAWN_TIME = 20;
 
     private int respawnCounter;
-    private final NonPlayerCharacterEntity character;
+    private final MonsterCharacterEntity character;
 
-    public DeadBehavior(NonPlayerCharacterEntity character){
+    public DeadBehavior(MonsterCharacterEntity character){
         this.character = character;
         respawnCounter = RESPAWN_TIME;
     }

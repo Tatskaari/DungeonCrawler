@@ -2,18 +2,18 @@ package com.mygdx.game.Behaviors;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class GenericAttackPlayerBehavior extends Behavior {
-    private final NonPlayerCharacterEntity character;
+    private final MonsterCharacterEntity character;
     private final GridPoint2 playersLastKnownPos;
     private Array<AstarNode> path;
     private final GridPoint2 pathTarget;
 
-    public GenericAttackPlayerBehavior(NonPlayerCharacterEntity character){
+    public GenericAttackPlayerBehavior(MonsterCharacterEntity character){
         this.character = character;
         path = new Array<AstarNode>();
         playersLastKnownPos = PlayerCharacterEntity.getInstance().getPosition();
