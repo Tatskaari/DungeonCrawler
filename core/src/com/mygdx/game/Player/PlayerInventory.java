@@ -2,9 +2,10 @@ package com.mygdx.game.Player;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Inventory.Inventory;
+import com.mygdx.game.Inventory.InventoryItems.EmptyShieldItem;
 import com.mygdx.game.Inventory.InventorySlots.BodySlot;
 import com.mygdx.game.Inventory.InventorySlots.HeadSlot;
-import com.mygdx.game.Inventory.InventorySlots.ShieldSlot;
+import com.mygdx.game.Inventory.InventorySlots.OffHandSlot;
 import com.mygdx.game.Inventory.ItemTypes.*;
 import com.mygdx.game.Inventory.InventorySlot;
 import com.mygdx.game.Inventory.InventorySlots.SwordHandSlot;
@@ -16,7 +17,7 @@ public class PlayerInventory extends Inventory {
     private final GridPoint2 swordHandItemSlotPos;
     private final GridPoint2 headItemSlotPos;
     private final GridPoint2 bodyItemSlotPos;
-    private final GridPoint2 shieldItemSlotPos;
+    private final GridPoint2 offHandSlotPos;
 
     public PlayerInventory() {
         super(WIDTH, HEIGHT);
@@ -24,12 +25,12 @@ public class PlayerInventory extends Inventory {
         swordHandItemSlotPos = new GridPoint2(0,0);
         headItemSlotPos = new GridPoint2(1, 0);
         bodyItemSlotPos = new GridPoint2(2, 0);
-        shieldItemSlotPos = new GridPoint2(3, 0);
+        offHandSlotPos = new GridPoint2(3, 0);
 
         setSlot(swordHandItemSlotPos, new SwordHandSlot());
         setSlot(headItemSlotPos, new HeadSlot());
         setSlot(bodyItemSlotPos, new BodySlot());
-        setSlot(shieldItemSlotPos, new ShieldSlot());
+        setSlot(offHandSlotPos, new OffHandSlot());
     }
 
 
@@ -53,7 +54,12 @@ public class PlayerInventory extends Inventory {
         return (BodyItem) getSlot(bodyItemSlotPos).getItem();
     }
     public ShieldItem getShieldItem(){
-        return (ShieldItem) getSlot(shieldItemSlotPos).getItem();
+        InventoryItem item = getSlot(offHandSlotPos).getItem();
+        if (item instanceof ShieldItem){
+            return (ShieldItem) getSlot(offHandSlotPos).getItem();
+
+        }
+        return new EmptyShieldItem();
     }
 
     private void moveItemToSlot(InventoryItem item, InventorySlot slot){
@@ -73,15 +79,15 @@ public class PlayerInventory extends Inventory {
         moveItemToSlot(bodyItem, getSlot(bodyItemSlotPos));
     }
 
-    void equipItemInShieldSlot(ShieldItem shieldItem) {
-        moveItemToSlot(shieldItem, getSlot(shieldItemSlotPos));
+    void equipItemInOffHandSlot(OffHandItem offHandItem) {
+        moveItemToSlot(offHandItem, getSlot(offHandSlotPos));
     }
 
     public void equipItem(EquipableItem item){
         if (item instanceof SwordHandItem) {
             equipItemInSwordHandSlot((SwordHandItem)item);
         } else if (item instanceof ShieldItem) {
-            equipItemInShieldSlot((ShieldItem)item);
+            equipItemInOffHandSlot((ShieldItem) item);
         } else if (item instanceof HeadItem) {
             equipItemInHeadSlot((HeadItem)item);
         } else if (item instanceof BodyItem){
@@ -89,5 +95,17 @@ public class PlayerInventory extends Inventory {
         } else {
             throw new RuntimeException("Unknown item type " + item.toString());
         }
+    }
+
+    public void equipItemInOffHand(OffHandSwordItem item){
+        equipItemInOffHandSlot(item);
+    }
+
+    public boolean hasOffHandSword() {
+        return getSlot(offHandSlotPos).getItem() instanceof OffHandSwordItem;
+    }
+
+    public OffHandSwordItem getOffHandItem() {
+        return (OffHandSwordItem) getSlot(offHandSlotPos).getItem();
     }
 }

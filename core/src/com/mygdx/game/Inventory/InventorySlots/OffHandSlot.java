@@ -3,14 +3,15 @@ package com.mygdx.game.Inventory.InventorySlots;
 import com.mygdx.game.Inventory.InventoryItems.EmptyShieldItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.InventorySlot;
+import com.mygdx.game.Inventory.ItemTypes.OffHandItem;
 import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
-public class ShieldSlot implements InventorySlot {
+public class OffHandSlot implements InventorySlot {
 
 
-    private ShieldItem item;
+    private OffHandItem item;
 
-    public ShieldSlot(){
+    public OffHandSlot(){
         item = new EmptyShieldItem();
     }
 
@@ -25,7 +26,7 @@ public class ShieldSlot implements InventorySlot {
 
     @Override
     public void replaceItem(InventoryItem item) {
-        this.item = (ShieldItem) item;
+        this.item = (OffHandItem) item;
     }
 
     @Override

@@ -1,4 +1,4 @@
 package com.mygdx.game.Inventory.ItemTypes;
 
-public abstract class ShieldItem extends ArmourItem {
+public abstract class ShieldItem extends ArmourItem implements OffHandItem {
 }
