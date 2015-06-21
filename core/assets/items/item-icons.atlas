@@ -60,16 +60,30 @@ kite-shield
   orig: 25, 25
   offset: 0, 0
   index: -1
-leather-tunic
+knife
   rotate: false
   xy: 218, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-sword
+leather-tunic
   rotate: false
   xy: 245, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+round-shield
+  rotate: false
+  xy: 272, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 299, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

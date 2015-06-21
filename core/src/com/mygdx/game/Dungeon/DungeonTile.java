@@ -4,41 +4,32 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 import java.awt.*;
 
 public abstract class DungeonTile {
-    private final int VIEW_DIST = 12;
-    private final float FOW_VISIBILITY = 0.4f;
+    private static final int VIEW_DIST = 12;
+    private static final float FOW_VISIBILITY = 0.4f;
 
-    public static final int EMPTY = 0;
-    public static final int FLOOR = 10;
-    public static final int WALL = 20;
-    protected static final int DOOR_HORIZONTAL = 30;
-    protected static final int DOOR_VERTICAL = 40;
-    protected static final int CORRIDOR_FLOOR = 50;
-    public static final int CORRIDOR_WALL = 60;
+    private final Dungeon dungeon;
 
-
-    private boolean tileHasBeenVisible = false;
+    private boolean tileIsDiscovered = false;
     private final GridPoint2 pos;
     private final Array<InventoryItem> itemList;
 
-    protected DungeonTile(GridPoint2 pos) {
+    protected DungeonTile(GridPoint2 pos, Dungeon dungeon) {
         this.pos = pos;
-
-        itemList = new Array<InventoryItem>();
+        this.dungeon = dungeon;
+        itemList = new Array<>();
     }
 
     public abstract float getCorridorPlacingCost();
 
     public abstract boolean isVisionObstructing();
-
-    public abstract int getTileType();
 
     public abstract TextureRegion getTileTexture();
 
@@ -62,8 +53,8 @@ public abstract class DungeonTile {
 
     public float getVisibilityLevel() {
         if(isVisible()){
-            tileHasBeenVisible = true;
-            GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+            tileIsDiscovered = true;
+            GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
             float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
             return 1 - distance/(VIEW_DIST*2);
         } else {
@@ -72,20 +63,17 @@ public abstract class DungeonTile {
     }
 
     public boolean isVisible(){
-        GridPoint2 playerGridPoint = GameHandler.player.getPosition();
+        GridPoint2 playerGridPoint = PlayerCharacterEntity.getInstance().getPosition();
 
         float distance = (float)Point.distance(playerGridPoint.x, playerGridPoint.y, pos.x, pos.y);
-        if(distance > VIEW_DIST){
+        if (distance > VIEW_DIST) {
             return false;
-        }else if(distance < 1.5f) {
-            return true;
-        } else {
-            return isLOSBlocked();
-        }
+        } else
+            return distance < 1.5f || isLOSBlocked();
     }
 
     private float getHasBeenVisibleVisibility(){
-        if(tileHasBeenVisible){
+        if(tileIsDiscovered){
             return FOW_VISIBILITY;
         }
         else{
@@ -94,16 +82,16 @@ public abstract class DungeonTile {
     }
 
     private boolean isLOSBlocked(){
-        return LineOfSight.checkLineOfSight(pos, GameHandler.player.getPosition());
+        return LineOfSight.checkLineOfSight(pos, PlayerCharacterEntity.getInstance().getPosition(), dungeon);
     }
 
     public boolean isPassable(){
-        if(pos.equals(GameHandler.player.getPosition())){
+        if(pos.equals(PlayerCharacterEntity.getInstance().getPosition())){
             return false;
         } else {
-            for(CharacterEntity characterEntity : GameHandler.dungeon.monsters) {
+            for(CharacterEntity characterEntity : dungeon.monsters) {
                 if(characterEntity.getPosition().equals(pos)){
-                    if(!characterEntity.isDead()){
+                    if(characterEntity.isAlive()){
                         return false;
                     }
                 }
@@ -113,8 +101,8 @@ public abstract class DungeonTile {
     }
 
     public boolean hasMonster() {
-        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
+        for(int i = 0; i < dungeon.monsters.size; i++){
+            CharacterEntity characterEntity = dungeon.monsters.get(i);
             if (characterEntity.getPosition().equals(pos)){
                 return true;
             }
@@ -124,9 +112,9 @@ public abstract class DungeonTile {
     }
 
     public CharacterEntity getMonster() {
-        for(int i = 0; i < GameHandler.dungeon.monsters.size; i++){
-            CharacterEntity characterEntity = GameHandler.dungeon.monsters.get(i);
-            if (characterEntity.getPosition().equals(pos) && !characterEntity.isDead()){
+        for(int i = 0; i < dungeon.monsters.size; i++){
+            CharacterEntity characterEntity = dungeon.monsters.get(i);
+            if (characterEntity.getPosition().equals(pos) && characterEntity.isAlive()){
                 return characterEntity;
             }
         }
@@ -142,19 +130,17 @@ public abstract class DungeonTile {
         return itemList.pop();
     }
 
-    public void onStep(){
-        return;
-    }
+    public void onStep(){}
 
     public boolean hasItem() {
         return itemList.size > 0;
     }
 
-    public int itemCount() {
-        return itemList.size;
+    public boolean isDiscovered() {
+        return tileIsDiscovered;
     }
 
-    public InventoryItem getItem(int i){
-        return itemList.get(i);
+    public Array<InventoryItem> getItems() {
+        return itemList;
     }
 }

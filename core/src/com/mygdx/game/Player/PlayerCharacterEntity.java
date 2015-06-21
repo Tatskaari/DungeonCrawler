@@ -9,13 +9,13 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Renderers.PlayerRenderer;
 import com.mygdx.game.Renderers.Renderer;
 import com.mygdx.game.ResourceLoader;
-import com.mygdx.game.Screens.MainMenuScreen;
+import com.mygdx.game.Screens.GameOverScreen;
 import com.mygdx.game.Tokens.DamageToken;
+import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
@@ -23,14 +23,20 @@ public class PlayerCharacterEntity implements CharacterEntity {
     private GridPoint2 position;
 
     public final Renderer renderer;
-    public final PlayerStatsHandler statsHandler;
+    public PlayerStatsHandler statsHandler;
     public final PlayerInventory inventory;
 
-    public PlayerCharacterEntity(){
-        placeCharacterIn(GameHandler.dungeon);
+    private static final PlayerCharacterEntity player = new PlayerCharacterEntity();
+
+    private PlayerCharacterEntity(){
         renderer = new PlayerRenderer(this);
-        statsHandler = new PlayerStatsHandler(this);
-        inventory = new PlayerInventory(5,5);
+        statsHandler = new PlayerStatsHandler();
+        inventory = new PlayerInventory();
+        position = new GridPoint2(0,0);
+    }
+
+    public static PlayerCharacterEntity getInstance(){
+        return player;
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
@@ -43,21 +49,22 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     public void placeAtStairsDown(){
-        DungeonTile stairsDown = GameHandler.dungeon.getStairsDownDungeonTile();
+        DungeonTile stairsDown = Dungeon.getActiveDungeon().getStairsDownDungeonTile();
         position.set(stairsDown.getPos());
     }
+
     public void placeAtStairsUp(){
-        DungeonTile stairsUp = GameHandler.dungeon.getStairsUpDungeonTile();
+        DungeonTile stairsUp = Dungeon.getActiveDungeon().getStairsUpDungeonTile();
         position.set(stairsUp.getPos());
     }
 
     @Override
     public boolean moveTo(GridPoint2 newPosition) {
-        DungeonTile tile = GameHandler.dungeon.getDungeonTile(newPosition);
+        DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
             GameHandler.stepTurn();
-            GameHandler.dungeon.getDungeonTile(position).onStep();
+            Dungeon.getActiveDungeon().getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
@@ -69,10 +76,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void attack(CharacterEntity characterEntity) {
-        int damage = (int) statsHandler.damage.getValue();
-        SwordHandItem weapon = GameHandler.player.inventory.getSwordHandItem();
-        damage+= MathUtils.random(weapon.getAttackRating());
-        characterEntity.beAttacked(damage);
+        int maxDamage = (int) statsHandler.getDamage() + inventory.getAttackRating();
+        characterEntity.beAttacked(MathUtils.round(MathUtils.randomTriangular(0, maxDamage, 3*maxDamage/4)));
     }
 
     public GridPoint2 getPosition() {
@@ -80,8 +85,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     @Override
-    public boolean isDead() {
-        return statsHandler.getHealth() <= 0;
+    public boolean isAlive() {
+        return statsHandler.getHealth() > 0;
     }
 
     @Override
@@ -98,30 +103,26 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void beAttacked(int damage){
-        damage = MathUtils.ceil(damage*(1-getDefenceRating()));
+        damage = MathUtils.ceil(damage*(1- inventory.getArmourRating()));
         DamageToken damageToken = new DamageToken(damage, position);
-        GameHandler.tokens.addToken(damageToken);
+        Tokens.getInstance().addToken(damageToken);
         statsHandler.addToHealth(-damage);
 
         UserInterface.growlArea.println(new ColouredText("Hit for " + damage + " damage.", Color.RED));
 
         if (statsHandler.getHealth() <= 0){
-            MyGdxGame.myGdxGame.setScreen(new MainMenuScreen());
+            MyGdxGame.myGdxGame.setScreen(new GameOverScreen());
         }
-    }
-
-    private float getDefenceRating(){
-        float totalDefence = inventory.getHeadItem().getDefenceRating();
-        totalDefence+= inventory.getBodyItem().getDefenceRating();
-        totalDefence+= inventory.getShieldItem().getDefenceRating();
-        if (totalDefence > 1){
-            totalDefence = 1;
-        }
-        return totalDefence;
     }
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.player;
+        return ResourceLoader.getResTextureRegion("player");
+    }
+
+    public void respawn() {
+        placeCharacterIn(Dungeon.getActiveDungeon());
+        statsHandler = new PlayerStatsHandler();
+        inventory.emptyInventory();
     }
 }

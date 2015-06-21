@@ -3,16 +3,16 @@ package com.mygdx.game.Renderers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.ResourceLoader;
 
 public class MonsterRenderer extends Renderer{
-    private final NonPlayerCharacterEntity characterEntity;
+    private final MonsterCharacterEntity characterEntity;
     private final int tileSize;
     private final HealthBarRenderer healthBarRenderer;
 
-    public MonsterRenderer(NonPlayerCharacterEntity characterEntity){
+    public MonsterRenderer(MonsterCharacterEntity characterEntity){
         this.characterEntity = characterEntity;
         tileSize = ResourceLoader.getTileSize();
         healthBarRenderer = new HealthBarRenderer(characterEntity);
@@ -20,11 +20,11 @@ public class MonsterRenderer extends Renderer{
 
     @Override
     public void render(float delta, SpriteBatch batch) {
-        if (!characterEntity.isDead()){
-            float visibility = GameHandler.dungeon.getDungeonTile(characterEntity.getPosition()).getVisibilityLevel();
-            batch.setColor(visibility, visibility, visibility, 1);
+        if (characterEntity.isAlive()){
             GridPoint2 pos = characterEntity.getPosition();
-            if (GameHandler.dungeon.getDungeonTile(pos).isVisible()){
+            if (Dungeon.getActiveDungeon().getDungeonTile(pos).isVisible()){
+                float visibility = Dungeon.getActiveDungeon().getDungeonTile(characterEntity.getPosition()).getVisibilityLevel();
+                batch.setColor(visibility, visibility, visibility, 1);
                 batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
                 healthBarRenderer.render(delta, batch);
             }
@@ -33,7 +33,7 @@ public class MonsterRenderer extends Renderer{
     }
     @Override
     public void devRender(float delta, SpriteBatch batch){
-        if (!characterEntity.isDead()){
+        if (characterEntity.isAlive()){
             batch.draw(characterEntity.getTexture(), characterEntity.getPosition().x * tileSize, characterEntity.getPosition().y * tileSize);
         }
     }

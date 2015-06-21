@@ -16,10 +16,8 @@ public class StandardSlot implements InventorySlot{
     public boolean canTakeItem(InventoryItem inventoryItem) {
         if (item.isEmptyItem()) {
             return true;
-        } else if (item.getClass().equals(inventoryItem.getClass())) {
-            return item.getMaxStackSize() < itemCount;
         } else {
-            return false;
+            return item.getClass().equals(inventoryItem.getClass()) && item.getMaxStackSize() < itemCount;
         }
     }
 
@@ -38,7 +36,7 @@ public class StandardSlot implements InventorySlot{
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptyItem();
         itemCount = 0;
     }

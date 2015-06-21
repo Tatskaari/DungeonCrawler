@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
-import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 
 class ContextMenuActor extends Window {
     public ContextMenuActor(Skin skin, InventoryItem item){
@@ -17,7 +17,7 @@ class ContextMenuActor extends Window {
         Array<ItemContextAction> actions = item.getItemContextActions();
 
         for (int i = 0; i < actions.size; i++){
-            add(new ContextMenuLabel(actions.get(i), skin));
+            add(new ContextMenuLabel(actions.get(i), skin)).width(getWidth());
             row();
         }
         defaults().fill().expand();

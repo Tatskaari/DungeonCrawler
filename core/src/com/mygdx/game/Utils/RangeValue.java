@@ -1,8 +1,5 @@
 package com.mygdx.game.Utils;
 
-/**
- * Created by jony1710 on 03/01/2015.
- */
 public class RangeValue {
     private float value;
     private float min;

@@ -29,7 +29,7 @@ public class HeadSlot implements InventorySlot {
     }
 
     @Override
-    public void empty() {
+    public void emptySlot() {
         item = new EmptyHeadItem();
     }
 

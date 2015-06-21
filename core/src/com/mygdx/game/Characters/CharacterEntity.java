@@ -12,5 +12,5 @@ public interface CharacterEntity {
     public boolean moveTo(GridPoint2 position);
     public void attack(CharacterEntity characterEntity);
     public GridPoint2 getPosition();
-    public boolean isDead();
+    public boolean isAlive();
 }

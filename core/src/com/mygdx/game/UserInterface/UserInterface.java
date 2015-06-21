@@ -1,15 +1,18 @@
 package com.mygdx.game.UserInterface;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.Dungeon.Dungeon;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class UserInterface {
     private final Stage stage;
@@ -18,8 +21,9 @@ public class UserInterface {
 
     public static GrowlTextArea growlArea;
 
-    // Inventory elements
+    // CenterScreenWindows
     private final InventoryActor inventory;
+    private final DeveloperInfo devInfoScreen;
 
     // Bottom table elements
     private final RangeBar healthBar;
@@ -28,9 +32,12 @@ public class UserInterface {
 
     // Top table elements
     private final TextButton inventoryOpenButton;
+    private final TextButton devInfoOpenButton;
 
     public UserInterface(){
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+
         skin.addRegions(new TextureAtlas(Gdx.files.internal("UI/UI.atlas")));
         skin.addRegions(new TextureAtlas(Gdx.files.internal("items/item-icons.atlas")));
         stage = new Stage();
@@ -38,14 +45,16 @@ public class UserInterface {
 
         topTable = new Table(skin);
         inventoryOpenButton = new TextButton("Inventory", skin);
+        devInfoOpenButton = new TextButton("Dev Info", skin);
 
         bottomTable = new Table(skin);
-        growlArea = new GrowlTextArea(10);
-        healthBar = new RangeBar(skin, GameHandler.player.statsHandler.getHealthRange(), "HP: ");
-        experienceBar = new RangeBar(skin, GameHandler.player.statsHandler.getExperienceRange(), "EXP: ");
+        growlArea = new GrowlTextArea();
+        healthBar = new RangeBar(skin, player.statsHandler.getHealthRange(), "HP: ");
+        experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor(skin, GameHandler.player.inventory);
+        inventory = new InventoryActor(skin, player.inventory);
+        devInfoScreen = new DeveloperInfo(skin);
 
 
 
@@ -55,6 +64,7 @@ public class UserInterface {
         stage.addActor(bottomTable);
         stage.addActor(topTable);
         stage.addActor(inventory);
+        stage.addActor(devInfoScreen);
     }
 
     private void populateTopTable(){
@@ -62,15 +72,36 @@ public class UserInterface {
         topTable.left().top();
 
         inventoryOpenButton.addListener(
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    CenterScreenWindow.toggleActiveWindow(inventory);
+                }
+            }
+        );
+
+        devInfoOpenButton.addListener(
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        inventory.setVisible(!inventory.isVisible());
+                        CenterScreenWindow.toggleActiveWindow(devInfoScreen);
                     }
                 }
         );
 
+        stage.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.TAB){
+                    CenterScreenWindow.toggleActiveWindow(inventory);
+                }
+                return false;
+            }
+        });
+
         topTable.add(inventoryOpenButton);
+        //TODO make sure this isn't added when released
+        //topTable.add(devInfoOpenButton);
 
         topTable.pack();
     }
@@ -99,7 +130,7 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + GameHandler.player.statsHandler.getLevel() + ", Floor: " + GameHandler.dungeon.getLevel());
+        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + Dungeon.getActiveDungeon().getLevel());
         stage.act(delta);
         stage.draw();
     }
@@ -113,4 +144,6 @@ public class UserInterface {
     public InputProcessor getInputProcessor(){
         return stage;
     }
+
+
 }

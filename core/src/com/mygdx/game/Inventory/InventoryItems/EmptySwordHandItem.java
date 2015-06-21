@@ -1,14 +1,14 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
 public class EmptySwordHandItem extends SwordHandItem {
     private final Array<ItemContextAction> itemContextActions;
 
     public EmptySwordHandItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
     }
 
     @Override

@@ -9,6 +9,8 @@ public class DesktopLauncher {
 		startApp();
 	}
 
+
+
 	private static void startApp(){
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.vSyncEnabled = true;

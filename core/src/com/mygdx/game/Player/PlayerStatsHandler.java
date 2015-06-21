@@ -1,56 +1,55 @@
 package com.mygdx.game.Player;
 
-import com.apple.eawt.AppEvent;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Tokens.ExpToken;
 import com.mygdx.game.Tokens.LevelUpToken;
+import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
-import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
+    private static final int BASE_HEALTH = 30;
+    private static final int BASE_DAMAGE = 4;
+    private static final int XP_LEVEL_RATIO = 13;
+
+
     private final RangeValue healthRange;
-    final RandomRangeValue damage;
+    private float damage;
     private final RangeValue expRange;
     private int level;
 
-    private final PlayerCharacterEntity player;
-
-    public PlayerStatsHandler(PlayerCharacterEntity player){
+    public PlayerStatsHandler(){
         level = 1;
-        healthRange = new RangeValue(0, 50, 50);
+        healthRange = new RangeValue(0, BASE_HEALTH, BASE_HEALTH);
         expRange = new RangeValue(0, getNextLevelExp(level), 0);
-        damage = new RandomRangeValue(0,5);
-
-        this.player = player;
+        damage = BASE_DAMAGE;
     }
 
     public void addExperience(int exp){
         expRange.setValue(expRange.getValue() + exp);
-        GameHandler.tokens.addToken(new ExpToken(player.getPosition(), exp));
+        Tokens.getInstance().addToken(new ExpToken(PlayerCharacterEntity.getInstance().getPosition(), exp));
         if (expRange.getValue() >= expRange.getMax()){
             levelUp();
         }
     }
 
     private int getNextLevelExp(float level){
-        return MathUtils.round(level * 8f + level * level + 0.25f * level * level * level);
+        return MathUtils.round(level*XP_LEVEL_RATIO);
     }
 
     private void levelUp(){
         level++;
-        expRange.setMin(getNextLevelExp(level-1));
+        expRange.setValue(0);
+        expRange.setMin(0);
         expRange.setMax(getNextLevelExp(level));
 
-        damage.setMin(damage.getMin()+1);
-        damage.setMax(damage.getMax()+1);
+        damage += MathUtils.ceil((float)level/3f);
         healthRange.setMax(healthRange.getMax()+3);
         healthRange.setValue(healthRange.getValue()+3);
 
-        GameHandler.tokens.addToken(new LevelUpToken(player.getPosition(), level));
+        Tokens.getInstance().addToken(new LevelUpToken(PlayerCharacterEntity.getInstance().getPosition(), level));
         UserInterface.growlArea.println(new ColouredText("Level up: " + level, Color.GREEN));
     }
 
@@ -76,5 +75,9 @@ public class PlayerStatsHandler {
 
     public int getLevel() {
         return level;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 }

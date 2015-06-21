@@ -1,17 +1,14 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.ItemContextAction;
+import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 import com.mygdx.game.Inventory.ItemTypes.BodyItem;
 
-/**
- * Created by Tatskaari on 15/01/2015.
- */
 public class EmptyBodyItem extends BodyItem {
-    Array<ItemContextAction> itemContextActions;
+    private final Array<ItemContextAction> itemContextActions;
 
     public EmptyBodyItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
     }
 
     @Override

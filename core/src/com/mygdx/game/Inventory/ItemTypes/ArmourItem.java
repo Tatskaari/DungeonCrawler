@@ -1,6 +1,6 @@
 package com.mygdx.game.Inventory.ItemTypes;
 
-public abstract class ArmourItem implements InventoryItem {
+public abstract class ArmourItem extends EquipableItem {
     public abstract float getDefenceRating();
 
     @Override

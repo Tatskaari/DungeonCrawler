@@ -1,68 +1,82 @@
 
 res.png
-size: 256,32
+size: 512,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-door-horizontal
+crab
   rotate: false
   xy: 2, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-door-vertical
+door-horizontal
   rotate: false
   xy: 29, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-floor
+door-vertical
   rotate: false
   xy: 56, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-player
+floor
   rotate: false
   xy: 83, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-rat
+goblin
   rotate: false
   xy: 110, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-skeleton
+player
   rotate: false
   xy: 137, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-down
+rat
   rotate: false
   xy: 164, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-up
+skeleton
   rotate: false
   xy: 191, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-wall
+stairs-down
   rotate: false
   xy: 218, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+stairs-up
+  rotate: false
+  xy: 245, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 272, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

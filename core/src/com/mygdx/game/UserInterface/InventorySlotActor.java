@@ -13,7 +13,7 @@ import com.mygdx.game.Inventory.InventorySlot;
 class InventorySlotActor extends ImageButton {
     private final InventorySlot inventorySlot;
     private final Drawable background;
-    private Color backgroundColor;
+    private static final Color BACKGROUND_COLOUR = Color.DARK_GRAY;
     private float padding;
     private final Skin skin;
 
@@ -23,7 +23,6 @@ class InventorySlotActor extends ImageButton {
         this.inventorySlot = inventorySlot;
         this.skin = skin;
         setPadding(1);
-        setBackgroundColor(Color.DARK_GRAY);
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -35,10 +34,6 @@ class InventorySlotActor extends ImageButton {
         });
     }
 
-    void setBackgroundColor(Color c){
-        backgroundColor = c;
-    }
-
     void setPadding(float padding){
         this.padding = padding;
         setWidth(getWidth() + padding*2);
@@ -48,7 +43,7 @@ class InventorySlotActor extends ImageButton {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.setColor(backgroundColor);
+        batch.setColor(BACKGROUND_COLOUR);
         background.draw(batch, getX(), getY(), getWidth(), getHeight());
         batch.setColor(Color.WHITE);
 

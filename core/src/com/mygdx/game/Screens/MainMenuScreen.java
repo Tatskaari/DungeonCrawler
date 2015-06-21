@@ -13,6 +13,7 @@ import com.mygdx.game.ResourceLoader;
 public class MainMenuScreen extends ScreenAdapter{
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
+    private float delayBeforeInput = 0.1f;
 
     public MainMenuScreen(){
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -37,13 +38,14 @@ public class MainMenuScreen extends ScreenAdapter{
         renderText(0, 4, "Click anywhere to descend!");
         batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched() && delayBeforeInput < 0) {
             MyGdxGame.myGdxGame.setScreen(new GameScreen());
             dispose();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
+        delayBeforeInput-= delta;
     }
 
     private void renderText(float xPos, float yPos, String text){

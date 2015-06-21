@@ -2,33 +2,36 @@ package com.mygdx.game.Behaviors;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
+import com.mygdx.game.Dungeon.DungeonUtils;
 import com.mygdx.game.PathFinding.AstarNode;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class GenericAttackPlayerBehavior extends Behavior {
-    private final NonPlayerCharacterEntity character;
+    private final MonsterCharacterEntity character;
     private final GridPoint2 playersLastKnownPos;
     private Array<AstarNode> path;
     private final GridPoint2 pathTarget;
 
-    public GenericAttackPlayerBehavior(NonPlayerCharacterEntity character){
+    public GenericAttackPlayerBehavior(MonsterCharacterEntity character){
         this.character = character;
-        path = new Array<AstarNode>();
-        playersLastKnownPos = GameHandler.player.getPosition();
+        path = new Array<>();
+        playersLastKnownPos = PlayerCharacterEntity.getInstance().getPosition();
         pathTarget = new GridPoint2(-1,-1);
     }
 
     @Override
     public Behavior act() {
-        if (canSeePlayerFrom(character.getPosition())){
-            playersLastKnownPos.set(GameHandler.player.getPosition());
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+
+        if (DungeonUtils.canSeePlayerFrom(character.getPosition(), character.getDungeon())){
+            playersLastKnownPos.set(player.getPosition());
         }else if (!isPlayerPositionKnown()){
             return new GenericWanderBehavior(character);
         }
 
         if (isPlayerAdjacent(character.getPosition())){
-            character.attack(GameHandler.player);
+            character.attack(player);
         } else {
             moveTowardsPlayer();
         }
@@ -41,7 +44,7 @@ public class GenericAttackPlayerBehavior extends Behavior {
 
     private void moveTowardsPlayer(){
         if (!playersLastKnownPos.equals(pathTarget)){
-            path = generateNewPathBetween(character.getPosition(), playersLastKnownPos);
+            path = DungeonUtils.generateNewPathBetween(character.getPosition(), playersLastKnownPos, character.getDungeon());
             pathTarget.set(playersLastKnownPos);
         }
         if (path.size > 0){

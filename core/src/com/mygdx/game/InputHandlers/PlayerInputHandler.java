@@ -3,12 +3,13 @@ package com.mygdx.game.InputHandlers;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
-import com.mygdx.game.GameHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.Screens.DevScreen;
+import com.mygdx.game.Screens.MapScreen;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
@@ -23,6 +24,14 @@ public class PlayerInputHandler extends InputAdapter {
     public boolean keyDown(int keyCode){
         if(keyCode == Input.Keys.CONTROL_LEFT){
             MyGdxGame.myGdxGame.setScreen(new DevScreen(MyGdxGame.myGdxGame.getScreen()));
+            return true;
+        }
+        else if(keyCode == Input.Keys.M){
+            MyGdxGame.myGdxGame.setScreen(new MapScreen(MyGdxGame.myGdxGame.getScreen()));
+            return true;
+        }
+        else if (keyCode == Input.Keys.SPACE){
+            pickUpItem();
             return true;
         }
 
@@ -42,8 +51,6 @@ public class PlayerInputHandler extends InputAdapter {
         }
         else if(keyCode == Input.Keys.A || keyCode == Input.Keys.LEFT){
             position.x--;
-        } else if (keyCode == Input.Keys.SPACE){
-            pickUpItem();
         }
         if (position.equals(player.getPosition())){
             return false;
@@ -54,8 +61,8 @@ public class PlayerInputHandler extends InputAdapter {
     }
 
     private void pickUpItem() {
-        PlayerCharacterEntity player = GameHandler.player;
-        DungeonTile tile = GameHandler.dungeon.getDungeonTile(player.getPosition());
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(player.getPosition());
 
         if(tile.hasItem()){
             InventoryItem item = tile.pickUpItem();
@@ -63,6 +70,7 @@ public class PlayerInputHandler extends InputAdapter {
                 UserInterface.growlArea.println(new ColouredText("Picked up a " + item.getItemName()));
             } else {
                 tile.addItem(item);
+                UserInterface.growlArea.println(new ColouredText("You cannot pick that item up. Your inventory is full."));
             }
         }
     }

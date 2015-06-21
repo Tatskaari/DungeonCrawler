@@ -3,25 +3,25 @@ package com.mygdx.game.Dungeon.DungeonTiles;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.GameHandler;
+import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
 public class StairsUpDungeonTile extends FloorDungeonTile{
-    public StairsUpDungeonTile(GridPoint2 pos) {
-        super(pos);
+    public StairsUpDungeonTile(GridPoint2 pos, Dungeon dungeon) {
+        super(pos, dungeon);
     }
 
     @Override
     public TextureRegion getTileTexture() {
-        return ResourceLoader.stairsUp;
+        return ResourceLoader.getResTextureRegion("stairs-up");
     }
 
     @Override
     public void onStep(){
-        Dungeon floorAbove = GameHandler.dungeon.getFloorAbove();
+        Dungeon floorAbove = Dungeon.getActiveDungeon().getFloorAbove();
         if (floorAbove != null){
-            GameHandler.dungeon = floorAbove;
-            GameHandler.player.placeAtStairsDown();
+            Dungeon.setActiveDungeon(floorAbove);
+            PlayerCharacterEntity.getInstance().placeAtStairsDown();
         }
     }
 }

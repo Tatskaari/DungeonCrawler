@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Characters.NonPlayerCharacterEntity;
+import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
 public class HealthBarRenderer extends Renderer {
@@ -14,10 +14,10 @@ public class HealthBarRenderer extends Renderer {
     private final Rectangle redRect;
     private final Rectangle greenRect;
 
-    private final NonPlayerCharacterEntity characterEntity;
+    private final MonsterCharacterEntity characterEntity;
 
 
-    public HealthBarRenderer(NonPlayerCharacterEntity characterEntity){
+    public HealthBarRenderer(MonsterCharacterEntity characterEntity){
         tileSize = ResourceLoader.getTileSize();
         shapeRenderer = new ShapeRenderer();
 

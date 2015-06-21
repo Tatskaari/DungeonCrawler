@@ -6,7 +6,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonGenerator;
+import com.mygdx.game.Dungeon.DungeonGeneratorFactory;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.InputHandlers.GameInputHandler;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -22,20 +24,19 @@ class GameScreen extends ScreenAdapter {
     private final UserInterface ui;
 
     public GameScreen() {
-        GameHandler.dungeonGenerator = new DungeonGenerator();
-        GameHandler.dungeon = GameHandler.dungeonGenerator.generateDungeon(50, 50, 20);
-        GameHandler.player = new PlayerCharacterEntity();
-        GameHandler.tokens = new Tokens();
+        DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDungeonGenerator(1);
+        Dungeon dungeon = dungeonGenerator.generateDungeon();
+        Dungeon.setActiveDungeon(dungeon);
         GameInputHandler gameInputHandler = new GameInputHandler();
-        PlayerInputHandler playerInputHandler = new PlayerInputHandler(GameHandler.player);
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        player.placeCharacterIn(dungeon);
+        player.respawn();
+        PlayerInputHandler playerInputHandler = new PlayerInputHandler(PlayerCharacterEntity.getInstance());
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.zoom = 0.5f;
 
         batch = new SpriteBatch();
-
-        GameHandler.dungeonGenerator.spawnMonsters(GameHandler.dungeon.getRoomCount());
-        GameHandler.dungeon.monsters.add(GameHandler.player);
 
         ui = new UserInterface();
 
@@ -52,20 +53,21 @@ class GameScreen extends ScreenAdapter {
         updateCamera();
         batch.setProjectionMatrix(camera.combined);
 
-        Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond()+"");
+        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond() + " Path Gen Count: " + GameHandler.PATH_GEN_COUNT_THIS_STEP);
 
         batch.begin();
-        GameHandler.dungeon.renderer.render(delta, batch);
-        GameHandler.player.renderer.render(delta, batch);
-        GameHandler.tokens.renderer.render(delta, batch);
+        Dungeon.getActiveDungeon().renderer.render(delta, batch);
+        PlayerCharacterEntity.getInstance().renderer.render(delta, batch);
+        Tokens.getInstance().renderer.render(delta, batch);
         batch.end();
 
         ui.draw(delta);
     }
 
     void updateCamera(){
-        camera.position.x = GameHandler.player.getPosition().x * ResourceLoader.getTileSize();
-        camera.position.y = GameHandler.player.getPosition().y * ResourceLoader.getTileSize();
+        PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
+        camera.position.x = player.getPosition().x * ResourceLoader.getTileSize();
+        camera.position.y = player.getPosition().y * ResourceLoader.getTileSize();
         camera.update();
     }
 

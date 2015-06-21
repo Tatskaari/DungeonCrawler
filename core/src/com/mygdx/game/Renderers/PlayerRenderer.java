@@ -16,6 +16,6 @@ public class PlayerRenderer extends Renderer {
     @Override
     public void render(float delta, SpriteBatch batch) {
         GridPoint2 position = player.getPosition();
-        batch.draw(ResourceLoader.player, position.x * tileSize, position.y * tileSize);
+        batch.draw(ResourceLoader.getResTextureRegion("player"), position.x * tileSize, position.y * tileSize);
     }
 }

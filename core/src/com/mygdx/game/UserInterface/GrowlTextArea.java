@@ -4,22 +4,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.mygdx.game.Utils.ColouredText;
 import com.sun.jmx.remote.internal.ArrayQueue;
 
-import java.util.Objects;
-
 public class GrowlTextArea extends Actor {
-    private int bufferSize;
-    private ArrayQueue<ColouredText> queue;
-    private BitmapFont font;
-    private BitmapFont.TextBounds em;
+    private static final int BUFFER_SIZE = 10;
+    private final ArrayQueue<ColouredText> queue;
+    private final BitmapFont font;
+    private final BitmapFont.TextBounds em;
 
-    public GrowlTextArea(int bufferSize) {
-        this.bufferSize = bufferSize;
-        queue = new ArrayQueue<ColouredText>(bufferSize);
+    public GrowlTextArea() {
+        queue = new ArrayQueue<>(BUFFER_SIZE);
         font = new BitmapFont();
         em = font.getBounds("M");
 
@@ -38,7 +33,7 @@ public class GrowlTextArea extends Actor {
     }
 
     public void println(ColouredText text){
-        if (queue.size() == bufferSize){
+        if (queue.size() == BUFFER_SIZE){
             queue.remove(0);
         }
         queue.add(text);
