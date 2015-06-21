@@ -9,10 +9,10 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class Skeleton extends BasicMonsterCharacterEntity {
-    private static final float DROP_CHANCE = 0.3f;
-    private static final int BASE_HEALTH = 10;
-    private static final int BASE_DAMAGE = 5;
-    private static final int BASE_XP = 2;
+    private static final float DROP_CHANCE = 0.4f;
+    private static final int BASE_HEALTH = 12;
+    private static final int BASE_DAMAGE = 7;
+    private static final int BASE_XP = 3;
 
     private int level;
     private final SkeletonLootPool lootPool;
@@ -30,7 +30,7 @@ public class Skeleton extends BasicMonsterCharacterEntity {
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.skeleton;
+        return ResourceLoader.getResTextureRegion("skeleton");
     }
 
     @Override
@@ -47,10 +47,10 @@ public class Skeleton extends BasicMonsterCharacterEntity {
 
     }
     private void setLevel(int level) {
-        setMaxHealth(BASE_HEALTH +level);
+        setMaxHealth(BASE_HEALTH +level*2);
         setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(level, BASE_DAMAGE+level);
+        setAttackRating(BASE_DAMAGE + level);
     }
 }

@@ -6,27 +6,26 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
-
-public class Rat extends BasicMonsterCharacterEntity {
-    private static final int BASE_HEALTH = 7;
-    private static final int BASE_DAMAGE = 3;
-    private static final int BASE_XP = 1;
+public class Crab extends BasicMonsterCharacterEntity {
+    private static final int BASE_HEALTH = 10;
+    private static final int BASE_DAMAGE = 4;
+    private static final int BASE_XP = 2;
 
     private int level;
 
-    private Rat(int level, Dungeon dungeon) {
+    private Crab(int level, Dungeon dungeon) {
         super(dungeon);
 
         setLevel(level);
     }
 
-    public Rat(Dungeon dungeon) {
+    public Crab(Dungeon dungeon) {
         this(dungeon.getLevel(), dungeon);
     }
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.getResTextureRegion("rat");
+        return ResourceLoader.getResTextureRegion("crab");
     }
 
     @Override

@@ -150,9 +150,9 @@ class DungeonMapGenerator {
     }
 
     private Array<Array<AstarNode>> getDungeonAsAstarNodeGraph(Dungeon dungeon) {
-        Array<Array<AstarNode>> graph = new Array<Array<AstarNode>>();
+        Array<Array<AstarNode>> graph = new Array<>();
         for(int i = 0; i < dungeon.getMapWidth(); i++){
-            graph.add(new Array<AstarNode>());
+            graph.add(new Array<>());
         }
         for (int i = 0; i < dungeon.getMapWidth(); i++){
             for(int  j = 0; j < dungeon.getMapHeight(); j++){

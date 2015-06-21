@@ -8,7 +8,7 @@ public class EmptyShieldItem extends ShieldItem {
     private final Array<ItemContextAction> itemContextActions;
 
     public EmptyShieldItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
     }
 
     @Override

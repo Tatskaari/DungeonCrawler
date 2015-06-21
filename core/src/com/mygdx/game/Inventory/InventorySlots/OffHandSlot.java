@@ -4,7 +4,6 @@ import com.mygdx.game.Inventory.InventoryItems.EmptyShieldItem;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.Inventory.InventorySlot;
 import com.mygdx.game.Inventory.ItemTypes.OffHandItem;
-import com.mygdx.game.Inventory.ItemTypes.ShieldItem;
 
 public class OffHandSlot implements InventorySlot {
 

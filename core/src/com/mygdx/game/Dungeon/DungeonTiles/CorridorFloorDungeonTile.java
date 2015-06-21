@@ -23,7 +23,7 @@ public class CorridorFloorDungeonTile extends DungeonTile {
 
     @Override
     public TextureRegion getTileTexture() {
-        return ResourceLoader.floor;
+        return ResourceLoader.getResTextureRegion("floor");
     }
 
 }

@@ -7,7 +7,6 @@ import com.mygdx.game.Tokens.LevelUpToken;
 import com.mygdx.game.Tokens.Tokens;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
-import com.mygdx.game.Utils.RandomRangeValue;
 import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
@@ -17,7 +16,7 @@ public class PlayerStatsHandler {
 
 
     private final RangeValue healthRange;
-    final RandomRangeValue damage;
+    private float damage;
     private final RangeValue expRange;
     private int level;
 
@@ -25,7 +24,7 @@ public class PlayerStatsHandler {
         level = 1;
         healthRange = new RangeValue(0, BASE_HEALTH, BASE_HEALTH);
         expRange = new RangeValue(0, getNextLevelExp(level), 0);
-        damage = new RandomRangeValue(0,BASE_DAMAGE);
+        damage = BASE_DAMAGE;
     }
 
     public void addExperience(int exp){
@@ -46,8 +45,7 @@ public class PlayerStatsHandler {
         expRange.setMin(0);
         expRange.setMax(getNextLevelExp(level));
 
-        damage.setMin(damage.getMin()+1);
-        damage.setMax(damage.getMax()+1);
+        damage += MathUtils.ceil((float)level/3f);
         healthRange.setMax(healthRange.getMax()+3);
         healthRange.setValue(healthRange.getValue()+3);
 
@@ -77,5 +75,9 @@ public class PlayerStatsHandler {
 
     public int getLevel() {
         return level;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 }

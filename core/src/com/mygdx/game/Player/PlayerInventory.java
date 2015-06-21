@@ -39,7 +39,7 @@ public class PlayerInventory extends Inventory {
         moveItemToSlot(item, getSlot(swordHandItemSlotPos));
     }
 
-    public SwordHandItem getSwordHandItem() {
+    SwordHandItem getSwordHandItem() {
         return (SwordHandItem) getSlot(swordHandItemSlotPos).getItem();
     }
 
@@ -47,13 +47,13 @@ public class PlayerInventory extends Inventory {
         moveItemToSlot(item, getSlot(headItemSlotPos));
     }
 
-    public HeadItem getHeadItem(){
+    HeadItem getHeadItem(){
         return (HeadItem) getSlot(headItemSlotPos).getItem();
     }
-    public BodyItem getBodyItem(){
+    BodyItem getBodyItem(){
         return (BodyItem) getSlot(bodyItemSlotPos).getItem();
     }
-    public ShieldItem getShieldItem(){
+    ShieldItem getShieldItem(){
         InventoryItem item = getSlot(offHandSlotPos).getItem();
         if (item instanceof ShieldItem){
             return (ShieldItem) getSlot(offHandSlotPos).getItem();
@@ -101,11 +101,11 @@ public class PlayerInventory extends Inventory {
         equipItemInOffHandSlot(item);
     }
 
-    public boolean hasOffHandSword() {
+    boolean hasOffHandSword() {
         return getSlot(offHandSlotPos).getItem() instanceof OffHandSwordItem;
     }
 
-    public OffHandSwordItem getOffHandItem() {
+    OffHandSwordItem getOffHandItem() {
         return (OffHandSwordItem) getSlot(offHandSlotPos).getItem();
     }
 

@@ -9,17 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public abstract class CenterScreenWindow extends Window {
+abstract class CenterScreenWindow extends Window {
     private static CenterScreenWindow activeWindow;
 
-    private final TextButton closeButton;
     private final Skin skin;
 
-    public CenterScreenWindow(String title, Skin skin) {
+    CenterScreenWindow(String title, Skin skin) {
         super(title, skin);
         this.skin = skin;
 
-        closeButton = new TextButton("X", skin);
+        TextButton closeButton = new TextButton("X", skin);
 
         closeButton.addListener(
                 new ClickListener() {
@@ -38,7 +37,7 @@ public abstract class CenterScreenWindow extends Window {
         setMovable(false);
     }
 
-    public Skin getSkin(){
+    Skin getSkin(){
         return skin;
     }
 

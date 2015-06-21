@@ -76,9 +76,8 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void attack(CharacterEntity characterEntity) {
-        int damage = (int) statsHandler.damage.getValue();
-        damage+= MathUtils.random(inventory.getAttackRating());
-        characterEntity.beAttacked(damage);
+        int maxDamage = (int) statsHandler.getDamage() + inventory.getAttackRating();
+        characterEntity.beAttacked(MathUtils.round(MathUtils.randomTriangular(0, maxDamage, 3*maxDamage/4)));
     }
 
     public GridPoint2 getPosition() {
@@ -118,7 +117,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.player;
+        return ResourceLoader.getResTextureRegion("player");
     }
 
     public void respawn() {

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class DeveloperInfo extends CenterScreenWindow{
-    Cell<TextArea> textAreaCell;
+    private final Cell<TextArea> textAreaCell;
     private final TextArea stats;
     public DeveloperInfo(Skin skin) {
         super("Dev Info", skin);
@@ -34,25 +34,9 @@ public class DeveloperInfo extends CenterScreenWindow{
 
     private void setStatText(){
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
-        StringBuilder statsTextBuilder = new StringBuilder();
 
-        // Health
-        statsTextBuilder.append("Health: ");
-        statsTextBuilder.append(player.statsHandler.getHealth());
-        statsTextBuilder.append("/");
-        statsTextBuilder.append(player.statsHandler.getMaxHealth());
-        statsTextBuilder.append("\n");
-
-        // Attack Rating
-        statsTextBuilder.append("Weapon Rating: ");
-        statsTextBuilder.append(player.inventory.getAttackRating());
-        statsTextBuilder.append("\n");
-
-        // Defence Rating
-        statsTextBuilder.append("Armour Rating: ");
-        statsTextBuilder.append(player.inventory.getArmourRating());
-        statsTextBuilder.append("\n");
-
-        stats.setText(statsTextBuilder.toString());
+        stats.setText("Health: " + player.statsHandler.getHealth() + "/" + player.statsHandler.getMaxHealth() + "\n"
+                + "Weapon Rating: " + player.inventory.getAttackRating() + "\n"
+                + "Armour Rating: " + player.inventory.getArmourRating() + "\n");
     }
 }

@@ -8,7 +8,7 @@ public class EmptyHeadItem extends HeadItem {
     private final Array<ItemContextAction> contextActions;
 
     public EmptyHeadItem(){
-        contextActions = new Array<ItemContextAction>();
+        contextActions = new Array<>();
     }
     @Override
     public float getDefenceRating() {

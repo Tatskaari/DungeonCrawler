@@ -39,13 +39,12 @@ public class LineOfSight {
         return new GridPoint2(x, y);
     }
 
-    public static Array<GridPoint2> runLine (GridPoint2 start, GridPoint2 end) {
-        Array<GridPoint2> line = runLine(start.x, start.y, end.x, end.y);
-        return line;
+    private static Array<GridPoint2> runLine(GridPoint2 start, GridPoint2 end) {
+        return runLine(start.x, start.y, end.x, end.y);
     }
 
     private static Array<GridPoint2> runLine (int startX, int startY, int endX, int endY) {
-        Array<GridPoint2> line = new Array<GridPoint2>();
+        Array<GridPoint2> line = new Array<>();
 
         // The amount the line has to cover in the x and y axes
         int deltaX = endX - startX;
@@ -83,7 +82,7 @@ public class LineOfSight {
     }
 
     private static Array<GridPoint2> runVertLine(int x, int startY, int endY) {
-        Array<GridPoint2> line = new Array<GridPoint2>();
+        Array<GridPoint2> line = new Array<>();
 
         // The direction the line is being drawn in (1 for up the Y axis and -1 for down the Y axis)
         int deltaYSign = getSignNumber(endY-startY);

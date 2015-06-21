@@ -8,7 +8,7 @@ public class EmptyBodyItem extends BodyItem {
     private final Array<ItemContextAction> itemContextActions;
 
     public EmptyBodyItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
     }
 
     @Override

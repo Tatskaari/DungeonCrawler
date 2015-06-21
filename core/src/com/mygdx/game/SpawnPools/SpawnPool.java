@@ -8,7 +8,7 @@ import java.util.Map;
 
 public abstract class SpawnPool<Type> {
     private float totalBias = 0;
-    private HashMap<Factory<Type>, Float> spawnTable = new HashMap<Factory<Type>, Float>();
+    private HashMap<Factory<Type>, Float> spawnTable = new HashMap<>();
 
     protected void addNew(Factory<Type> factory, float bias){
         totalBias+=bias;
@@ -33,7 +33,7 @@ public abstract class SpawnPool<Type> {
     }
 
     protected void reset(){
-        spawnTable = new HashMap<Factory<Type>, Float>();
+        spawnTable = new HashMap<>();
         totalBias = 0;
     }
 }

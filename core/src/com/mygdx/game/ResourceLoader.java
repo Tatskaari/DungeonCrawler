@@ -6,17 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class ResourceLoader {
-    //Textures
-    public static TextureRegion floor;
-    public static TextureRegion wall;
-    public static TextureRegion doorHorizontal;
-    public static TextureRegion doorVertical;
-    public static TextureRegion stairsUp;
-    public static TextureRegion stairsDown;
-    public static TextureRegion player;
-    public static TextureRegion skeleton;
-    public static TextureRegion rat;
-    public static TextureRegion goblin;
 
     //Fonts
     public static BitmapFont titleFont;
@@ -35,17 +24,6 @@ public abstract class ResourceLoader {
     private static void loadTextures(){
         resTextureAtlas = new TextureAtlas(Gdx.files.internal("res/res.atlas"));
         itemTextureAtlas = new TextureAtlas(Gdx.files.internal("items/item-icons.atlas"));
-
-        floor = resTextureAtlas.findRegion("floor");
-        wall = resTextureAtlas.findRegion("wall");
-        doorHorizontal = resTextureAtlas.findRegion("door-horizontal");
-        doorVertical = resTextureAtlas.findRegion("door-vertical");
-        stairsUp = resTextureAtlas.findRegion("stairs-up");
-        stairsDown = resTextureAtlas.findRegion("stairs-down");
-        player = resTextureAtlas.findRegion("player");
-        skeleton = resTextureAtlas.findRegion("skeleton");
-        goblin = resTextureAtlas.findRegion("goblin");
-        rat = resTextureAtlas.findRegion("rat");
     }
 
     private static void loadFonts(){
@@ -70,6 +48,11 @@ public abstract class ResourceLoader {
     }
 
     public static int getTileSize(){
-        return floor.getRegionWidth();
+        return resTextureAtlas.findRegion("floor").getRegionWidth();
+    }
+
+    public static TextureRegion getResTextureRegion(String name){
+        TextureRegion region = resTextureAtlas.findRegion(name);
+        return region;
     }
 }

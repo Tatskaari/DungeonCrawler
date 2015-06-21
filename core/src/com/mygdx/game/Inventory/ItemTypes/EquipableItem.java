@@ -9,7 +9,7 @@ public abstract class EquipableItem implements InventoryItem {
     private final Array<ItemContextAction> itemContextActions;
 
     EquipableItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
 
         itemContextActions.add(new Drop(this));
         itemContextActions.add(new Equip(this));

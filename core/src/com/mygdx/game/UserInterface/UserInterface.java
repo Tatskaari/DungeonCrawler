@@ -100,7 +100,8 @@ public class UserInterface {
         });
 
         topTable.add(inventoryOpenButton);
-        topTable.add(devInfoOpenButton);
+        //TODO make sure this isn't added when released
+        //topTable.add(devInfoOpenButton);
 
         topTable.pack();
     }

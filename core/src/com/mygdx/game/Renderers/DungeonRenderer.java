@@ -22,7 +22,7 @@ public class DungeonRenderer extends Renderer{
         tileSize = ResourceLoader.getTileSize();
     }
 
-    private void renderTiles(float delta, SpriteBatch batch, TileRenderer tileRenderer){
+    private void renderTiles(SpriteBatch batch, TileRenderer tileRenderer){
         for (int i = -1; i < dungeon.getMapWidth()+1; i++){
             for (int j = -1; j < dungeon.getMapHeight()+1; j++){
                 DungeonTile tile = dungeon.getDungeonTile(i, j);
@@ -33,7 +33,7 @@ public class DungeonRenderer extends Renderer{
 
     @Override
     public void render(float delta, SpriteBatch batch){
-        renderTiles(delta, batch, this::renderTile);
+        renderTiles(batch, this::renderTile);
         for (CharacterEntity characterEntity : dungeon.monsters){
             characterEntity.getRenderer().render(delta,batch);
         }
@@ -41,14 +41,14 @@ public class DungeonRenderer extends Renderer{
 
     @Override
     public void devRender(float delta, SpriteBatch batch){
-        renderTiles(delta, batch, this::devRenderTile);
+        renderTiles(batch, this::devRenderTile);
         for (CharacterEntity characterEntity : Dungeon.getActiveDungeon().monsters){
             characterEntity.getRenderer().devRender(delta, batch);
         }
     }
 
     public void mapRender(float delta, SpriteBatch batch) {
-        renderTiles(delta, batch, this::mapRenderTile);
+        renderTiles(batch, this::mapRenderTile);
     }
 
     private void renderTile(DungeonTile tile, SpriteBatch batch, int x, int y) {

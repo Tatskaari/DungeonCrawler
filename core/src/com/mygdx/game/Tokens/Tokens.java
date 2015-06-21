@@ -14,7 +14,7 @@ public class Tokens {
     }
 
     private Tokens(){
-        tokens = new Array<Token>();
+        tokens = new Array<>();
         this.renderer = new TokenRenderer(this);
     }
 

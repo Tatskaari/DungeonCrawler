@@ -18,7 +18,7 @@ public class GenericFindPlayerBehavior extends Behavior {
         this.character = character;
         targetPoint = new GridPoint2();
         pathTarget = new GridPoint2();
-        path = new Array<AstarNode>();
+        path = new Array<>();
         getNewPath();
     }
 

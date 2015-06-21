@@ -28,7 +28,7 @@ public class WallDungeonTile extends DungeonTile {
 
     @Override
     public TextureRegion getTileTexture() {
-        return ResourceLoader.wall;
+        return ResourceLoader.getResTextureRegion("wall");
     }
 
 }

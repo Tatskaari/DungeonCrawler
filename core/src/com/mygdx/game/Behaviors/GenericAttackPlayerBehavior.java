@@ -15,7 +15,7 @@ public class GenericAttackPlayerBehavior extends Behavior {
 
     public GenericAttackPlayerBehavior(MonsterCharacterEntity character){
         this.character = character;
-        path = new Array<AstarNode>();
+        path = new Array<>();
         playersLastKnownPos = PlayerCharacterEntity.getInstance().getPosition();
         pathTarget = new GridPoint2(-1,-1);
     }

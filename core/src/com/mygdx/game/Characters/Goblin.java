@@ -9,10 +9,10 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class Goblin extends BasicMonsterCharacterEntity {
-    private static final float DROP_CHANCE = 0.3f;
-    private static final int BASE_HEALTH = 15;
-    private static final int BASE_DAMAGE = 7;
-    private static final int BASE_XP = 3;
+    private static final float DROP_CHANCE = 0.8f;
+    private static final int BASE_HEALTH = 20;
+    private static final int BASE_DAMAGE = 10;
+    private static final int BASE_XP = 5;
 
     private int level;
     private final SkeletonLootPool lootPool;
@@ -30,7 +30,7 @@ public class Goblin extends BasicMonsterCharacterEntity {
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.goblin;
+        return ResourceLoader.getResTextureRegion("goblin");
     }
 
     @Override
@@ -51,6 +51,6 @@ public class Goblin extends BasicMonsterCharacterEntity {
         setHealth(getMaxHealth());
 
         this.level = level;
-        setDamageRange(level, BASE_DAMAGE+level);
+        setAttackRating(BASE_DAMAGE + level);
     }
 }

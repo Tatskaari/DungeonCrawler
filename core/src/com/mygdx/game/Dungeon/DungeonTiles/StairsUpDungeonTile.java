@@ -13,7 +13,7 @@ public class StairsUpDungeonTile extends FloorDungeonTile{
 
     @Override
     public TextureRegion getTileTexture() {
-        return ResourceLoader.stairsUp;
+        return ResourceLoader.getResTextureRegion("stairs-up");
     }
 
     @Override

@@ -55,8 +55,8 @@ public class Dungeon {
             }
         }
 
-        dungeonRooms = new Array<DungeonRoom>();
-        monsters = new Array<CharacterEntity>();
+        dungeonRooms = new Array<>();
+        monsters = new Array<>();
 
         level = 1;
     }
@@ -110,9 +110,9 @@ public class Dungeon {
     }
 
     public Array<Array<AstarNode>> getAstarGraph(){
-        Array<Array<AstarNode>> astarGraph = new Array<Array<AstarNode>>();
+        Array<Array<AstarNode>> astarGraph = new Array<>();
         for(int i = 0; i < getMapWidth(); i++){
-            astarGraph.add(new Array<AstarNode>());
+            astarGraph.add(new Array<>());
         }
         for (int i = 0; i < getMapWidth(); i++){
             for(int  j = 0; j < getMapHeight(); j++){
@@ -139,10 +139,6 @@ public class Dungeon {
                 }
             }
         }
-    }
-
-    public float[][] getLineOfSightResMap(){
-        return lineOfSightResMap;
     }
 
     public DungeonRoom getStartRoom() {

@@ -13,9 +13,9 @@ public class DoorDungeonTile extends DungeonTile {
         super(pos, dungeon);
 
         if(isHorizontal){
-            texture = ResourceLoader.doorHorizontal;
+            texture = ResourceLoader.getResTextureRegion("door-horizontal");
         }else{
-            texture = ResourceLoader.doorVertical;
+            texture = ResourceLoader.getResTextureRegion("door-vertical");
         }
     }
 

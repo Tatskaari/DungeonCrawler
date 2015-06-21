@@ -24,7 +24,7 @@ public abstract class DungeonTile {
     protected DungeonTile(GridPoint2 pos, Dungeon dungeon) {
         this.pos = pos;
         this.dungeon = dungeon;
-        itemList = new Array<InventoryItem>();
+        itemList = new Array<>();
     }
 
     public abstract float getCorridorPlacingCost();
@@ -134,14 +134,6 @@ public abstract class DungeonTile {
 
     public boolean hasItem() {
         return itemList.size > 0;
-    }
-
-    public int itemCount() {
-        return itemList.size;
-    }
-
-    public InventoryItem getItem(int i){
-        return itemList.get(i);
     }
 
     public boolean isDiscovered() {

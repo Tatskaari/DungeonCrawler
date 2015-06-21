@@ -19,8 +19,7 @@ public abstract class BasicMonsterCharacterEntity implements MonsterCharacterEnt
     private int health;
     private int maxHealth;
     private Behavior behavior;
-    private int minDamage;
-    private int maxDamage;
+    private int attackRating;
     private final Dungeon dungeon;
 
     private final Renderer renderer;
@@ -103,7 +102,7 @@ public abstract class BasicMonsterCharacterEntity implements MonsterCharacterEnt
 
     @Override
     public void attack(CharacterEntity characterEntity) {
-        int damage = MathUtils.random(minDamage, maxDamage);
+         int damage = MathUtils.round(MathUtils.randomTriangular(0, (float) attackRating, 3*(float) attackRating /4));
         characterEntity.beAttacked(damage);
     }
 
@@ -111,9 +110,8 @@ public abstract class BasicMonsterCharacterEntity implements MonsterCharacterEnt
         PlayerCharacterEntity.getInstance().statsHandler.addExperience(getExperienceValue());
     }
 
-    void setDamageRange(int minDamage, int maxDamage){
-        this.minDamage = minDamage;
-        this.maxDamage = maxDamage;
+    void setAttackRating(int attackRating){
+        this.attackRating = attackRating;
     }
 
     @Override

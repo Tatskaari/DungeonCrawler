@@ -10,8 +10,8 @@ public class Astar {
     }
 
     public Array<AstarNode> getPath(Array<Array<AstarNode>> graph, AstarNode startNode, AstarNode endNode){
-        Array<AstarNode> openSet = new Array<AstarNode>();
-        Array<AstarNode> closedSet = new Array<AstarNode>();
+        Array<AstarNode> openSet = new Array<>();
+        Array<AstarNode> closedSet = new Array<>();
 
         openSet.add(startNode);
 
@@ -56,7 +56,7 @@ public class Astar {
     }
 
     private Array<AstarNode> reconstructPath(AstarNode fromNode){
-        Array<AstarNode> path = new Array<AstarNode>();
+        Array<AstarNode> path = new Array<>();
         AstarNode currentNode = fromNode;
 
         while(currentNode != null){
@@ -68,7 +68,7 @@ public class Astar {
     }
 
     private Array<AstarNode> getNeighborNodes(AstarNode node, Array<Array<AstarNode>> graph){
-        Array<AstarNode> neighbors = new Array<AstarNode>();
+        Array<AstarNode> neighbors = new Array<>();
 
         int x = node.x;
         int y = node.y;

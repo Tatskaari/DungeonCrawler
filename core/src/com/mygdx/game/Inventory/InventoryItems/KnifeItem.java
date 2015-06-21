@@ -3,13 +3,10 @@ package com.mygdx.game.Inventory.InventoryItems;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Inventory.ItemContextActions.EquipInOffHand;
 import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
-import com.mygdx.game.Inventory.ItemTypes.OffHandItem;
 import com.mygdx.game.Inventory.ItemTypes.OffHandSwordItem;
-import com.mygdx.game.Inventory.ItemTypes.SwordHandItem;
 
-//TODO make this equipable in the shield slot
 public class KnifeItem extends OffHandSwordItem{
-    Array<ItemContextAction> actions = super.getItemContextActions();
+    private final Array<ItemContextAction> actions = super.getItemContextActions();
     public KnifeItem(){
         //TODO move to OffHandSwordItem
         actions.add(new EquipInOffHand(this));

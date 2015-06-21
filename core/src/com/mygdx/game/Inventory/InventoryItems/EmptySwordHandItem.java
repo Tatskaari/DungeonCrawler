@@ -8,7 +8,7 @@ public class EmptySwordHandItem extends SwordHandItem {
     private final Array<ItemContextAction> itemContextActions;
 
     public EmptySwordHandItem(){
-        itemContextActions = new Array<ItemContextAction>();
+        itemContextActions = new Array<>();
     }
 
     @Override

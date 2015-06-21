@@ -12,7 +12,6 @@ public class DungeonGeneratorFactory {
     private static final DungeonGenerator T5Dungeons;
 
     static {
-        //TODO level the item spawn as you get deeper
         T1Dungeons = new DungeonGenerator(50, 50, 25, new T1MonsterSpawnPool(), new T1ItemSpawnPool());
         T2Dungeons = new DungeonGenerator(60, 60, 35, new T2MonsterSpawnPool(), new T2ItemSpawnPool());
         T3Dungeons = new DungeonGenerator(65, 65, 40, new T3MonsterSpawnPool(), new T3ItemSpawnPool());
@@ -22,25 +21,19 @@ public class DungeonGeneratorFactory {
 
 
     public static DungeonGenerator getDungeonGenerator(int level){
-        //TODO balance the level progression
-        if (level <= 1) {
-            //Rats and boring mobs
+        if (level <= 1) { // 1
             return T1Dungeons;
         }
-        else if (level <= 2) {
-            //Skeletons and rats
+        else if (level <= 3) { // 2,3
             return T2Dungeons;
         }
-        else if (level <= 5) {
-            //Skeletons rats and goblins
+        else if (level <= 5) { // 4,5
             return T3Dungeons;
         }
-        else if (level <= 7) {
-            //Skeletons and Goblins
+        else if (level <= 8) { // 6,7,8
             return T4Dungeons;
         }
         else {
-            //Skeletons, Goblins and higher tier mobs that are yet to be drawn
             return T5Dungeons;
         }
     }

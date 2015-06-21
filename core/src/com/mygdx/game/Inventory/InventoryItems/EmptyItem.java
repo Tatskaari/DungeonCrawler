@@ -8,7 +8,7 @@ public class EmptyItem implements InventoryItem {
     private final Array<ItemContextAction> itemActions;
 
     public EmptyItem(){
-        itemActions = new Array<ItemContextAction>();
+        itemActions = new Array<>();
     }
 
     @Override
