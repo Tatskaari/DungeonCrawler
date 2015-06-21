@@ -7,15 +7,14 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class Crab extends BasicMonsterCharacterEntity {
-    private static final int BASE_HEALTH = 10;
-    private static final int BASE_DAMAGE = 4;
-    private static final int BASE_XP = 2;
+    private static final int BASE_HEALTH = 5;
+    private static final int BASE_DAMAGE = 5;
+    private static final int BASE_XP = 1;
 
     private int level;
 
     private Crab(int level, Dungeon dungeon) {
         super(dungeon);
-
         setLevel(level);
     }
 
@@ -44,6 +43,6 @@ public class Crab extends BasicMonsterCharacterEntity {
     @Override
     public void die() {
         super.die();
-        UserInterface.growlArea.println(new ColouredText("The rat crumples into a heap. You gain " + getExperienceValue() + " experience."));
+        UserInterface.growlArea.println(new ColouredText("You crush the crab and it's shell shatters. You gain " + getExperienceValue() + " experience."));
     }
 }
