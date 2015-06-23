@@ -1,6 +1,7 @@
 package com.mygdx.game.UserInterface;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 abstract class CenterScreenWindow extends Window {
-    private static CenterScreenWindow activeWindow;
-
     private final Skin skin;
 
     CenterScreenWindow(String title, Skin skin) {
@@ -69,23 +68,5 @@ abstract class CenterScreenWindow extends Window {
 
         setPosition(x,y);
         setSize(size, size);
-    }
-
-    public static void toggleActiveWindow(CenterScreenWindow window){
-        if (activeWindow == null){
-            window.setVisible(true);
-            activeWindow = window;
-        }
-        else if (activeWindow == window){
-            window.setVisible(false);
-            activeWindow = null;
-        }
-        else {
-            window.setVisible(true);
-            activeWindow.setVisible(false);
-            activeWindow = window;
-        }
-
-
     }
 }

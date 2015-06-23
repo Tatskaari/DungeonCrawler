@@ -22,6 +22,7 @@ public class UserInterface {
     public static GrowlTextArea growlArea;
 
     // CenterScreenWindows
+    private final CenterWindowManager centerWindowManager;
     private final InventoryActor inventory;
     private final DeveloperInfo devInfoScreen;
 
@@ -65,6 +66,7 @@ public class UserInterface {
         stage.addActor(topTable);
         stage.addActor(inventory);
         stage.addActor(devInfoScreen);
+        centerWindowManager = new CenterWindowManager(stage);
     }
 
     private void populateTopTable(){
@@ -75,7 +77,7 @@ public class UserInterface {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    CenterScreenWindow.toggleActiveWindow(inventory);
+                    centerWindowManager.toggleActiveWindow(inventory);
                 }
             }
         );
@@ -84,7 +86,7 @@ public class UserInterface {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        CenterScreenWindow.toggleActiveWindow(devInfoScreen);
+                        centerWindowManager.toggleActiveWindow(devInfoScreen);
                     }
                 }
         );
@@ -93,7 +95,7 @@ public class UserInterface {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.TAB){
-                    CenterScreenWindow.toggleActiveWindow(inventory);
+                    centerWindowManager.toggleActiveWindow(inventory);
                 }
                 return false;
             }
@@ -101,7 +103,7 @@ public class UserInterface {
 
         topTable.add(inventoryOpenButton);
         //TODO make sure this isn't added when released
-        //topTable.add(devInfoOpenButton);
+        topTable.add(devInfoOpenButton);
 
         topTable.pack();
     }
