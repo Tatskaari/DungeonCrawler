@@ -8,29 +8,29 @@ import com.mygdx.game.SpawnPools.SkeletonLootPool;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
-public class Skeleton extends BasicMonsterCharacterEntity {
-    private static final float DROP_CHANCE = 0.4f;
-    private static final int BASE_HEALTH = 10;
-    private static final int BASE_DAMAGE = 5;
-    private static final int BASE_XP = 3;
+public class Demon extends BasicMonsterCharacterEntity{
+    private static final float DROP_CHANCE = 1f;
+    private static final int BASE_HEALTH = 30;
+    private static final int BASE_DAMAGE = 17;
+    private static final int BASE_XP = 10;
 
     private int level;
     private final SkeletonLootPool lootPool;
 
-    private Skeleton(int level, Dungeon dungeon) {
+    private Demon(int level, Dungeon dungeon) {
         super(dungeon);
         lootPool = new SkeletonLootPool();
 
         setLevel(level);
     }
 
-    public Skeleton(Dungeon dungeon) {
+    public Demon(Dungeon dungeon) {
         this(dungeon.getLevel(), dungeon);
     }
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.getResTextureRegion("skeleton");
+        return ResourceLoader.getResTextureRegion("demon");
     }
 
     @Override
@@ -43,11 +43,12 @@ public class Skeleton extends BasicMonsterCharacterEntity {
         if(MathUtils.randomBoolean(DROP_CHANCE)){
             Dungeon.getActiveDungeon().getDungeonTile(getPosition()).addItem(lootPool.getNewInstance());
         }
-        UserInterface.growlArea.println(new ColouredText("The skeleton falls to pieces at the joints. You gain " + getExperienceValue() + " experience."));
+        UserInterface.growlArea.println(new ColouredText("The demon retreats into a flaming vortex. You gain " + getExperienceValue() + " experience."));
 
     }
+
     private void setLevel(int level) {
-        setMaxHealth(BASE_HEALTH +level*2);
+        setMaxHealth(BASE_HEALTH+level*2);
         setHealth(getMaxHealth());
 
         this.level = level;

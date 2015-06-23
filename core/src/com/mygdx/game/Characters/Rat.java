@@ -8,7 +8,7 @@ import com.mygdx.game.Utils.ColouredText;
 
 
 public class Rat extends BasicMonsterCharacterEntity {
-    private static final int BASE_HEALTH = 7;
+    private static final int BASE_HEALTH = 5;
     private static final int BASE_DAMAGE = 3;
     private static final int BASE_XP = 1;
 

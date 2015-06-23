@@ -1,23 +1,21 @@
 package com.mygdx.game.Inventory.InventoryItems;
 
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Inventory.ItemContextActions.ItemContextAction;
 import com.mygdx.game.Inventory.ItemTypes.OffHandSwordItem;
 
-public class KnifeItem extends OffHandSwordItem{
+public class DaggerItem extends OffHandSwordItem {
     @Override
     public int getAttackRating() {
-        return 1;
+        return 2;
     }
 
     @Override
     public String getTextureName() {
-        return "knife";
+        return "dagger";
     }
 
     @Override
     public String getItemName() {
-        return "Rusty Knife";
+        return "Dagger";
     }
 
     @Override

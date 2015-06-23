@@ -10,5 +10,6 @@ public class T3ItemSpawnPool extends ItemSpawnPool{
         addNew(KiteShieldItem::new, 2);
         addNew(LeatherTunicItem::new, 2);
         addNew(BattleAxeItem::new, 1);
+        addNew(DaggerItem::new, 3);
     }
 }
