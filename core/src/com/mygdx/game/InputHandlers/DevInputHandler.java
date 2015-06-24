@@ -26,6 +26,7 @@ public class DevInputHandler extends MapInputHandler {
             Dungeon oldDungeon = Dungeon.getActiveDungeon();
             Dungeon newDungeon = DungeonGeneratorFactory.getDungeonGenerator(oldDungeon.getLevel()).regenerateDungeon(oldDungeon);
             Dungeon.setActiveDungeon(newDungeon);
+            newDungeon.monsters.add(PlayerCharacterEntity.getInstance());
             PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
         }
         else if (keyCode == Input.Keys.S) {
