@@ -36,4 +36,9 @@ public class EmptyItem implements InventoryItem {
         return true;
     }
 
+    @Override
+    public float getWorldScale() {
+        return 0;
+    }
+
 }

@@ -60,7 +60,7 @@ public class DungeonUtils {
     }
 
     public static Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint, Dungeon dungeon){
-        GameHandler.PATH_GEN_COUNT_THIS_STEP++;
+        GameHandler.stepPathGenCount++;
 
         Array<AstarNode> path;
 

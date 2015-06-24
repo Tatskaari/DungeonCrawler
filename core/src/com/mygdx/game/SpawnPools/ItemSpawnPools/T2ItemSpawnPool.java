@@ -10,6 +10,9 @@ public class T2ItemSpawnPool extends ItemSpawnPool {
         addNew(RoundShieldItem::new, 3);
         addNew(KiteShieldItem::new, 0.5f);
         addNew(HelmetItem::new, 1);
+        addNew(LeatherCapItem::new, 3);
+        addNew(KnifeItem::new, 3);
+
 
     }
 }

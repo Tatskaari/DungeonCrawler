@@ -54,8 +54,9 @@ public class UserInterface {
         experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
         infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor(skin, player.inventory);
-        devInfoScreen = new DeveloperInfo(skin);
+        centerWindowManager = new CenterWindowManager(stage);
+        inventory = new InventoryActor(skin, player.inventory, centerWindowManager);
+        devInfoScreen = new DeveloperInfo(skin, centerWindowManager);
 
 
 
@@ -66,7 +67,6 @@ public class UserInterface {
         stage.addActor(topTable);
         stage.addActor(inventory);
         stage.addActor(devInfoScreen);
-        centerWindowManager = new CenterWindowManager(stage);
     }
 
     private void populateTopTable(){

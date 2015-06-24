@@ -7,8 +7,8 @@ class InventoryActor extends CenterScreenWindow{
     private final Inventory inventory;
 
 
-    public InventoryActor(Skin skin, Inventory inventory) {
-        super("Inventory", skin);
+    public InventoryActor(Skin skin, Inventory inventory, CenterWindowManager centerWindowManager) {
+        super("Inventory", skin, centerWindowManager);
         this.inventory = inventory;
         populateInventory();
     }

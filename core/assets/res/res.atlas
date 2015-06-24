@@ -67,23 +67,30 @@ skeleton
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-down
+spider
   rotate: false
   xy: 245, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-up
+stairs-down
   rotate: false
   xy: 272, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-wall
+stairs-up
   rotate: false
   xy: 299, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 326, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

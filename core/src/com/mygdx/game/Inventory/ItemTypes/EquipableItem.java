@@ -19,4 +19,9 @@ public abstract class EquipableItem implements InventoryItem {
     public Array<ItemContextAction> getItemContextActions() {
         return itemContextActions;
     }
+
+    @Override
+    public float getWorldScale() {
+        return 1;
+    }
 }

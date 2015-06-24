@@ -20,6 +20,8 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class PlayerCharacterEntity implements CharacterEntity {
+    private static final int REGEN_RATE = 5;
+
     private GridPoint2 position;
 
     public final Renderer renderer;
@@ -96,7 +98,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void act() {
-        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && MathUtils.randomBoolean(0.2f)){
+        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && GameHandler.stepCount%REGEN_RATE == 0){
             statsHandler.addToHealth(1);
         }
     }

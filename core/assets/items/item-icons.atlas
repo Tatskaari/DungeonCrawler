@@ -74,23 +74,30 @@ knife
   orig: 25, 25
   offset: 0, 0
   index: -1
-leather-tunic
+leather-cap
   rotate: false
   xy: 272, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-round-shield
+leather-tunic
   rotate: false
   xy: 299, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-sword
+round-shield
   rotate: false
   xy: 326, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 353, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

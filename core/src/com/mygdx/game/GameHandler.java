@@ -4,10 +4,13 @@ import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Characters.CharacterEntity;
 
 public class GameHandler {
-    public static int PATH_GEN_COUNT_THIS_STEP;
+    public static int stepPathGenCount;
+
+    public static int stepCount = 0;
 
     public static void stepTurn(){
-        PATH_GEN_COUNT_THIS_STEP = 0;
+        stepPathGenCount = 0;
+        stepCount++;
         actMonsters();
     }
 

@@ -80,10 +80,16 @@ public class DungeonRenderer extends Renderer{
         batch.draw(tile.getTileTexture(), x * ResourceLoader.getTileSize(), y * ResourceLoader.getTileSize());
     }
 
-    private void drawTileItems(DungeonTile tile, SpriteBatch batch, int x, int y){
+    private void drawTileItems(DungeonTile tile, SpriteBatch batch, int gridX, int gridY){
         for (InventoryItem item : tile.getItems()){
             TextureRegion textureRegion = ResourceLoader.itemTextureAtlas.findRegion(item.getTextureName());
-            batch.draw(textureRegion, x * tileSize, y * tileSize);
+            float itemWidth = textureRegion.getRegionWidth() * item.getWorldScale();
+            float itemHeight = textureRegion.getRegionHeight() * item.getWorldScale();
+
+            float x = gridX*tileSize + (textureRegion.getRegionWidth() - itemWidth)/2;
+            float y = gridY*tileSize + (textureRegion.getRegionHeight() - itemHeight)/2;
+
+            batch.draw(textureRegion, x, y, itemWidth, itemHeight);
         }
     }
 

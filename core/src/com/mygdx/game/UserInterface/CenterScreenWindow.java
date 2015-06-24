@@ -13,9 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 abstract class CenterScreenWindow extends Window {
     private final Skin skin;
 
-    CenterScreenWindow(String title, Skin skin) {
+    CenterScreenWindow(String title, Skin skin, CenterWindowManager centerWindowManager) {
         super(title, skin);
         this.skin = skin;
+
+        final CenterScreenWindow thisWindow = this;
 
         TextButton closeButton = new TextButton("X", skin);
 
@@ -23,7 +25,7 @@ abstract class CenterScreenWindow extends Window {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        setVisible(false);
+                        centerWindowManager.toggleActiveWindow(thisWindow);
                     }
                 }
         );

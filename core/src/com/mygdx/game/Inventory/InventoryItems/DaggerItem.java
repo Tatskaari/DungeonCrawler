@@ -22,4 +22,9 @@ public class DaggerItem extends OffHandSwordItem {
     public boolean isEmptyItem() {
         return false;
     }
+
+    @Override
+    public float getWorldScale() {
+        return 0.9f;
+    }
 }
