@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Characters.CharacterEntity;
-import com.mygdx.game.EventHandlers.DungeonDecentEvent;
+import com.mygdx.game.EventHandlers.Event;
 import com.mygdx.game.EventHandlers.EventHandler;
 import com.mygdx.game.EventHandlers.EventListener;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -16,7 +16,7 @@ public class GameHandler implements EventListener{
     public static int stepCount = 0;
 
     private GameHandler(){
-        DungeonDecentEvent.getInstance().registerEventListener(this);
+        EventHandler.getInstance().registerEventListener(this);
     }
 
     public static void stepTurn(){
@@ -35,10 +35,19 @@ public class GameHandler implements EventListener{
     }
 
     @Override
-    public void handleEvent(EventHandler eventHandler) {
-        if (eventHandler instanceof DungeonDecentEvent){
-            Dungeon.setActiveDungeon(Dungeon.getActiveDungeon().getFloorBelow());
-            PlayerCharacterEntity.getInstance().placeAtStairsUp();
+    public void handleEvent(Event event) {
+        switch (event) {
+            case DUNGEON_DESCEND:
+                Dungeon.setActiveDungeon(Dungeon.getActiveDungeon().getFloorBelow());
+                PlayerCharacterEntity.getInstance().placeAtStairsUp();
+                break;
+            case DUNGEON_ASCEND:
+                Dungeon floorAbove = Dungeon.getActiveDungeon().getFloorAbove();
+                if (floorAbove != null){
+                    Dungeon.setActiveDungeon(floorAbove);
+                    PlayerCharacterEntity.getInstance().placeAtStairsDown();
+                }
+                break;
         }
     }
 }
