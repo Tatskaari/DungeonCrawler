@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
+import com.mygdx.game.EventHandlers.Event;
+import com.mygdx.game.EventHandlers.EventHandler;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.MyGdxGame;
@@ -65,12 +67,12 @@ public class PlayerCharacterEntity implements CharacterEntity {
         DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
-            GameHandler.stepTurn();
+            EventHandler.getInstance().triggerEvent(Event.STEP_TURN);
             Dungeon.getActiveDungeon().getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
-            GameHandler.stepTurn();
+            EventHandler.getInstance().triggerEvent(Event.STEP_TURN);
         }
 
         return false;

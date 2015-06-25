@@ -11,21 +11,19 @@ public class GameHandler implements EventListener{
     private static final GameHandler instance = new GameHandler();
 
     public static int stepPathGenCount;
-
-
     public static int stepCount = 0;
 
     private GameHandler(){
         EventHandler.getInstance().registerEventListener(this);
     }
 
-    public static void stepTurn(){
+    private void stepTurn(){
         stepPathGenCount = 0;
         stepCount++;
         actMonsters();
     }
 
-    private static void actMonsters(){
+    private void actMonsters(){
         Dungeon dungeon = Dungeon.getActiveDungeon();
 
         for(int i = 0; i < dungeon.monsters.size; i++){
@@ -47,6 +45,9 @@ public class GameHandler implements EventListener{
                     Dungeon.setActiveDungeon(floorAbove);
                     PlayerCharacterEntity.getInstance().placeAtStairsDown();
                 }
+                break;
+            case STEP_TURN:
+                stepTurn();
                 break;
         }
     }
