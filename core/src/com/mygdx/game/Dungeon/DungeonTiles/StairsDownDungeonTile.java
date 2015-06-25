@@ -3,6 +3,7 @@ package com.mygdx.game.Dungeon.DungeonTiles;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
+import com.mygdx.game.EventHandlers.DungeonDecentEvent;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
@@ -19,7 +20,6 @@ public class StairsDownDungeonTile extends FloorDungeonTile {
 
     @Override
     public void onStep(){
-        Dungeon.setActiveDungeon(Dungeon.getActiveDungeon().getFloorBelow());
-        PlayerCharacterEntity.getInstance().placeAtStairsUp();
+        DungeonDecentEvent.getInstance().triggerEvent();
     }
 }
