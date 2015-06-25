@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
+import com.mygdx.game.EventHandlers.Event;
+import com.mygdx.game.EventHandlers.EventHandler;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Player.PlayerCharacterEntity;
@@ -64,10 +66,12 @@ public class PlayerInputHandler extends InputAdapter {
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
         DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(player.getPosition());
 
+        //TODO refactor this to not pick up and drop the item if the inventory is full
         if(tile.hasItem()){
             InventoryItem item = tile.pickUpItem();
             if(player.inventory.addItem(item)){
                 UserInterface.growlArea.println(new ColouredText("Picked up a " + item.getItemName()));
+                EventHandler.getInstance().triggerEvent(Event.STEP_TURN);
             } else {
                 tile.addItem(item);
                 UserInterface.growlArea.println(new ColouredText("You cannot pick that item up. Your inventory is full."));
