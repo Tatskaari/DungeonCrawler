@@ -2,10 +2,14 @@ package com.mygdx.game.Inventory;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.EventHandlers.ContextMessageEvent;
+import com.mygdx.game.EventHandlers.Event;
+import com.mygdx.game.EventHandlers.EventHandler;
+import com.mygdx.game.EventHandlers.EventListener;
 import com.mygdx.game.Inventory.InventorySlots.StandardSlot;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 
-public class Inventory {
+public class Inventory{
     private final Array<Array<InventorySlot>> inventorySlots;
     private final int width;
     private final int height;
@@ -87,5 +91,4 @@ public class Inventory {
             }
         }
     }
-
 }

@@ -9,6 +9,7 @@ import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.EventHandlers.Event;
 import com.mygdx.game.EventHandlers.EventHandler;
+import com.mygdx.game.EventHandlers.EventType;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.MyGdxGame;
@@ -67,12 +68,12 @@ public class PlayerCharacterEntity implements CharacterEntity {
         DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
-            EventHandler.getInstance().triggerEvent(Event.STEP_TURN);
+            EventHandler.getInstance().triggerEvent(new Event(EventType.STEP_TURN));
             Dungeon.getActiveDungeon().getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
-            EventHandler.getInstance().triggerEvent(Event.STEP_TURN);
+            EventHandler.getInstance().triggerEvent(new Event(EventType.STEP_TURN));
         }
 
         return false;

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.EventHandlers.Event;
 import com.mygdx.game.EventHandlers.EventHandler;
+import com.mygdx.game.EventHandlers.EventType;
 import com.mygdx.game.ResourceLoader;
 
 public class StairsUpDungeonTile extends FloorDungeonTile{
@@ -19,6 +20,6 @@ public class StairsUpDungeonTile extends FloorDungeonTile{
 
     @Override
     public void onStep(){
-        EventHandler.getInstance().triggerEvent(Event.DUNGEON_ASCEND);
+        EventHandler.getInstance().triggerEvent(new Event(EventType.DUNGEON_ASCEND));
     }
 }

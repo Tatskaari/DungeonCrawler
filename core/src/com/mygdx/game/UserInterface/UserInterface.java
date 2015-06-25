@@ -12,9 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dungeon.Dungeon;
+import com.mygdx.game.EventHandlers.*;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
-public class UserInterface {
+public class UserInterface implements EventListener{
     private final Stage stage;
     private final Table bottomTable;
     private final Table topTable;
@@ -36,6 +37,8 @@ public class UserInterface {
     private final TextButton devInfoOpenButton;
 
     public UserInterface(){
+        EventHandler.getInstance().registerEventListener(this);
+
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
 
@@ -52,7 +55,9 @@ public class UserInterface {
         growlArea = new GrowlTextArea();
         healthBar = new RangeBar(skin, player.statsHandler.getHealthRange(), "HP: ");
         experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
+
         infoLabel = new Label("", skin);
+        setInfoLabelDefaultText();
 
         centerWindowManager = new CenterWindowManager(stage);
         inventory = new InventoryActor(skin, player.inventory, centerWindowManager);
@@ -132,7 +137,6 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + Dungeon.getActiveDungeon().getLevel());
         stage.act(delta);
         stage.draw();
     }
@@ -147,5 +151,18 @@ public class UserInterface {
         return stage;
     }
 
+    @Override
+    public void handleEvent(Event event) {
+        if (event instanceof ContextMessageEvent){
+            infoLabel.setText(((ContextMessageEvent) event).getContextMessage());
+        }
+        else if (event.type.equals(EventType.STEP_TURN)){
+            setInfoLabelDefaultText();
+        }
+    }
 
+    private void setInfoLabelDefaultText(){
+        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + Dungeon.getActiveDungeon().getLevel());
+
+    }
 }

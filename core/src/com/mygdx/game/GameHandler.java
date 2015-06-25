@@ -34,7 +34,7 @@ public class GameHandler implements EventListener{
 
     @Override
     public void handleEvent(Event event) {
-        switch (event) {
+        switch (event.type) {
             case DUNGEON_DESCEND:
                 Dungeon.setActiveDungeon(Dungeon.getActiveDungeon().getFloorBelow());
                 PlayerCharacterEntity.getInstance().placeAtStairsUp();
