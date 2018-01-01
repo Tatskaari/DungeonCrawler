@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Characters.MonsterCharacterEntity;
 import com.mygdx.game.ResourceLoader;
 
-public class HealthBarRenderer extends Renderer {
+public class HealthbarRenderer extends Renderer {
     private final int tileSize;
     private final ShapeRenderer shapeRenderer;
 
@@ -17,7 +17,7 @@ public class HealthBarRenderer extends Renderer {
     private final MonsterCharacterEntity characterEntity;
 
 
-    public HealthBarRenderer(MonsterCharacterEntity characterEntity){
+    public HealthbarRenderer(MonsterCharacterEntity characterEntity){
         tileSize = ResourceLoader.getTileSize();
         shapeRenderer = new ShapeRenderer();
 

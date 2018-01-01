@@ -12,10 +12,6 @@ import com.mygdx.game.Renderers.DungeonRenderer;
 public class Dungeon {
     private static Dungeon activeDungeon;
 
-    public static final int NORTH = 1;
-    public static final int EAST = 2;
-    public static final int SOUTH = 3;
-    public static final int WEST = 4;
 
     //TODO create a renderable interface and have a list of renderables to iterate through
     public final DungeonRenderer renderer;
