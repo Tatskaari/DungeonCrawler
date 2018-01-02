@@ -7,13 +7,16 @@ import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.ResourceLoader;
 
 public class WallDungeonTile extends DungeonTile {
-    public WallDungeonTile(GridPoint2 pos, Dungeon dungeon) {
+    private final boolean isDoorNode;
+
+    public WallDungeonTile(GridPoint2 pos, Dungeon dungeon, boolean isDoorNode) {
         super(pos, dungeon);
+        this.isDoorNode = isDoorNode;
     }
 
     @Override
     public float getCorridorPlacingCost() {
-        return 10000;
+        return isDoorNode ? 1 : 10000;
     }
 
     @Override

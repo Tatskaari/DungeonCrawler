@@ -18,17 +18,14 @@ public class DevInputHandler extends MapInputHandler {
     public boolean keyDown(int keyCode){
         if (keyCode == Input.Keys.M){
             return false;
-        }
-        else if (keyCode == Input.Keys.CONTROL_LEFT) {
+        } else if (keyCode == Input.Keys.CONTROL_LEFT) {
             MyGdxGame.myGdxGame.setScreen(getLastScreen());
-        }
-        else if (keyCode == Input.Keys.G){
+        } else if (keyCode == Input.Keys.G){
             Dungeon oldDungeon = Dungeon.getActiveDungeon();
             Dungeon newDungeon = DungeonGeneratorFactory.getDungeonGenerator(oldDungeon.getLevel()).regenerateDungeon(oldDungeon);
             Dungeon.setActiveDungeon(newDungeon);
             PlayerCharacterEntity.getInstance().placeCharacterIn(newDungeon);
-        }
-        else if (keyCode == Input.Keys.S) {
+        } else if (keyCode == Input.Keys.S) {
             Dungeon dungeon = Dungeon.getActiveDungeon();
             DungeonGenerator dungeonGenerator = DungeonGeneratorFactory.getDungeonGenerator(dungeon.getLevel());
             dungeonGenerator.spawnMonsters(dungeon, 1);

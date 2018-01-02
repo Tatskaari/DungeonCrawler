@@ -4,6 +4,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Dungeon.DungeonTiles.*;
+import com.mygdx.game.Dungeon.Rooms.DungeonRoomFactory;
+import com.mygdx.game.Dungeon.Rooms.PrisonRoom;
+import com.mygdx.game.Dungeon.Rooms.Room;
+import com.mygdx.game.Dungeon.Rooms.RoomFactory;
 import com.mygdx.game.PathFinding.Astar;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.PathFinding.GridBasedHeuristic;
@@ -15,8 +19,7 @@ class DungeonMapGenerator {
         VERTICAL, HORIZONTAL
     }
 
-    private static final int ROOM_MAX_SIZE = 15;
-    private static final int ROOM_MIN_SIZE = 7;
+    private static final RoomFactory roomFactory = new DungeonRoomFactory();
 
     void generateDungeonTiles(Dungeon dungeon, int requestedRoomCount) {
         placeRooms(dungeon, requestedRoomCount);
@@ -33,11 +36,11 @@ class DungeonMapGenerator {
         GridPoint2 stairsUpPos;
         GridPoint2 stairsDownPos;
 
-        DungeonRoom startRoom = dungeon.startRoom;
-        DungeonRoom endRoom = DungeonUtils.getRandomNotStartDungeonRoom(dungeon);
+        Room startRoom = dungeon.startRoom;
+        Room endRoom = DungeonUtils.getRandomNotStartDungeonRoom(dungeon);
 
-        stairsUpPos = DungeonUtils.getRandomTileInRoom(startRoom);
-        stairsDownPos = DungeonUtils.getRandomTileInRoom(endRoom);
+        stairsUpPos = startRoom.getRandomFloorTile();
+        stairsDownPos = endRoom.getRandomFloorTile();
 
         StairsUpDungeonTile stairsUpDungeonTile = new StairsUpDungeonTile(stairsUpPos, dungeon);
         StairsDownDungeonTile stairsDownDungeonTile = new StairsDownDungeonTile(stairsDownPos, dungeon);
@@ -51,13 +54,7 @@ class DungeonMapGenerator {
 
     private void placeRooms(Dungeon dungeon, int roomCount){
         for(int roomsAdded = 0; roomsAdded < roomCount; roomsAdded++){
-            int width = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
-            int height = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
-
-            int x = MathUtils.random(dungeon.getMapWidth() - width);
-            int y = MathUtils.random(dungeon.getMapHeight() - height);
-
-            addRoom(dungeon, x, y, width, height);
+            addRoom(dungeon, roomFactory.create(dungeon));
         }
     }
 
@@ -68,29 +65,19 @@ class DungeonMapGenerator {
         }
     }
 
-    private void addRoom(Dungeon dungeon, int x, int y, int width, int height){
-        if (roomFits(dungeon, x, y, width, height)) {
-            dungeon.addDungeonRoom(new DungeonRoom(x, y, width, height, dungeon.getRoomCount()));
-
-            for(int i = x+1; i < x + width-1; i++){
-                for(int j = y+1; j < y + height-1; j++) {
-                    dungeon.setTile(new FloorDungeonTile(new GridPoint2(i, j), dungeon));
-                }
-            }
-
-            for (int j = x; j < width+x; j++) {
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, y), dungeon));
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(j, height + y - 1), dungeon));
-            }
-
-            for (int i = y; i < height+y; i++) {
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(x, i), dungeon));
-                dungeon.setTile(new WallDungeonTile(new GridPoint2(x + width - 1, i), dungeon));
-            }
+    private void addRoom(Dungeon dungeon, Room room){
+        if (roomFits(dungeon,room)) {
+            dungeon.addDungeonRoom(room);
+            room.generate();
         }
     }
 
-    private boolean roomFits(Dungeon dungeon, int x, int y, int width, int height){
+    private boolean roomFits(Dungeon dungeon, Room room){
+        int x = room.getX();
+        int y = room.getY();
+        int width = room.getWidth();
+        int height = room.getHeight();
+
         for(int i = x; i < x + width; i++){
             for(int j = y; j < y + height; j++){
                 if(!dungeon.isTileEmpty(new GridPoint2(i, j))){
@@ -101,12 +88,12 @@ class DungeonMapGenerator {
         return true;
     }
 
-    private void connectRooms(Dungeon dungeon, DungeonRoom startRoom, DungeonRoom endRoom){
+    private void connectRooms(Dungeon dungeon, Room startRoom, Room endRoom){
         GridPoint2 startPoint;
         GridPoint2 endPoint;
 
-        startPoint = DungeonUtils.getRandomTileInRoom(startRoom);
-        endPoint = DungeonUtils.getRandomTileInRoom(endRoom);
+        startPoint = startRoom.getRandomFloorTile();
+        endPoint = endRoom.getRandomFloorTile();
 
         Astar astar = new Astar(new GridBasedHeuristic());
         Array<Array<AstarNode>> dungeonAsGraph = getDungeonAsAstarNodeGraph(dungeon);
