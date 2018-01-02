@@ -12,7 +12,7 @@ public class DungeonRoomFactory implements RoomFactory {
     private static final int ROOM_MIN_SIZE = 7;
 
     static {
-        factoryWheel.add(DungeonRoomFactory::createPrisonRoom, 0.3f);
+        factoryWheel.add(DungeonRoomFactory::createPrisonRoom, 0.1f);
         factoryWheel.add(DungeonRoomFactory::createPlainRoom, 1.0f);
     }
 
