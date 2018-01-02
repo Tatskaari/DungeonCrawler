@@ -1,6 +1,7 @@
 package com.mygdx.game.SpawnPools.MonsterSpawnPools;
 
 import com.mygdx.game.Characters.Crab;
+import com.mygdx.game.Characters.PoisonousSpider;
 import com.mygdx.game.Characters.Rat;
 import com.mygdx.game.Characters.Skeleton;
 import com.mygdx.game.Dungeon.Dungeon;
@@ -10,7 +11,7 @@ public class T2MonsterSpawnPool extends MonsterSpawnPool{
         reset();
         addNew(() -> new Rat(dungeon), 3);
         addNew(() -> new Skeleton(dungeon), 2);
-        addNew(() -> new Crab(dungeon), 4);
-
+        addNew(() -> new Crab(dungeon), 3);
+        addNew(() -> new PoisonousSpider(dungeon), 3);
     }
 }

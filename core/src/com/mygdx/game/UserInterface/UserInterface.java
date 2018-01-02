@@ -12,9 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Dungeon.Dungeon;
+import com.mygdx.game.EventHandlers.*;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
-public class UserInterface {
+public class UserInterface implements EventListener{
     private final Stage stage;
     private final Table bottomTable;
     private final Table topTable;
@@ -22,6 +23,7 @@ public class UserInterface {
     public static GrowlTextArea growlArea;
 
     // CenterScreenWindows
+    private final CenterWindowManager centerWindowManager;
     private final InventoryActor inventory;
     private final DeveloperInfo devInfoScreen;
 
@@ -35,6 +37,8 @@ public class UserInterface {
     private final TextButton devInfoOpenButton;
 
     public UserInterface(){
+        EventHandler.getInstance().registerEventListener(this);
+
         Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         PlayerCharacterEntity player = PlayerCharacterEntity.getInstance();
 
@@ -51,10 +55,13 @@ public class UserInterface {
         growlArea = new GrowlTextArea();
         healthBar = new RangeBar(skin, player.statsHandler.getHealthRange(), "HP: ");
         experienceBar = new RangeBar(skin, player.statsHandler.getExperienceRange(), "EXP: ");
-        infoLabel = new Label("", skin);
 
-        inventory = new InventoryActor(skin, player.inventory);
-        devInfoScreen = new DeveloperInfo(skin);
+        infoLabel = new Label("", skin);
+        setInfoLabelDefaultText();
+
+        centerWindowManager = new CenterWindowManager(stage);
+        inventory = new InventoryActor(skin, player.inventory, centerWindowManager);
+        devInfoScreen = new DeveloperInfo(skin, centerWindowManager);
 
 
 
@@ -75,7 +82,7 @@ public class UserInterface {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    CenterScreenWindow.toggleActiveWindow(inventory);
+                    centerWindowManager.toggleActiveWindow(inventory);
                 }
             }
         );
@@ -84,7 +91,7 @@ public class UserInterface {
                 new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        CenterScreenWindow.toggleActiveWindow(devInfoScreen);
+                        centerWindowManager.toggleActiveWindow(devInfoScreen);
                     }
                 }
         );
@@ -93,7 +100,7 @@ public class UserInterface {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.TAB){
-                    CenterScreenWindow.toggleActiveWindow(inventory);
+                    centerWindowManager.toggleActiveWindow(inventory);
                 }
                 return false;
             }
@@ -101,7 +108,7 @@ public class UserInterface {
 
         topTable.add(inventoryOpenButton);
         //TODO make sure this isn't added when released
-        //topTable.add(devInfoOpenButton);
+        topTable.add(devInfoOpenButton);
 
         topTable.pack();
     }
@@ -130,7 +137,6 @@ public class UserInterface {
     }
 
     public void draw(float delta){
-        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + Dungeon.getActiveDungeon().getLevel());
         stage.act(delta);
         stage.draw();
     }
@@ -145,5 +151,18 @@ public class UserInterface {
         return stage;
     }
 
+    @Override
+    public void handleEvent(Event event) {
+        if (event instanceof ContextMessageEvent){
+            infoLabel.setText(((ContextMessageEvent) event).getContextMessage());
+        }
+        else if (event.type.equals(EventType.STEP_TURN)){
+            setInfoLabelDefaultText();
+        }
+    }
 
+    private void setInfoLabelDefaultText(){
+        infoLabel.setText("Level: " + PlayerCharacterEntity.getInstance().statsHandler.getLevel() + ", Floor: " + Dungeon.getActiveDungeon().getLevel());
+
+    }
 }

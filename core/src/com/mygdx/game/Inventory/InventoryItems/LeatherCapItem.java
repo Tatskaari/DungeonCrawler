@@ -2,15 +2,15 @@ package com.mygdx.game.Inventory.InventoryItems;
 
 import com.mygdx.game.Inventory.ItemTypes.HeadItem;
 
-public class HelmetItem extends HeadItem {
+public class LeatherCapItem extends HeadItem {
     @Override
     public String getTextureName() {
-        return "helmet";
+        return "leather-cap";
     }
 
     @Override
     public String getItemName() {
-        return "Helmet";
+        return "Leather Cap";
     }
 
     @Override
@@ -20,6 +20,6 @@ public class HelmetItem extends HeadItem {
 
     @Override
     public float getDefenceRating(){
-        return 0.15f;
+        return 0.1f;
     }
 }

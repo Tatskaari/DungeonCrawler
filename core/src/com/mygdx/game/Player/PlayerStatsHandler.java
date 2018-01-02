@@ -11,8 +11,8 @@ import com.mygdx.game.Utils.RangeValue;
 
 public class PlayerStatsHandler {
     private static final int BASE_HEALTH = 30;
-    private static final int BASE_DAMAGE = 4;
-    private static final int XP_LEVEL_RATIO = 13;
+    private static final int BASE_DAMAGE = 6;
+    private static final int XP_LEVEL_RATIO = 10;
 
 
     private final RangeValue healthRange;
@@ -36,7 +36,7 @@ public class PlayerStatsHandler {
     }
 
     private int getNextLevelExp(float level){
-        return MathUtils.round(level*XP_LEVEL_RATIO);
+        return MathUtils.round(level*(XP_LEVEL_RATIO+level));
     }
 
     private void levelUp(){

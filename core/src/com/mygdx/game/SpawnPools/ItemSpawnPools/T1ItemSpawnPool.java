@@ -9,5 +9,6 @@ public class T1ItemSpawnPool extends ItemSpawnPool{
         addNew(LeatherTunicItem::new, 1);
         addNew(HelmetItem::new, 1);
         addNew(KnifeItem::new, 5);
+        addNew(LeatherCapItem::new, 3);
     }
 }

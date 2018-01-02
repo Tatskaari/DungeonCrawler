@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
 import com.mygdx.game.Dungeon.DungeonTile;
-import com.mygdx.game.Dungeon.Rooms.Room;
+import com.mygdx.game.EventHandlers.Event;
+import com.mygdx.game.EventHandlers.EventHandler;
+import com.mygdx.game.EventHandlers.EventType;
+
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.MyGdxGame;
@@ -20,6 +23,8 @@ import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
 public class PlayerCharacterEntity implements CharacterEntity {
+    private static final int REGEN_RATE = 5;
+
     private GridPoint2 position;
 
     public final Renderer renderer;
@@ -58,12 +63,12 @@ public class PlayerCharacterEntity implements CharacterEntity {
         DungeonTile tile = Dungeon.getActiveDungeon().getDungeonTile(newPosition);
         if (tile.isPassable()){
             position = newPosition;
-            GameHandler.stepTurn();
+            EventHandler.getInstance().triggerEvent(new Event(EventType.STEP_TURN));
             Dungeon.getActiveDungeon().getDungeonTile(position).onStep();
             return true;
         } else if(tile.hasMonster()){
             attack(tile.getMonster());
-            GameHandler.stepTurn();
+            EventHandler.getInstance().triggerEvent(new Event(EventType.STEP_TURN));
         }
 
         return false;
@@ -91,7 +96,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
 
     @Override
     public void act() {
-        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && MathUtils.randomBoolean(0.2f)){
+        if(statsHandler.getHealth() < statsHandler.getMaxHealth() && GameHandler.stepCount%REGEN_RATE == 0){
             statsHandler.addToHealth(1);
         }
     }

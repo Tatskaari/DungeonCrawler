@@ -9,8 +9,8 @@ import com.mygdx.game.Player.PlayerCharacterEntity;
 public class DeveloperInfo extends CenterScreenWindow{
     private final Cell<TextArea> textAreaCell;
     private final TextArea stats;
-    public DeveloperInfo(Skin skin) {
-        super("Dev Info", skin);
+    public DeveloperInfo(Skin skin, CenterWindowManager centerWindowManager) {
+        super("Dev Info", skin, centerWindowManager);
         stats = new TextArea("", skin);
         stats.setDisabled(true);
 

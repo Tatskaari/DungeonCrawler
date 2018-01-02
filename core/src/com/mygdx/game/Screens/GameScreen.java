@@ -53,7 +53,7 @@ class GameScreen extends ScreenAdapter {
         updateCamera();
         batch.setProjectionMatrix(camera.combined);
 
-        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond() + " Path Gen Count: " + GameHandler.PATH_GEN_COUNT_THIS_STEP);
+        Gdx.graphics.setTitle("FPS: " + Gdx.graphics.getFramesPerSecond() + " Path Gen Count: " + GameHandler.stepPathGenCount);
 
         batch.begin();
         Dungeon.getActiveDungeon().renderer.render(delta, batch);

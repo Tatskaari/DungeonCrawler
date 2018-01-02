@@ -6,27 +6,26 @@ import com.mygdx.game.ResourceLoader;
 import com.mygdx.game.UserInterface.UserInterface;
 import com.mygdx.game.Utils.ColouredText;
 
+public class PoisonousSpider extends BasicMonsterCharacterEntity{
 
-public class Rat extends BasicMonsterCharacterEntity {
     private static final int BASE_HEALTH = 5;
     private static final int BASE_DAMAGE = 3;
     private static final int BASE_XP = 1;
 
     private int level;
 
-    private Rat(int level, Dungeon dungeon) {
+    private PoisonousSpider(int level, Dungeon dungeon) {
         super(dungeon);
-
         setLevel(level);
     }
 
-    public Rat(Dungeon dungeon) {
+    public PoisonousSpider(Dungeon dungeon) {
         this(dungeon.getLevel(), dungeon);
     }
 
     @Override
     public TextureRegion getTexture() {
-        return ResourceLoader.getResTextureRegion("rat");
+        return ResourceLoader.getResTextureRegion("spider");
     }
 
     @Override
@@ -35,16 +34,17 @@ public class Rat extends BasicMonsterCharacterEntity {
     }
 
     private void setLevel(int level) {
+        this.level = level;
+
         setMaxHealth(BASE_HEALTH+level*2);
         setHealth(getMaxHealth());
 
-        this.level = level;
-        setAttackRating(BASE_DAMAGE + level);
+        setAttackRating(BASE_DAMAGE + level*2);
     }
 
     @Override
     public void die() {
         super.die();
-        UserInterface.growlArea.println(new ColouredText("The rat crumples into a heap. You gain " + getExperienceValue() + " experience."));
+        UserInterface.growlArea.println(new ColouredText("You splatter the spider. You gain " + getExperienceValue() + " experience."));
     }
 }

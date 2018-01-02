@@ -4,6 +4,8 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.EventHandlers.*;
+import com.mygdx.game.EventHandlers.Event;
 import com.mygdx.game.Inventory.ItemTypes.InventoryItem;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.Characters.CharacterEntity;
@@ -130,7 +132,12 @@ public abstract class DungeonTile {
         return itemList.pop();
     }
 
-    public void onStep(){}
+    public void onStep(){
+        if (hasItem()){
+            String itemName = itemList.get(itemList.size - 1).getItemName();
+            EventHandler.getInstance().triggerEvent(new ContextMessageEvent("Press space to pick up the " + itemName));
+        }
+    }
 
     public boolean hasItem() {
         return itemList.size > 0;
