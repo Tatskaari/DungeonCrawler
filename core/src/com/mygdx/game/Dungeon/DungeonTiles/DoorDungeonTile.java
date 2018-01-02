@@ -21,7 +21,7 @@ public class DoorDungeonTile extends DungeonTile {
 
     @Override
     public float getCorridorPlacingCost() {
-        return 9000;
+        return 50;
     }
 
     @Override

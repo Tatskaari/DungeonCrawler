@@ -3,6 +3,7 @@ package com.mygdx.game.Dungeon;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Dungeon.Rooms.Room;
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.LineOfSight;
 import com.mygdx.game.PathFinding.Astar;
@@ -11,7 +12,7 @@ import com.mygdx.game.PathFinding.CrowFliesHeuristic;
 import com.mygdx.game.Player.PlayerCharacterEntity;
 
 public class DungeonUtils {
-    public static DungeonRoom getRandomNotStartDungeonRoom(Dungeon dungeon){
+    public static Room getRandomNotStartDungeonRoom(Dungeon dungeon){
         int roomIndex = MathUtils.random(dungeon.getRoomCount() - 1);
         while (roomIndex == dungeon.startRoom.getRoomNumber()){
             roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
@@ -19,31 +20,18 @@ public class DungeonUtils {
         return dungeon.getDungeonRoom(roomIndex);
     }
 
-    public static GridPoint2 getRandomTileInRoom(DungeonRoom room){
-        GridPoint2 tilePosition = new GridPoint2();
-
-        tilePosition.y = MathUtils.random(room.getY()+1, room.getY() + room.getHeight()-2);
-        tilePosition.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
-
-        return tilePosition;
-    }
 
     public static GridPoint2 getRandomSpawnLocation(Dungeon dungeon){
-        DungeonRoom room;
-        GridPoint2 pos;
-        do{
-            room = getRandomNotStartDungeonRoom(dungeon);
-            pos = getRandomTileInRoom(room);
-        } while (!dungeon.getDungeonTile(pos).isPassable());
-        return getRandomTileInRoom(room);
+        Room room = getRandomNotStartDungeonRoom(dungeon);
+        return room.getRandomFloorTile();
     }
 
     public static GridPoint2 getRandomNonVisibleTilePosInAnyRoom(Dungeon dungeon){
         int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-        GridPoint2 tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
+        GridPoint2 tilePos = dungeon.getDungeonRoom(roomIndex).getRandomFloorTile();
         while(dungeon.getDungeonTile(tilePos).isVisible() || dungeon.getDungeonTile(tilePos).isVisionObstructing()){
             roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-            tilePos = getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
+            tilePos = dungeon.getDungeonRoom(roomIndex).getRandomFloorTile();
         }
         return tilePos;
     }
@@ -56,7 +44,7 @@ public class DungeonUtils {
 
     public static GridPoint2 getRandomTileInAnyRoom(Dungeon dungeon) {
         int roomIndex = MathUtils.random(dungeon.getRoomCount()-1);
-        return getRandomTileInRoom(dungeon.getDungeonRoom(roomIndex));
+        return dungeon.getDungeonRoom(roomIndex).getRandomFloorTile();
     }
 
     public static Array<AstarNode> generateNewPathBetween(GridPoint2 startPoint, GridPoint2 targetPoint, Dungeon dungeon){

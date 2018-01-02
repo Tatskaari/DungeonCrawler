@@ -14,7 +14,7 @@ public class DungeonGenerator {
     private final MonsterSpawnPool monsterSpawnPool;
     private final ItemSpawnPool itemSpawnPool;
 
-    public DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool, ItemSpawnPool itemSpawnPool){
+    DungeonGenerator(int mapWidth, int mapHeight, int roomCount, MonsterSpawnPool monsterSpawnPool, ItemSpawnPool itemSpawnPool){
         requestedMapHeight = mapHeight;
         requestedMapWidth = mapWidth;
         requestedRoomCount = roomCount;
@@ -35,7 +35,7 @@ public class DungeonGenerator {
         return regenerateIfIncompletable(dungeon);
     }
 
-    public Dungeon generateDungeonBelow(Dungeon parentDungeon){
+    Dungeon generateDungeonBelow(Dungeon parentDungeon){
         Dungeon dungeon = new Dungeon(requestedMapWidth, requestedMapHeight, parentDungeon);
 
         mapGenerator.generateDungeonTiles(dungeon, requestedRoomCount);
@@ -72,7 +72,7 @@ public class DungeonGenerator {
         }
     }
 
-    void spawnItems(Dungeon dungeon, int itemCount){
+    private void spawnItems(Dungeon dungeon, int itemCount){
         itemSpawnPool.initialisePool(dungeon);
         for (int i = 0; i < itemCount; i++){
             itemSpawnPool.getNewInstance();

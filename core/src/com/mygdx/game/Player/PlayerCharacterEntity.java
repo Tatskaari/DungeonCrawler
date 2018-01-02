@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Dungeon.Dungeon;
-import com.mygdx.game.Dungeon.DungeonRoom;
 import com.mygdx.game.Dungeon.DungeonTile;
 import com.mygdx.game.EventHandlers.Event;
 import com.mygdx.game.EventHandlers.EventHandler;
 import com.mygdx.game.EventHandlers.EventType;
+
 import com.mygdx.game.GameHandler;
 import com.mygdx.game.Characters.CharacterEntity;
 import com.mygdx.game.MyGdxGame;
@@ -45,12 +45,7 @@ public class PlayerCharacterEntity implements CharacterEntity {
     }
 
     public void placeCharacterIn(Dungeon dungeon) {
-        DungeonRoom room = dungeon.getStartRoom();
-
-        position = new GridPoint2();
-
-        position.x = MathUtils.random(room.getX()+1, room.getX()+room.getWidth()-2);
-        position.y = MathUtils.random(room.getY()+1, room.getY()+room.getHeight()-2);
+        position = dungeon.getStartRoom().getRandomFloorTile();
     }
 
     public void placeAtStairsDown(){

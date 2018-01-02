@@ -4,93 +4,107 @@ size: 512,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-crab
+chest
   rotate: false
   xy: 2, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-demon
+chest-open
   rotate: false
   xy: 29, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-door-horizontal
+crab
   rotate: false
   xy: 56, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-door-vertical
+demon
   rotate: false
   xy: 83, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-floor
+door-horizontal
   rotate: false
   xy: 110, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-goblin
+door-vertical
   rotate: false
   xy: 137, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-player
+floor
   rotate: false
   xy: 164, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-rat
+goblin
   rotate: false
   xy: 191, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-skeleton
+player
   rotate: false
   xy: 218, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-spider
+rat
   rotate: false
   xy: 245, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-down
+skeleton
   rotate: false
   xy: 272, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-stairs-up
+spider
   rotate: false
   xy: 299, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
-wall
+stairs-down
   rotate: false
   xy: 326, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+stairs-up
+  rotate: false
+  xy: 353, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 380, 2
   size: 25, 25
   orig: 25, 25
   offset: 0, 0

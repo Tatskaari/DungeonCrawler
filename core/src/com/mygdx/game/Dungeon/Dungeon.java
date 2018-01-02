@@ -6,23 +6,19 @@ import com.mygdx.game.Characters.*;
 import com.mygdx.game.Dungeon.DungeonTiles.EmptyDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsDownDungeonTile;
 import com.mygdx.game.Dungeon.DungeonTiles.StairsUpDungeonTile;
+import com.mygdx.game.Dungeon.Rooms.Room;
 import com.mygdx.game.PathFinding.AstarNode;
 import com.mygdx.game.Renderers.DungeonRenderer;
 
 public class Dungeon {
     private static Dungeon activeDungeon;
 
-    public static final int NORTH = 1;
-    public static final int EAST = 2;
-    public static final int SOUTH = 3;
-    public static final int WEST = 4;
-
     //TODO create a renderable interface and have a list of renderables to iterate through
     public final DungeonRenderer renderer;
     public final Array<CharacterEntity> monsters;
 
     private final DungeonTile[][] map;
-    private final Array<DungeonRoom> dungeonRooms;
+    private final Array<Room> dungeonRooms;
     private final int mapWidth;
     private final int mapHeight;
     private float[][] lineOfSightResMap;
@@ -32,7 +28,7 @@ public class Dungeon {
     StairsUpDungeonTile stairsUpDungeonTile;
     Dungeon floorAbove;
     Dungeon floorBelow;
-    DungeonRoom startRoom;
+    Room startRoom;
 
     public static void setActiveDungeon(Dungeon dungeon){
         activeDungeon = dungeon;
@@ -80,11 +76,11 @@ public class Dungeon {
     }
 
 
-    public void addDungeonRoom(DungeonRoom dungeonRoom) {
+    void addDungeonRoom(Room dungeonRoom) {
         dungeonRooms.add(dungeonRoom);
     }
 
-    public DungeonRoom getDungeonRoom(int roomId) {
+    public Room getDungeonRoom(int roomId) {
         return dungeonRooms.get(roomId);
     }
 
@@ -105,11 +101,11 @@ public class Dungeon {
         map[pos.x+1][pos.y+1] = dungeonTile;
     }
 
-    public boolean isTileEmpty(GridPoint2 pos) {
+    boolean isTileEmpty(GridPoint2 pos) {
         return map[pos.x][pos.y].isEmpty();
     }
 
-    public Array<Array<AstarNode>> getAstarGraph(){
+    Array<Array<AstarNode>> getAstarGraph(){
         Array<Array<AstarNode>> astarGraph = new Array<>();
         for(int i = 0; i < getMapWidth(); i++){
             astarGraph.add(new Array<>());
@@ -127,7 +123,7 @@ public class Dungeon {
     }
 
     // Updates a grid of 1s or 0s that represent if a tile is visible. Used by the LOS algo.
-    public void updateLineOfSightResistanceMap(){
+    void updateLineOfSightResistanceMap(){
         lineOfSightResMap = new float[mapWidth+2][mapHeight+2];
 
         for (int i = 0; i < mapWidth+2; i++){
@@ -141,7 +137,7 @@ public class Dungeon {
         }
     }
 
-    public DungeonRoom getStartRoom() {
+    public Room getStartRoom() {
         return startRoom;
     }
 

@@ -10,12 +10,12 @@ import com.mygdx.game.ResourceLoader;
 public class MonsterRenderer extends Renderer{
     private final MonsterCharacterEntity characterEntity;
     private final int tileSize;
-    private final HealthBarRenderer healthBarRenderer;
+    private final HealthbarRenderer healthBarRenderer;
 
     public MonsterRenderer(MonsterCharacterEntity characterEntity){
         this.characterEntity = characterEntity;
         tileSize = ResourceLoader.getTileSize();
-        healthBarRenderer = new HealthBarRenderer(characterEntity);
+        healthBarRenderer = new HealthbarRenderer(characterEntity);
     }
 
     @Override
