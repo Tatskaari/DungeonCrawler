@@ -12,29 +12,30 @@ public class DungeonRoomFactory implements RoomFactory {
     private static final int ROOM_MIN_SIZE = 7;
 
     static {
-        factoryWheel.add((dungeon) -> {
-
-            int x = MathUtils.random(dungeon.getMapWidth() - 13);
-            int y = MathUtils.random(dungeon.getMapHeight() - 11);
-
-            return new PrisonRoom(x, y, dungeon);
-        }, 0.3f);
-
-        factoryWheel.add( (dungeon) -> {
-            int width = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
-            int height = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
-
-            int x = MathUtils.random(dungeon.getMapWidth() - width);
-            int y = MathUtils.random(dungeon.getMapHeight() - height);
-
-            return new PlainRoom(x, y, width, height, dungeon);
-        }, 1.0f);
-
+        factoryWheel.add(DungeonRoomFactory::createPrisonRoom, 0.3f);
+        factoryWheel.add(DungeonRoomFactory::createPlainRoom, 1.0f);
     }
 
     @Override
     public Room create(Dungeon dungeon) {
         return factoryWheel.selectAtRandom()
                 .create(dungeon);
+    }
+
+    private static PrisonRoom createPrisonRoom(Dungeon dungeon) {
+        int x = MathUtils.random(dungeon.getMapWidth() - 13);
+        int y = MathUtils.random(dungeon.getMapHeight() - 11);
+
+        return new PrisonRoom(x, y, dungeon);
+    }
+
+    private static PlainRoom createPlainRoom(Dungeon dungeon) {
+        int width = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
+        int height = MathUtils.random(ROOM_MIN_SIZE, ROOM_MAX_SIZE);
+
+        int x = MathUtils.random(dungeon.getMapWidth() - width);
+        int y = MathUtils.random(dungeon.getMapHeight() - height);
+
+        return new PlainRoom(x, y, width, height, dungeon);
     }
 }
